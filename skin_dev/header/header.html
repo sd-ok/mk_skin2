@@ -1,0 +1,239 @@
+<!--/script_scroll(1)/-->
+
+<!-- ====================================================
+     TOP BANNER
+     공지/프로모션 문구 표시. 하루 닫기 가능.
+     ==================================================== -->
+<div id="topBnr">
+  <div class="top-banner__inner">
+    <p class="top-banner__text">
+      프리미엄 식재료 · 당일 주문 당일 출고
+      <!-- 필요시 링크 추가: <a href="#" class="top-banner__link">자세히 보기</a> -->
+    </p>
+    <button type="button" id="btnBannerClose" class="top-banner__close" aria-label="배너 닫기">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="1" y1="1" x2="13" y2="13"/>
+        <line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ====================================================
+     FIXED HEADER
+     ==================================================== -->
+<div id="head_box">
+
+  <!-- ── Header Inner ────────────────────────────────── -->
+  <div id="header">
+
+    <!-- 모바일 햄버거 -->
+    <button type="button" id="btnMenu" class="header-hamburger only-mo" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- 로고 -->
+    <div class="header-logo">
+      <a href="/">
+        <!-- [이미지 로고] 메이크샵 스킨 이미지 업로드 후 경로 교체 -->
+        <!-- Dark(기본) 버전 -->
+        <img
+          src="//skin.makeshop.co.kr/skin/__SKIN_FOLDER__/img/logo-dark.png"
+          alt="쇼핑몰 로고"
+          class="logo-img logo-img-dark">
+        <!-- White(투명 헤더용) 버전 -->
+        <img
+          src="//skin.makeshop.co.kr/skin/__SKIN_FOLDER__/img/logo-white.png"
+          alt="쇼핑몰 로고"
+          class="logo-img logo-img-white">
+        <!-- ⚠️ 로고 이미지 없을 경우 텍스트 로고 임시 사용:
+        <span class="logo-placeholder">BRAND</span>
+        -->
+      </a>
+    </div>
+
+    <!-- PC GNB 카테고리 네비게이션 -->
+    <nav class="header-gnb only-pc" aria-label="주요 카테고리">
+      <ul class="gnb-list">
+
+        <!--/if_category1/-->
+        <!--/loop_category1/-->
+        <li class="gnb-item">
+          <a href="<!--/category1@link/-->" class="gnb-link">
+            <!--/category1@name/-->
+          </a>
+
+          <!-- 서브 카테고리 드롭다운 -->
+          <!-- ⚠️ 주의: 아래 서브카테고리 루프 태그는 실제 메이크샵 환경에서 검증 필요.
+               확인 전까지 실제 적용 시 테스트할 것.
+               메이크샵 어드민 > 디자인편집 > 가상태그 문서 참고. -->
+          <!--/if_category1@sub/-->
+          <div class="gnb-dropdown" role="menu">
+            <!--/loop_category1@sub/-->
+            <a href="<!--/category1@sub@link/-->" class="gnb-dropdown__link" role="menuitem">
+              <!--/category1@sub@name/-->
+            </a>
+            <!--/end_loop/-->
+          </div>
+          <!--/end_if/-->
+
+        </li>
+        <!--/end_loop/-->
+        <!--/end_if/-->
+
+      </ul>
+    </nav>
+
+    <!-- Actions: 검색 / 마이페이지 / 장바구니 -->
+    <div class="header-actions">
+
+      <!-- 검색 버튼 -->
+      <button type="button" id="btnSearch" class="header-action-btn" aria-label="검색" aria-expanded="false" aria-controls="searchPanel">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="5.5"/>
+          <line x1="13.2" y1="13.2" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <!-- 마이페이지 (PC만 / 로그인 상태 분기) -->
+      <!--/if_login/-->
+      <a href="<!--/link_mypage/-->" class="header-action-btn only-pc" aria-label="마이페이지">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10" cy="7" r="3.5"/>
+          <path d="M2.5 18c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5"/>
+        </svg>
+      </a>
+      <!--/else/-->
+      <a href="<!--/link_login/-->" class="header-action-btn only-pc" aria-label="로그인">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10" cy="7" r="3.5"/>
+          <path d="M2.5 18c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5"/>
+        </svg>
+      </a>
+      <!--/end_if/-->
+
+      <!-- 장바구니 (개수 배지) -->
+      <a href="<!--/link_cart/-->" class="header-action-btn header-cart" aria-label="장바구니">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 3h1.5l2.1 9.5h9.4l1.5-6.5H6"/>
+          <circle cx="8.5" cy="16.5" r="1.2" fill="currentColor" stroke="none"/>
+          <circle cx="14.5" cy="16.5" r="1.2" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="cart-badge" aria-label="장바구니 상품 수"><!--/cart_count/--></span>
+      </a>
+
+    </div>
+  </div><!-- /#header -->
+
+  <!-- ── Search Panel ─────────────────────────────────── -->
+  <div id="searchPanel" role="search" aria-label="검색">
+    <div class="search-panel__inner">
+      <!-- ⚠️ Makeshop 검색 URL 확인 필요: /shop/search.html 또는 /search -->
+      <form action="/shop/search.html" method="get" style="flex:1;display:flex;gap:8px;">
+        <input
+          type="text"
+          name="keyword"
+          class="search-panel__input"
+          placeholder="검색어를 입력하세요"
+          autocomplete="off"
+          aria-label="검색어 입력">
+        <button type="submit" class="search-panel__btn" aria-label="검색">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8.5" cy="8.5" r="5.5"/>
+            <line x1="13.2" y1="13.2" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </form>
+      <button type="button" id="btnSearchClose" class="search-panel__btn" aria-label="검색 닫기">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="4" y1="4" x2="16" y2="16"/>
+          <line x1="16" y1="4" x2="4" y2="16"/>
+        </svg>
+      </button>
+    </div>
+  </div><!-- /#searchPanel -->
+
+</div><!-- /#head_box -->
+
+<!-- ====================================================
+     MOBILE DRAWER MENU
+     ==================================================== -->
+<nav id="mobileDrawer" aria-label="모바일 메뉴" aria-hidden="true">
+
+  <!-- 드로어 헤더 (회원 상태) -->
+  <div class="drawer-header">
+
+    <!--/if_login/-->
+    <div class="drawer-member">
+      <span class="drawer-member__name">안녕하세요!</span>
+      <div class="drawer-member__links">
+        <a href="<!--/link_mypage/-->">마이페이지</a>
+        <a href="<!--/link_mypage_order/-->">주문내역</a>
+        <a href="<!--/link_logout/-->">로그아웃</a>
+      </div>
+    </div>
+    <!--/else/-->
+    <div class="drawer-member">
+      <span class="drawer-member__name">로그인해주세요</span>
+      <div class="drawer-member__links">
+        <a href="<!--/link_login/-->">로그인</a>
+        <a href="<!--/link_join/-->">회원가입</a>
+      </div>
+    </div>
+    <!--/end_if/-->
+
+    <button type="button" id="btnMenuClose" class="drawer-close" aria-label="메뉴 닫기">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="4" x2="16" y2="16"/>
+        <line x1="16" y1="4" x2="4" y2="16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 카테고리 리스트 -->
+  <ul class="drawer-nav">
+
+    <!--/if_category1/-->
+    <!--/loop_category1/-->
+    <li class="drawer-item">
+      <!-- 서브가 있으면 has-sub 클래스 추가, 없으면 일반 링크 -->
+      <!--/if_category1@sub/-->
+      <a href="<!--/category1@link/-->" class="drawer-link has-sub">
+        <!--/category1@name/-->
+        <!-- 화살표 아이콘 (하위 카테고리 있을 때) -->
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="4,2 9,7 4,12"/>
+        </svg>
+      </a>
+      <!-- 서브 카테고리 -->
+      <ul class="drawer-sub">
+        <!--/loop_category1@sub/-->
+        <li><a href="<!--/category1@sub@link/-->" class="drawer-sub__link"><!--/category1@sub@name/--></a></li>
+        <!--/end_loop/-->
+      </ul>
+      <!--/else/-->
+      <a href="<!--/category1@link/-->" class="drawer-link">
+        <!--/category1@name/-->
+      </a>
+      <!--/end_if/-->
+    </li>
+    <!--/end_loop/-->
+    <!--/end_if/-->
+
+  </ul>
+
+  <!-- 드로어 하단 부가 링크 -->
+  <div class="drawer-footer">
+    <div class="drawer-footer__links">
+      <a href="<!--/link_join_terms/-->">이용약관</a>
+      <a href="<!--/link_privacy/-->">개인정보처리방침</a>
+      <a href="<!--/link_useinfo/-->">이용안내</a>
+    </div>
+  </div>
+
+</nav><!-- /#mobileDrawer -->
+
+<!-- 오버레이 마스크 -->
+<div id="mask"></div>

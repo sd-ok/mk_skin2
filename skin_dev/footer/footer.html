@@ -1,0 +1,206 @@
+<!-- ====================================================
+     FOOTER
+     PC: 상단(브랜드+CS) / 하단(링크+SNS+카피)
+     모바일: CS 박스 / 사업자정보 아코디언 / 링크
+     ==================================================== -->
+<footer id="footer">
+
+  <!-- ── PC 레이아웃 ──────────────────────────────────── -->
+  <div class="only-pc">
+    <div class="footer-inner">
+
+      <!-- 상단: 브랜드 정보 (좌) + CS (우) -->
+      <div class="footer-top">
+
+        <!-- 브랜드 + 사업자 정보 -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <!-- [로고] 스킨 이미지 업로드 후 경로 교체 -->
+            <img
+              src="//skin.makeshop.co.kr/skin/__SKIN_FOLDER__/img/logo-white.png"
+              alt="쇼핑몰 로고"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="footer-logo-text" style="display:none;">BRAND</span>
+          </div>
+
+          <div class="footer-info">
+            <p>
+              대표 : <!--/company_owner/-->&nbsp;&nbsp;
+              사업자등록번호 : <!--/company_number/-->
+              <a href="<!--/link_company_number/-->" target="_blank" rel="noopener">사업자정보확인</a>
+            </p>
+            <p>
+              주소 : <!--/company_addr/-->
+            </p>
+            <p>
+              전화 : <!--/shop_tel/-->&nbsp;&nbsp;
+              팩스 : <!--/shop_fax/-->&nbsp;&nbsp;
+              이메일 : <!--/shop_email/-->
+            </p>
+            <p>
+              통신판매업신고 : <!--/online_sale_number/-->&nbsp;&nbsp;
+              개인정보보호책임자 : <!--/privacy_charge/-->
+            </p>
+          </div>
+        </div>
+
+        <!-- 고객센터 -->
+        <div class="footer-cs">
+          <p class="footer-cs__label">Customer Service</p>
+          <p class="footer-cs__tel"><!--/shop_tel/--></p>
+          <div class="footer-cs__hours">
+            <!--/loop_shop_cs/-->
+            <em><!--/shop_cs@value/--></em>
+            <!--/end_loop/-->
+          </div>
+        </div>
+
+      </div><!-- .footer-top -->
+
+      <!-- 하단: 링크 + SNS + 카피 -->
+      <div class="footer-bottom">
+
+        <!-- 법적 링크 -->
+        <div class="footer-links">
+          <a href="#none">회사소개</a>
+          <a href="<!--/link_join_terms/-->">이용약관</a>
+          <a href="<!--/link_privacy/-->" class="is-strong">개인정보처리방침</a>
+          <a href="<!--/link_useinfo/-->">이용안내</a>
+          <!--/if_link_new_barotalk/-->
+          <a href="<!--/link_new_barotalk/-->">바로톡</a>
+          <!--/end_if/-->
+        </div>
+
+        <!-- SNS 아이콘 -->
+        <div class="footer-sns">
+          <!-- 실제 SNS URL은 관리자 페이지에서 수정 -->
+          <a href="#none" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#none" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </a>
+          <a href="#none" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+              <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" stroke="none" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#none" aria-label="KakaoTalk" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.91 1.77 5.46 4.44 7.02L5.5 21l3.7-2.42c.89.17 1.82.26 2.8.26 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/>
+            </svg>
+          </a>
+        </div>
+
+      </div><!-- .footer-bottom -->
+
+      <!-- 카피라이트 -->
+      <div class="footer-copy">
+        <p>Copyright ⓒ <!--/shop_name/--> All Rights Reserved.</p>
+        <p class="footer-escrow"><!--/img_logo_escrow/--></p>
+      </div>
+
+    </div><!-- .footer-inner -->
+  </div><!-- .only-pc -->
+
+
+  <!-- ── 모바일 레이아웃 ──────────────────────────────── -->
+  <div class="only-mo">
+    <div class="footer-inner">
+
+      <!-- 고객센터 박스 -->
+      <div class="footer-cs">
+        <p class="footer-cs__label">고객센터</p>
+        <p class="footer-cs__tel"><!--/shop_tel/--></p>
+        <div class="footer-cs__hours">
+          <!--/loop_shop_cs/-->
+          <em><!--/shop_cs@value/--></em>
+          <!--/end_loop/-->
+        </div>
+      </div>
+
+      <!-- 사업자정보 아코디언 -->
+      <div class="footer-accordion">
+        <button type="button" id="btnBizInfo" class="footer-accordion__trigger" aria-expanded="false" aria-controls="bizInfoBody">
+          사업자정보
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2,4 7,10 12,4"/>
+          </svg>
+        </button>
+        <div id="bizInfoBody" class="footer-accordion__body footer-info">
+          <p>대표 : <!--/company_owner/--></p>
+          <p>주소 : <!--/company_addr/--></p>
+          <p>전화 : <!--/shop_tel/--></p>
+          <p>사업자등록번호 : <!--/company_number/-->
+            <a href="<!--/link_company_number/-->" target="_blank" rel="noopener">사업자정보확인</a>
+          </p>
+          <p>통신판매업신고 : <!--/online_sale_number/--></p>
+          <p>개인정보보호책임자 : <!--/privacy_charge/--></p>
+        </div>
+      </div>
+
+      <!-- 법적 링크 -->
+      <div class="footer-bottom">
+        <div class="footer-links">
+          <a href="<!--/link_join_terms/-->">이용약관</a>
+          <a href="<!--/link_privacy/-->" class="is-strong">개인정보처리방침</a>
+          <a href="<!--/link_useinfo/-->">이용안내</a>
+        </div>
+
+        <!-- SNS -->
+        <div class="footer-sns">
+          <a href="#none" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#none" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+              <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" stroke="none" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#none" aria-label="KakaoTalk" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.91 1.77 5.46 4.44 7.02L5.5 21l3.7-2.42c.89.17 1.82.26 2.8.26 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- 카피라이트 -->
+        <div class="footer-copy">
+          <p>Copyright ⓒ <!--/shop_name/--> All Rights Reserved.</p>
+          <p class="footer-escrow"><!--/img_logo_escrow/--></p>
+        </div>
+      </div>
+
+    </div><!-- .footer-inner -->
+  </div><!-- .only-mo -->
+
+</footer><!-- /#footer -->
+
+<!-- ====================================================
+     FLOATING BUTTONS (최근 본 상품 + 상단 이동)
+     ==================================================== -->
+<div class="sc_script">
+  <a href="/shop/todaygoods.html" aria-label="최근 본 상품">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="9" r="7"/>
+      <polyline points="9,5 9,9 12,9"/>
+    </svg>
+  </a>
+  <a href="#none" class="sc_top" aria-label="맨 위로 이동">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4,11 9,6 14,11"/>
+    </svg>
+  </a>
+</div>
