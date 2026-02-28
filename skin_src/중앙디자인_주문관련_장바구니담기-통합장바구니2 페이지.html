@@ -1,0 +1,759 @@
+<style type="text/css">
+	a { color: var(--cw-heading-color); }
+.ml-auto { margin-left: auto; }
+.cw-heading { font-size: 1.5rem; font-weight: 700; margin-top: 60px; }
+.cw-tabs { display: flex; margin-top: 20px; }
+.cw-tabs li { flex: 1; display: flex; font-weight: 700; }
+.cw-tabs li span { color: var(--cw-color-60); font-weight: 400; }
+.cw-tabs li a { flex: 1; text-align: center; align-content: center; border-bottom: 1px solid var(--cw-color-30); }
+.cw-tabs li.active a { border-bottom: 2px solid var(--cw-heading-color); }
+.cw-cart { margin-top: 40px; display: grid; }
+.cart-goods--header { display: flex; align-items: center; padding-bottom: 10px; font-weight: 600; }
+.cart-goods--header :is(label, a) { font-size: var(--text-sm); }
+.cart-goods--list { margin-top: -1px; border-top: 1px solid var(--cw-heading-color); }
+.cart-goods--list > li { padding: 16px 0; border-bottom: 1px solid var(--cw-color-30); }
+.cart-goods--info { margin-top: 10px; }
+.cart-goods--note { margin-top: 10px; display: flex; align-items: flex-start; }
+.cart-goods--note ul { font-size: .813rem; color: var(--cw-color-80); }
+.cart-goods--note li { margin-top: 4px; }
+.cart-goods--note em { color: var(--cw-heading-color); font-style: normal; }
+.cart-goods--note .btn { flex-shrink: 0; }
+.cart-goods--list .point { color: var(--cw-point-color); font-style: normal; }
+.goods-details { width: 100%; }
+.goods-details .icons { margin-bottom: 4px; }
+.goods-details .title { font-size: var(--text-sm); font-weight: 600; }
+.goods-details .subtitle { font-size: var(--text-xs); color: var(--cw-color-60); margin-top: 4px; }
+.goods-details .option { margin-top: 4px; }
+.goods-details .price { font-size: var(--text-sm); }
+.goods-details .strike { margin-left: 6px; font-size: var(--text-xs); color: var(--cw-color-60); }
+:is(.goods-details .subs-text, .goods-subs-text) { margin-top: 8px; font-size: .813rem; color: var(--cw-color-80); }
+:is(.goods-details .subs-text, .goods-subs-text) a { text-decoration: underline; }
+:is(.goods-details .subs-desc, .goods-subs-desc) { margin-top: 2px; font-size: .813rem; }
+.goods-benefits { font-size: var(--text-xs); color: var(--cw-color-80); }
+.goods-shipping { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; font-size: var(--text-xs); color: var(--cw-color-80); }
+.goods-shipping .weight { width: 100%; text-align: center; }
+.goods-quantity { display: flex; gap: 4px; }
+.ico-wish { z-index: 1; position: absolute; top: var(--cw-size-10); right: var(--cw-size-10); display: flex; align-items: center; flex-direction: column; width: var(--cw-size-32); height: var(--cw-size-32); }
+.my-wish-list { display: inline-block; width: 20px; height: 20px; background: url(//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_heart.svg) no-repeat center center / 20px auto; text-indent: -9999px; margin-left: 12px; }
+.my-wish-list.wish-on { mask: url('//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_heart_fill.svg'); no-repeat center center / 20px auto; background-color: black; }
+.lnk-delete { display: flex; width: 20px; height: 20px; background: url(//skin.makeshop.co.kr/skin/rw_shop/images/icons/bullet_delete.svg) no-repeat center center / 20px auto; text-indent: -9999px; margin-left: 12px; }
+.lnk-tooltip { display: flex; width: 20px; height: 20px; background: url(//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_help.svg) no-repeat center center / 20px auto; text-indent: -9999px; }
+.btn-group .btn-minus { display: flex; align-items: center; justify-content: center; margin-top: -1px; }
+.btn-group .btn-plus { display: flex; align-items: center; justify-content: center; margin-top: -1px; }
+.pay-info { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; border-top: 1px solid var(--cw-heading-color); padding: 20px 0; font-size: var(--text-sm); font-weight: 600; color: var(--cw-color-60); }
+.pay-info .ml-auto { font-weight: 400; color: var(--cw-heading-color); }
+.pay-info .ml-auto strong { font-weight: 600; }
+.pay-total { display: flex; align-items: center; border-top: 1px solid var(--cw-color-30); font-weight: 700; padding-top: 20px; }
+.pay-total .ml-auto { font-size: 1.125rem; font-weight: 400; }
+.pay-total .ml-auto strong { color: var(--cw-point-color); font-size: 1.25rem; }
+.pay-point { font-size: .75rem; color: var(--cw-color-60); text-align: right; }
+.swiper-container .goods-list { padding-bottom: 0; }
+.swiper-container .swiper-btn a { display: inline-block; width: 28px; height: 28px; text-decoration: none; }
+.swiper-container .swiper-btn .disable { opacity: .3; }
+.swiper-container .cowave-swiper-scrollbar { display: none; }
+.swiper-container .goods--price-wrap .prices { gap: 0 6px; }
+:is(.goods-details .option, .goods-option) { display: flex; flex-direction: column; row-gap: 4px; font-size: var(--text-xs); color: var(--cw-color-80); }
+:is(.goods-details .option, .goods-option) .thumb { display: flex; align-items: center; gap: 8px; }
+:is(.goods-details .option, .goods-option) .thumb img { border: 1px solid var(--cw-color-30); }
+.btn-gift { background: url(//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_gift.svg) no-repeat center center; text-indent: -9999px; }
+.cart-pay--notice { display: flex; gap: 5px; margin-top: 20px; font-size: .813rem; color: var(--cw-point-color); }
+.cart-pay--notice svg { flex-shrink: 0; }
+.cart-pay--btns .btn-gift { width: 50px; flex-shrink: 0; padding: 0; }
+.cart-fab--btns .btn-gift { width: 60px; flex-shrink: 0; padding: 0; background-image: url(//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_gift_white.svg); }
+.cart-goods--title { margin: 4px 0 16px; font-size: 1rem; font-weight: 700; }
+:is(.goods-text1, .goods-text2) { text-align: center; }
+.goods-text2 { margin-top: 4px; color: var(--cw-color-60); font-size: var(--text-xs); font-weight: 400; }
+.goods-text2 strong { color: var(--cw-heading-color); font-size: var(--text-sm); font-weight: 600; }
+.cart-quickpay { display: grid; gap: 12px; margin-top: 20px; justify-items: center; margin: 20px auto; }
+.cart-goods--empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 0; border-top: 1px solid var(--cw-heading-color); border-bottom: 1px solid var(--cw-color-30); font-size: var(--text-sm); font-weight: 600; }
+/* only mobile */
+.goods-option,
+:not(.goods-option) + .goods-subs-text { border-top: 1px solid var(--cw-color-20); margin-top: 12px; padding-top: 12px; }
+.cart-fab { z-index: 101; position: fixed; right: 0; bottom: 0; left: 0; height: 60px; display: flex; background-color: var(--cw-point-color-pri); }
+.cart-fab .cart-fab--total { padding-left: 16px; display: flex; flex-shrink: 0; width: 110px; flex-direction: column; justify-content: center; color: var(--cw-color-white); }
+.cart-fab .cart-fab--total span { font-size: var(--text-xs); }
+.cart-fab .cart-fab--total p { z-index: 1; font-size: .875rem; white-space: nowrap; }
+.cart-fab .cart-fab--total p strong { font-weight: 700; }
+.cart-fab .cart-fab--btns { display: flex; width: 100%; }
+.cart-fab .cart-fab--btns .btn-pay { width: 100%; align-content: center; }
+.basket-option-dlist { display: flex; flex-direction: column; gap: 4px; }
+.basket-option-dlist li { display: flex; align-items: center; gap: 8px; min-height: 24px; }
+.basket-option-dlist li img { width: 24px; height: 24px; }
+.MS_option_price { color: var(--cw-point-color); }
+.goods-break { margin: var(--cw-size-16) 0; }
+
+/* for desktop and tablet */
+@media (min-width: 768px) {
+    #basket {
+        --text-sm: .875rem; /* 14px */
+        --text-xs: .75rem; /* 12px */
+    }
+    .cw-tabs li { height: 60px; font-size: 1rem; }
+    .cw-tabs li span { font-size: var(--text-sm); }
+    .cart-goods--info { display: grid; grid-template-columns: 120px auto 120px 160px 92px; align-items: center; }
+    .cart-pay--btns { display: flex; gap: 8px; justify-content: center; }
+    .cart-pay--btns .btn-pay { width: 100%; }
+    .goods-image img { width: 100px; }
+    .goods-details .price { margin-top: 8px; }
+    .goods-benefits { text-align: center; }
+    .goods-benefits > span { display: block; }
+    .goods-shipping { justify-content: center; }
+    .goods-quantity { flex-direction: column; }
+    .goods-quantity .btn-sm { width: 100%; }
+    .goods-option,
+    .goods-subs-text,
+    .goods-subs-desc { display: none !important; }
+    .cart-fab { display: none; }
+    :is(.goods-details .option, .goods-option) .thumb img { width: 24px; height: 24px; }
+    .goods-text1 { font-size: .813rem; }
+}
+/* for desktop */
+@media (min-width: 992px) {
+    .cw-cart { grid-template-columns: 66.2% 23.8%; gap: 10%; }
+    .cart-pay--total { padding: 30px; border: 1px solid var(--cw-color-30); }
+    .cart-pay--btns { margin-top: 20px; }
+    .swiper-container { margin-top: 100px; }
+    .cart-quickpay #content .direct-app .step { right: 0; }
+}
+/* for tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .cart-pay--btns { margin-top: 60px; }
+    .cart-pay--btns .btn-pay { width: 300px; }
+    .swiper-container .cowave-swiper-scrollbar { display: none; }
+    .cart-quickpay { grid-template-columns: repeat(2, 1fr); width: 582px; }
+    .cart-quickpay div:nth-child(5) { grid-column: 1/3; }
+}
+/* for mobile */
+@media (max-width: 767.98px) {
+    .container { padding-bottom: 120px; }
+    #basket {
+        --size-16: 16px;
+        --text-sm: .813rem; /* 13px */
+        --text-xs: .75rem; /* 12px */
+    }
+    .cw-tabs li { height: 48px; font-size: .875rem; }
+    .cw-tabs li span { font-size: var(--text-xs); }
+    .cart-goods--info { display: grid; grid-template-columns: 106px auto; align-items: start; }
+    .goods-image { grid-row: 1 / 5; }
+    .goods-image img { width: 90px; }
+    .goods-details :is(.option, .subs-text, .subs-desc) { display: none; }
+    .goods-benefits { margin-top: 2px; }
+    .goods-benefits span:not(:first-child)::before { content: ''; border-left: 1px solid var(--cw-color-30); padding-left: 8px; margin-left: 8px; }
+    .goods-shipping { margin-top: 2px; }
+    .goods-shipping .weight { text-align: left; }
+    .goods-quantity { margin-top: 8px; }
+    .goods-quantity .btn-sm { width: 90px; }
+    .goods-subs-text { display: flex; align-items: center; }
+    .goods-subs-text a { margin-left: auto; }
+    :is(.goods-details .subs-text, .goods-subs-text),
+    :is(.goods-details .subs-desc, .goods-subs-desc) { font-size: var(--text-xs); }
+    .lnk-tooltip { width: var(--size-16); height: var(--size-16); background-size: var(--size-16) auto; }
+    .cart-pay--btns { display: none; }
+    .swiper-container.cowave-swiper { padding-bottom: 20px; margin-left: calc(var(--size-16) * -1); margin-right: calc(var(--size-16) * -1); padding-left: var(--size-16); padding-right: var(--size-16); }
+    .swiper-container .goods-list { padding-top: 10px; }
+    .swiper-container .swiper-btn { display: none; }
+    .swiper-container .cowave-swiper-scrollbar {
+        display: block;
+        --swiper-scrollbar-size: 2px;
+        --swiper-scrollbar-drag-bg-color: var(--cw-color-80);
+        --swiper-scrollbar-bottom: 0;
+    }
+    .cowave-swiper-horizontal>.cowave-swiper-scrollbar, .cowave-swiper-scrollbar.swiper-scrollbar-horizontal { left: var(--size-16); right: var(--size-16); width: auto; }
+    .swiper-container .goods--price-wrap .prices .original { display: none; }
+    :is(.goods-details .option, .goods-option) .thumb img { width: 20px; height: 20px; }
+    .goods-text1 { font-size: var(--text-xs); }
+    .cart-goods--note { flex-direction: column; row-gap: 10px; }
+    .cart-goods--note ul { font-size: var(--text-xs); }
+    .cart-goods--note .btn { width: 90px; height: 30px; font-size: var(--text-xs); padding: 0 10px; align-content: center; line-height: 1; }
+    footer, .fixed-menu--md { display: none !important; }
+}
+/* for tablet and mobile */
+@media (max-width: 991.98px) {
+    .cw-heading { display: none; }
+    .header-container--md .navi-btns a:is(.home) { display: inline-block !important; }
+    .header-container--md .navi-btns a:is(.basket) { display: none !important; }
+    .cart-pay { margin-top: 60px; }
+    .swiper-container { margin-top: 60px; }
+    .cart-quickpay { margin: 40px auto 0; }
+    .cart-quickpay #content .direct-app .step { right: 50%; transform: translateX(50%); }
+}
+/* 간편결제 관련 */
+#shoppay_btn { margin-top: 0 !important; }
+.cart-quickpay #content { z-index: 2; }
+.cart-quickpay div:only-child { grid-column: -1 / 1; }
+.cart-quickpay #content .direct-app .step :where(.step1, .step2) { box-sizing: content-box; }
+.cart-quickpay #content .direct-app .step { position: absolute; top: 50px; }
+#shoppay_btn .shoppay_type_A_3 { width: auto !important; max-width: 338px; }
+</style>
+
+<script type="text/javascript">
+// 상단 타이틀 변경
+changeNaviTitleText('장바구니');
+
+// 탭
+document.querySelectorAll('.cw-tabs a').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.cw-tabs li').forEach(li => li.classList.remove('active'));
+        this.parentElement.classList.add('active');
+    });
+});
+
+// 연관 상품
+const recmd2 = new CowaveSwiper('.recmd2', {
+    slidesPerView: 2.35,
+    spaceBetween: 8,
+    breakpoints: {
+        767.98: {
+            slidesPerView: 4,
+            spaceBetween: 16
+        },
+        991.98: {
+            slidesPerView: 6,
+            spaceBetween: 16
+        }
+    },
+    navigation: {
+        nextEl: '.recmd2 .next',
+        prevEl: '.recmd2 .prev',
+    },
+    scrollbar: {
+        el: '.recmd2 .cowave-swiper-scrollbar',
+        draggable: true
+    },
+    on: {
+        init: function () {
+            updateNavigationButtons(this, '.recmd2');
+        },
+        slideChange: function () {
+            updateNavigationButtons(this, '.recmd2');
+        }
+    }
+});
+
+// 관심 상품
+const recmd3 = new CowaveSwiper('.recmd3', {
+    slidesPerView: 2.35,
+    spaceBetween: 8,
+    breakpoints: {
+        767.98: {
+            slidesPerView: 4,
+            spaceBetween: 16
+        },
+        991.98: {
+            slidesPerView: 6,
+            spaceBetween: 16
+        }
+    },
+    navigation: {
+        nextEl: '.recmd3 .next',
+        prevEl: '.recmd3 .prev',
+    },
+    scrollbar: {
+        el: '.recmd3 .cowave-swiper-scrollbar',
+        draggable: true
+    },
+    on: {
+        init: function () {
+            updateNavigationButtons(this, '.recmd3');
+        },
+        slideChange: function () {
+            updateNavigationButtons(this, '.recmd3');
+        }
+    }
+});
+
+// 장바구니 추천상품
+const recmd4 = new CowaveSwiper('.recmd4', {
+    slidesPerView: 2.35,
+    spaceBetween: 8,
+    breakpoints: {
+        767.98: {
+            slidesPerView: 4,
+            spaceBetween: 16
+        },
+        991.98: {
+            slidesPerView: 6,
+            spaceBetween: 16
+        }
+    },
+    navigation: {
+        nextEl: '.recmd4 .next',
+        prevEl: '.recmd4 .prev',
+    },
+    scrollbar: {
+        el: '.recmd4 .cowave-swiper-scrollbar',
+        draggable: true
+    },
+    on: {
+        init: function () {
+            updateNavigationButtons(this, '.recmd4');
+        },
+        slideChange: function () {
+            updateNavigationButtons(this, '.recmd4');
+        }
+    }
+});
+
+function updateNavigationButtons(swiper, selector) {
+    const prevButton = document.querySelector(`${selector} .prev`);
+    const nextButton = document.querySelector(`${selector} .next`);
+
+    if (swiper.isBeginning) {
+        prevButton.classList.add('disable');
+    } else {
+        prevButton.classList.remove('disable');
+    }
+
+    if (swiper.isEnd) {
+        nextButton.classList.add('disable');
+    } else {
+        nextButton.classList.remove('disable');
+    }
+}
+
+// 탭 이동
+document.querySelectorAll('.cw-tabs a').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+        document.querySelectorAll('.cw-tabs li').forEach(li => li.classList.remove('active'));
+        this.parentElement.classList.add('active');
+        window.location.href = this.href;
+    });
+});
+
+</script>
+
+<style>
+    @import url('/template_common/shop/basic_simple/basket_v3.css');
+</style>
+<!--/include_header(1)/-->
+<link rel="stylesheet" href="//skin.makeshop.co.kr/skin/rw_shop/css/cowave-swiper-bundle.css" />
+
+<main id="basket" class="container">
+    <!--/if_use_subs/-->
+    <ul class="cw-tabs">
+        <li class="active"><a href="<!--/link_normal_basket/-->">일반구매<span>(<!--/number/user_normal_basket_count/-->)</span></a></li>
+        <li><a href="<!--/link_subs_basket/-->">정기배송<span>(<!--/number/user_subs_basket_count/-->)</span></a></li>
+    </ul>
+    <!--/else/-->
+    <h2 class="cw-heading">장바구니<!--/if_user_basket_count(+1)/--><span>(<!--/user_basket_count/-->)</span><!--/end_if/--></h2>
+    <!--/end_if/-->
+
+    <div class="cw-cart">
+        <div class="cart-goods">
+            <!--/if_provider/-->
+            <div class="cart-goods--header">
+                <div class="form-check form-check-inline">
+                    <!--/checkbox_multi_all(form-check-input)/-->
+                    <label class="form-check-label" for="all">전체</label>
+                </div>
+                <!--/if_link_multi_del/-->
+                <a href="<!--/link_multi_del/-->" class="ml-auto">선택 삭제</a>
+                <!--/end_if/-->
+            </div>
+            <!--/end_if/-->
+
+            <!--/if_not_provider/-->
+            <div class="cart-goods--empty">
+                <p>장바구니에 담긴 상품이 없습니다.</p>
+            </div>
+            <!--/end_if/-->
+
+            <!-- 본사배송 -->
+            <!--/loop_provider/-->
+            <!--/if_not_provider@is_provider/-->
+            <ul data-type="vertical" data-open="on" data-checkbok="on" class="cart-goods--list not_provider">
+                <!--/loop_provider@basket/-->
+                <li class="checkebox_st">
+                    <!--/provider@basket@form/-->
+                    <!--/if_provider@basket@idx(1)/-->
+                    <h3 class="cart-goods--title">본사배송</h3>
+                    <!--/end_if/-->
+                    <div class="flex items-center">
+                        <div class="form-check form-check-inline">
+                            <!--/provider@basket@checkbox_multi_basket(form-check-input)/-->
+                        </div>
+                        <div class="flex ml-auto">
+                            <!--/if_provider@basket@link_wish_toggle/-->
+                            <a href="<!--/provider@basket@link_wish_toggle/-->" class="lnk-bookmark">
+                                <!--/provider@basket@block_btn_wish/--><!--/end_block/-->
+                            </a>
+                            <!--/end_if/-->
+                            <a href="<!--/provider@basket@link_del/-->" class="lnk-delete">삭제</a>
+                        </div>
+                    </div>
+                    <div class="cart-goods--info">
+                        <div class="goods-image">
+                            <a href="<!--/provider@basket@link/-->"><img src="<!--/provider@basket@image_m/-->" alt="상품 이미지" class="response100"></a>
+                        </div>
+                        <div class="goods-details">
+                            <!--/if_provider@basket@present_icon/--><div class="icons"><!--/provider@basket@present_icon/--></div><!--/end_if/-->
+                            <a href="<!--/provider@basket@link/-->" class="title"><!--/notag/provider@basket@name/--></a>
+                            <!--/if_provider@basket@option/-->
+                            <div class="option">
+                                <p><!--/provider@basket@option/--></p>
+                            </div>
+                            <!--/end_if/-->
+                            <p class="price">
+                                <strong><!--/provider@basket@block_price_sell/--><!--/number/provider@basket@price_sell/--><!--/end_block/-->원</strong>
+                                <!--/if_provider@basket@price_discount/--><span class="strike"><strike><!--/number/provider@basket@price_discount/--></strike>원</span><!--/end_if/-->
+                            </p>
+                        </div>
+                        <div class="goods-benefits">
+                            <!--/if_provider@basket@reserve/-->
+                            <span>적립금 <!--/number/provider@basket@reserve/--></span>
+                            <!--/end_if/-->
+                            <!--/if_provider@basket@point/-->
+                            <span>포인트 <!--/number/provider@basket@point/--></span>
+                            <!--/end_if/-->
+                        </div>
+                        <div class="goods-shipping">
+                            <!--/if_provider@basket@delivery_title/-->
+                            <!--/provider@basket@delivery_title/-->
+                            <a href="javascript:alert('<!--/provider@basket@delivery_detail/-->');" class="lnk-tooltip">배송비 안내</a>
+                            <!--/end_if/-->
+                            <!--/if_weightdeli_use/-->
+                            <p class="weight">상품무게 <!--/provider@basket@block_weight/--><!--/provider@basket@weight/--><!--/end_block/--></p>
+                            <!--/end_if/-->
+                        </div>
+                        <div class="goods-quantity basket_quantity_wrap">
+                            <div class="btn-group sm basket_quantity_box">
+                                <a href="<!--/provider@basket@link_realtime_quantity_down/-->" class="btn-minus btn_m"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/bullet_minus.svg" alt="빼기"></a>
+                                <!--/provider@basket@input_quantity(btn-txt amount-input)/-->
+                                <a href="<!--/provider@basket@link_realtime_quantity_up/-->" class="btn-plus btn_p"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/bullet_plus.svg" alt="더하기"></a>
+                            </div>
+                            <!--/if_is_unify_option/-->
+                            <!--/if_provider@basket@option/-->
+                            <a href="javascript:<!--/provider@basket@link_option_modify/-->" class="btn btn-gray btn-sm">옵션변경</a>
+                            <!--/end_if/-->
+                            <!--/end_if/-->
+                        </div>
+                    </div>
+                    <!--/if_provider@basket@option/-->
+                    <div class="goods-option">
+                        <p><!--/provider@basket@option/--></p>
+                    </div>
+                    <!--/end_if/-->
+                    <!--/end_form/-->
+                </li>
+                <!--/end_loop/-->
+                <li>
+                    <p class="goods-text1">
+                        <!--/provider@block_total_price_sell/--><!--/number/provider@total_price_sell/--><!--/end_block/-->원
+                        <!--/provider@block_total_vat/--> + 부가세 <!--/number/provider@total_vat/-->원<!--/end_block/-->
+                        <!--/provider@block_total_delivery/--> + 배송료 <!--/number/provider@total_delivery/-->원<!--/end_block/-->
+                        <!--/provider@block_total_delivery_add/--> + 추가배송료 <!--/number/provider@total_delivery_add/-->원<!--/end_block/-->
+                    </p>
+                    <p class="goods-text2">
+                        <strong>총 합계 금액 <!--/provider@block_total_price/--><!--/number/provider@total_price/--><!--/end_block/-->원</strong>
+                        <!--/provider@block_total_reserve/--><!--/if_provider@total_reserve/-->(<!--/number/provider@total_reserve/-->원 적립예정)<!--/end_if/--><!--/end_block/-->
+                    </p>
+                </li>
+            </ul><!-- .cart-goods--list -->
+            <!--/end_if/-->
+            <!--/end_loop/-->
+            <!-- //본사배송 -->
+
+            <!-- 업체배송 -->
+            <!--/loop_provider/-->
+            <!--/if_provider@is_provider/-->
+            <ul data-type="vertical" data-open="on" data-checkbok="on" class="cart-goods--list provider">
+                <!--/loop_provider@basket/-->
+                <li class="checkebox_st">
+                    <!--/provider@basket@form/-->
+                    <!--/if_provider@basket@idx(1)/-->
+                    <h3 class="cart-goods--title">업체배송</h3>
+                    <!--/end_if/-->
+                    <div class="flex items-center">
+                        <div class="form-check form-check-inline">
+                            <!--/provider@basket@checkbox_multi_basket(form-check-input)/-->
+                        </div>
+                        <div class="flex ml-auto">
+                            <!--/if_provider@basket@link_wish_toggle/-->
+                            <a href="<!--/provider@basket@link_wish_toggle/-->" class="lnk-bookmark">
+                                <!--/provider@basket@block_btn_wish/--><!--/end_block/-->
+                            </a>
+                            <!--/end_if/-->
+                            <a href="<!--/provider@basket@link_del/-->" class="lnk-delete">삭제</a>
+                        </div>
+                    </div>
+                    <div class="cart-goods--info">
+                        <div class="goods-image">
+                            <a href="<!--/provider@basket@link/-->"><img src="<!--/provider@basket@image_m/-->" alt="상품 이미지" class="response100"></a>
+                        </div>
+                        <div class="goods-details">
+                            <!--/if_provider@basket@present_icon/--><div class="icons"><!--/provider@basket@present_icon/--></div><!--/end_if/-->
+                            <a href="<!--/provider@basket@link/-->" class="title"><!--/notag/provider@basket@name/--></a>
+                            <!--/if_provider@basket@option/-->
+                            <div class="option">
+                                <p><!--/provider@basket@option/--></p>
+                            </div>
+                            <!--/end_if/-->
+                            <p class="price">
+                                <strong><!--/provider@basket@block_price_sell/--><!--/number/provider@basket@price_sell/--><!--/end_block/-->원</strong>
+                                <!--/if_provider@basket@price_discount/--><span class="strike"><strike><!--/number/provider@basket@price_discount/--></strike>원</span><!--/end_if/-->
+                            </p>
+                        </div>
+                        <div class="goods-benefits">
+                            <!--/if_provider@basket@reserve/-->
+                            <span>적립금 <!--/number/provider@basket@reserve/--></span>
+                            <!--/end_if/-->
+                            <!--/if_provider@basket@point/-->
+                            <span>포인트 <!--/number/provider@basket@point/--></span>
+                            <!--/end_if/-->
+                        </div>
+                        <div class="goods-shipping">
+                            <!--/if_provider@basket@delivery_title/-->
+                            <!--/provider@basket@delivery_title/-->
+                            <a href="javascript:alert('<!--/provider@basket@delivery_detail/-->');" class="lnk-tooltip">배송비 안내</a>
+                            <!--/end_if/-->
+                            <!--/if_weightdeli_use/-->
+                            <p class="weight">상품무게 <!--/provider@basket@block_weight/--><!--/provider@basket@weight/--><!--/end_block/--></p>
+                            <!--/end_if/-->
+                        </div>
+                        <div class="goods-quantity basket_quantity_wrap">
+                            <div class="btn-group sm basket_quantity_box">
+                                <a href="<!--/provider@basket@link_realtime_quantity_down/-->" class="btn-minus btn_m"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/bullet_minus.svg" alt="빼기"></a>
+                                <!--/provider@basket@input_quantity(btn-txt amount-input)/-->
+                                <a href="<!--/provider@basket@link_realtime_quantity_up/-->" class="btn-plus btn_p"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/bullet_plus.svg" alt="더하기"></a>
+                            </div>
+                            <!--/if_is_unify_option/-->
+                            <!--/if_provider@basket@option/-->
+                            <a href="javascript:<!--/provider@basket@link_option_modify/-->" class="btn btn-gray btn-sm">옵션변경</a>
+                            <!--/end_if/-->
+                            <!--/end_if/-->
+                        </div>
+                    </div>
+                    <!--/if_provider@basket@option/-->
+                    <div class="goods-option">
+                        <p><!--/provider@basket@option/--></p>
+                    </div>
+                    <!--/end_if/-->
+                    <!--/end_form/-->
+                </li>
+                <!--/end_loop/-->
+                <li>
+                    <p class="goods-text1">
+                        <!--/provider@block_total_price_sell/--><!--/number/provider@total_price_sell/--><!--/end_block/-->원
+                        <!--/provider@block_total_vat/--> + 부가세 <!--/number/provider@total_vat/-->원<!--/end_block/-->
+                        <!--/provider@block_total_delivery/--> + 배송료 <!--/number/provider@total_delivery/-->원<!--/end_block/-->
+                        <!--/provider@block_total_delivery_add/--> + 추가배송료 <!--/number/provider@total_delivery_add/-->원<!--/end_block/-->
+                    </p>
+                    <p class="goods-text2">
+                        <strong>총 합계 금액 <!--/provider@block_total_price/--><!--/number/provider@total_price/--><!--/end_block/-->원</strong>
+                        <!--/provider@block_total_reserve/--><!--/if_provider@total_reserve/-->(<!--/number/provider@total_reserve/-->원 적립예정)<!--/end_if/--><!--/end_block/-->
+                    </p>
+                </li>
+            </ul><!-- .cart-goods--list -->
+            <!--/end_if/-->
+            <!--/end_loop/-->
+            <!-- //업체배송 -->
+
+            <div class="cart-goods--note">
+                <ul>
+                    <li class="flex gap-4">· <div>지역별 배송정책에 따라 배송비가 변동될 수 있습니다.</div</li>
+                    <!--/if_login/-->
+                        <!--/if_group_name/-->
+                    <li class="flex gap-4">· <div><em><!--/user_name/--></em>님은 <!--/if_group_free_delivery/-->기본배송비가 무료인 <!--/end_if/--><!--/if_group_allfree_delivery/-->전체 배송비가 무료인 <!--/end_if/--><em>[<!--/group_name/-->]</em>회원입니다.<br>
+                        <!--/if_group_reserve_message/-->(<!--/group_reserve_message/-->)<!--/end_if/--></div>
+                    </li>
+                            <!--/if_group_message/-->
+                    <li class="flex gap-4">· <div><!--/group_message/--></div></li>
+                            <!--/end_if/-->
+                        <!--/end_if/-->
+                    <!--/end_if/-->
+                </ul>
+                <!--/if_link_estimate/-->
+                <a href="<!--/link_estimate/-->" class="btn btn-gray ml-auto"><span>견적서 출력</span></a>
+                <!--/end_if/-->
+            </div><!-- .cart-goods--note -->
+        </div><!-- .cart-goods -->
+        <div class="cart-pay">
+            <div class="cart-pay--total">
+                <div class="cw-subtitle">결제 정보</div>
+                <ul class="pay-info">
+                    <li class="flex">총 상품 금액<span class="ml-auto"><strong><!--/block_none_groupsale_total_price_sell/--><!--/if_none_groupsale_total_price_sell(+1)/--><!--/number/none_groupsale_total_price_sell/--><!--/else/-->0<!--/end_if/--><!--/end_block/--></strong>원</span></li>
+                    <!--/block_total_vat/--><!--/if_total_vat(+1)/--><li class="flex">부가세 <span class="ml-auto"><strong>+ <!--/number/total_vat/--></strong>원</span></li><!--/end_if/--><!--/end_block/-->
+                    <!--/block_total_delivery/--><li class="flex">배송비 <span class="ml-auto"><strong><!--/if_total_delivery(+1)/-->+ <!--/number/total_delivery/--><!--/else/-->0<!--/end_if/--></strong>원</span></li><!--/end_block/-->
+                    <!--/block_total_delivery_add/--><!--/if_total_delivery_add(+1)/--><li class="flex">추가배송비 <span class="ml-auto"><strong>+ <!--/number/total_delivery_add/--></strong>원</span></li><!--/end_if/--><!--/end_block/-->
+                    <!--/block_group_sale_price/--><!--/if_group_sale_price(+1)/--><li class="flex">그룹할인 <span class="ml-auto"><strong>- <!--/number/group_sale_price/--></strong>원</span></li><!--/end_if/--><!--/end_block/-->
+                </ul>
+                <p class="pay-total">총 결제 금액 <span class="ml-auto"><strong><!--/block_total_price/--><!--/if_total_price/--><!--/number/total_price/--><!--/else/-->0<!--/end_if/--><!--/end_block/--></strong>원</span></p>
+                <!--/if_total_reserve/-->
+                <!--/block_total_reserve/-->
+                <p class="pay-point">
+                    <span class="ml-auto"><!--/number/total_reserve/-->원 적립예정
+                        <!--/if_powerapp_sale_reserve/--> (앱 구매 추가적립금 <!--/number/powerapp_sale_reserve/-->원 포함)<!--/end_if/-->
+                    </span>
+                </p>
+                <!--/end_block/-->
+                <!--/end_if/-->
+            </div>
+            <div class="cart-pay--btns">
+                <!--/if_link_giveapresent/--><a href="<!--/link_giveapresent/-->" class="btn btn-gray btn-lg btn-gift">선물하기</a><!--/end_if/-->
+                <a href="<!--/link_order/-->" class="btn btn-primary btn-lg btn-pay">주문하기</a>
+            </div>
+            <!-- 간편결제 -->
+            <div class="cart-quickpay">
+            <!--/if_btn_shoppay/-->
+                <!--/btn_shoppay/-->
+            <!--/end_if/-->
+            <!--/if_btn_kakaopay/-->
+                <!--/btn_kakaopay/-->
+            <!--/end_if/-->
+            <!--/if_btn_payco/-->
+                <!--/btn_payco/-->
+            <!--/end_if/-->
+            <!--/if_btn_nhn/-->
+                <div class="naver-checkout"><!--/btn_nhn/--></div>
+            <!--/end_if/-->
+            <!--/if_btn_app/-->
+                <div id="content">
+                <!--/btn_app/-->
+                </div>
+            <!--/end_if/-->
+            </div>
+            <!-- //간편결제 -->
+        </div><!-- .cart-pay -->
+    </div><!-- .cw-cart -->
+
+    <!-- 연관상품 -->
+    <!--/if_purchased_product/-->
+    <div class="swiper-container cowave-swiper recmd2">
+        <div class="flex items-center">
+            <div>
+                <h2 class="cw-subtitle">연관상품</h2>
+            </div>
+            <div class="swiper-btn ml-auto">
+                <a href="#none" class="prev disable"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_left.svg" alt="이전"></a>
+                <a href="#none" class="next"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_right.svg" alt="다음"></a>
+            </div>
+        </div>
+        <div class="goods-list cowave-swiper-wrapper">
+            <!--/loop_purchased_product(10)/-->
+            <div class="goods-list--item prds-list--item cowave-swiper-slide">
+                <div class="item-image"><img src="<!--/purchased_product@image_m/-->" alt="상품이미지"></div>
+                <p class="goods--title sm"><!--/purchased_product@name/--></p>
+                <!--/if_purchased_product@subname/--><p class="goods--subtitle sm"><!--/purchased_product@subname/--></p><!--/end_if/-->
+                <div class="goods--price-wrap prds--price-wrap sm">
+                    <div class="prices prices-grid">
+                        <!-- 가격 -->
+                        <!--/if_purchased_product@usergroup_price/-->
+                        <!-- 그룹할인가 존재 -->
+                        <span class="price"><strong><!--/number/purchased_product@usergroup_price/--></strong>원</span>
+                        <span class="original"><strong><!--/if_purchased_product@price_consumer(+1)/--><!--/number/purchased_product@price_consumer/--><!--/else/--><!--/number/purchased_product@price_sell/--><!--/end_if/--></strong>원</span>
+                        <!--/else_if_purchased_product@discount_price_difference/-->
+                        <!-- 가 아니라 기간할인가 존재 -->
+                        <span class="price"><strong><!--/number/purchased_product@price_discount/--></strong>원</span>
+                        <span class="original"><strong><!--/if_purchased_product@price_consumer(+1)/--><!--/number/purchased_product@price_consumer/--><!--/else/--><!--/number/purchased_product@price_sell/--><!--/end_if/--></strong>원</span>
+                        <!--/else_if_purchased_product@price_consumer(+1)/-->
+                        <!-- 가 아니라 소비자가 존재 -->
+                        <span class="price"><strong><!--/number/purchased_product@price_sell/--></strong>원</span>
+                        <span class="original"><strong><!--/number/purchased_product@price_consumer/--></strong>원</span>
+                        <!--/else/-->
+                        <!-- 그것도 아니면 그냥 가격 노출 -->
+                        <span class="price"><strong><!--/number/purchased_product@price_sell/--></strong>원</span>
+                        <!--/end_if/-->
+                        <!-- //가격 -->
+                        <!--/if_purchased_product@discount_percent(+1)/-->
+                        <span class="discount"><!--/purchased_product@discount_percent/-->%</span>
+                        <!--/end_if/-->
+                    </div>
+                </div>
+                <a href="<!--/purchased_product@link/-->" class="link">상품링크</a>
+            </div>
+            <!--/end_loop/-->
+        </div>
+        <div class="cowave-swiper-scrollbar"></div>
+    </div><!-- .swiper-container -->
+    <!--/end_if/-->
+    <!-- //연관상품 -->
+
+    <!-- 관심상품 -->
+    <!--/if_wishlist/-->
+    <div class="swiper-container cowave-swiper recmd3">
+        <div class="flex items-center">
+            <div>
+                <h2 class="cw-subtitle">관심상품</h2>
+            </div>
+            <div class="swiper-btn ml-auto">
+                <a href="#none" class="prev disable"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_left.svg" alt="이전"></a>
+                <a href="#none" class="next"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_right.svg" alt="다음"></a>
+            </div>
+        </div>
+        <div class="goods-list cowave-swiper-wrapper">
+            <!--/loop_wishlist/-->
+            <div class="goods-list--item prds-list--item cowave-swiper-slide">
+                <div class="item-image"><img src="<!--/wishlist@image_m/-->" alt="상품이미지"></div>
+                <p class="goods--title sm"><!--/wishlist@name/--></p>
+                <!--/if_wishlist@subname/--><p class="goods--subtitle sm"><!--/wishlist@subname/--></p><!--/end_if/-->
+                <div class="goods--price-wrap prds--price-wrap sm">
+                    <div class="prices prices-grid">
+                    <!--/if_wishlist@price_discount/-->
+                        <span class="price"><strong><!--/number/wishlist@price_discount/--></strong>원</span>
+                        <span class="original"><span><!--/number/wishlist@price_sell/--></span>원</span>
+                    <!--/else/-->
+                        <span class="price"><strong><!--/number/wishlist@price_sell/--></strong>원</span>
+                    <!--/end_if/-->
+                    </div>
+                </div>
+                <a href="<!--/wishlist@link/-->" class="link">상품링크</a>
+            </div>
+            <!--/end_loop/-->
+        </div>
+        <div class="cowave-swiper-scrollbar"></div>
+    </div><!-- .swiper-container -->
+    <!--/end_if/-->
+    <!-- //관심상품 -->
+
+    <!-- 장바구니 추천상품 -->
+    <!--/if_basket_appoint_product/-->
+    <div class="swiper-container cowave-swiper recmd4">
+        <div class="flex items-center">
+            <div>
+                <h2 class="cw-subtitle">장바구니 추천상품</h2>
+            </div>
+            <div class="swiper-btn ml-auto">
+                <a href="#none" class="prev disable"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_left.svg" alt="이전"></a>
+                <a href="#none" class="next"><img src="//skin.makeshop.co.kr/skin/rw_shop/images/icons/btn_arrow_right.svg" alt="다음"></a>
+            </div>
+        </div>
+        <div class="goods-list cowave-swiper-wrapper">
+            <!--/loop_basket_appoint_product/-->
+            <div class="cowave-swiper-slide">
+                <div class="goods-list--item prds-list--item">
+                    <div class="item-image"><img src="<!--/basket_appoint_product@image_m/-->" alt="상품이미지"></div>
+                    <p class="goods--title sm"><!--/basket_appoint_product@name/--></p>
+                    <div class="goods--price-wrap prds--price-wrap sm">
+                        <div class="prices prices-grid">
+                        <!--/if_basket_appoint_product@price_discount/-->
+                            <span class="price"><strong><!--/number/basket_appoint_product@price_discount/--></strong>원</span>
+                            <span class="original"><span><!--/number/basket_appoint_product@price_sell/--></span>원</span>
+                        <!--/else/-->
+                            <span class="price"><strong><!--/number/basket_appoint_product@price_sell/--></strong>원</span>
+                        <!--/end_if/-->
+                        </div>
+                    </div>
+                    <a href="<!--/basket_appoint_product@link/-->" class="link">상품링크</a>
+                </div>
+                <div class="goods--break">
+                    <a href="<!--/basket_appoint_product@link_basket/-->" class="btn btn-gray btn-sm">장바구니 담기</a>
+                </div>
+            </div>
+            <!--/end_loop/-->
+        </div>
+        <div class="cowave-swiper-scrollbar"></div>
+    </div><!-- .swiper-container -->
+    <!--/end_if/-->
+    <!-- //장바구니 추천상품 -->
+
+    <div class="cart-fab">
+        <div class="cart-fab--btns">
+            <!--/if_link_giveapresent/--><a href="<!--/link_giveapresent/-->" class="btn btn-primary btn-lg btn-gift">선물하기</a><!--/end_if/-->
+            <a href="<!--/link_order/-->" class="btn btn-primary btn-lg btn-pay">주문하기</a>
+        </div>
+    </div><!-- .cart-fab -->
+</main><!-- #basket -->
+
+<script src="//skin.makeshop.co.kr/skin/rw_shop/js/cowave-swiper-bundle.js"></script>
+<!--/include_footer(1)/-->

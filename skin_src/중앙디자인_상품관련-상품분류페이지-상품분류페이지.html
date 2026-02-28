@@ -1,0 +1,751 @@
+<style type="text/css">
+	#content{padding:0}
+
+/* class-list */
+#productClass .cate-wrap {overflow:hidden;padding-top: 80px;}
+#productClass .cate-wrap .bcate {
+    padding-bottom: 28px;
+    font-size: 32px;
+    color: #5F4541;
+    font-weight: 600;}
+
+#productClass .cate-wrap .class-list ul {  *zoom:1 }
+#productClass .cate-wrap .class-list ul:after { display:block; clear:both; content:'' }
+#productClass .cate-wrap .class-list ul li {
+    padding: 0 8px 0 0;
+    float: left; }
+#productClass .cate-wrap .class-list ul li a {
+    background: #fff;
+    display: block;
+    color: #656565;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0 15px;
+}
+
+#productClass .cate-wrap .class-list ul li a.sel{
+    background: #5F4541;
+    color: #fff;
+    font-weight: 700;}
+
+/* best-item */
+.slide-section {
+    max-width: 1400px;
+    padding: 100px 0;
+}
+
+
+.slide-section .swiper-pagination{
+    width: 240px !important;
+    left: calc(50% - 120px) !important;
+    background: rgba(18, 18, 18, 0.2);
+    height: 2px !important;
+    position: unset;
+    margin: 60px auto 0;}
+
+.slide-section .swiper-pagination .swiper-pagination-progressbar-fill {
+    background: rgba(18, 18, 18, 1)
+}
+
+.slide-section .arrowBox{
+    position: absolute;
+    right: 0;
+    bottom: 30px;}
+
+.slide-section .arrowBox .l-line {
+    display: inline-block;
+    vertical-align: top;
+    width: 1px;
+    height: 12px;
+    background: #ccc2bf;
+    margin: 7px 15px 0;
+}
+
+
+.slide-section .swiper-button-prev:after,.slide-section .swiper-button-next:after {
+    font-size: 14px;
+    font-family: var(--base-font);
+    color: var(--point-color);
+    text-transform: capitalize !important;
+    font-weight: 500;
+}
+
+
+.slide-section .arrowBox .swiper-button-next{margin-top:0;width: auto;height: unset; position: unset;display: inline-block; vertical-align: top;}
+.slide-section .arrowBox .swiper-button-next span{float: right; margin-left: 10px;}
+.slide-section .arrowBox .swiper-button-next span:after{}
+.slide-section .arrowBox .swiper-button-prev{margin-top:0; width: auto; height: unset;position: unset;display: inline-block; vertical-align: top;}
+.slide-section .arrowBox .swiper-button-prev span{margin-right: 12px;}
+.slide-section .arrowBox .swiper-button-prev span:after{}
+
+.slide-section .cateTit{padding:0;text-align:left}
+.slide-section .cateTit h3{
+    font-size: 32px;
+    color: #5F4541;
+    font-weight: 600;
+    font-family: var(--base-font);
+    padding-bottom: 24px;}
+
+.slide-section .item-wrap .item-cont .item-list .thumb{width:100%}
+
+
+/* .item-sort */
+.item-sort {position: relative; margin-bottom: 25px; margin-top: 20px;}
+.item-sort .ea {
+    font-size: 14px;
+    text-align: left;
+    color: #5F4541;
+    height: 30px;
+    line-height: 30px;}
+
+.item-sort .ea strong {}
+.item-sort .sort {position:absolute; top:50%; right:0; z-index:1; -webkit-transform:translate(0,-50%); -ms-transform:translate(0,-50%); transform:translate(0,-50%);}
+.item-sort .sort select {width:140px; height:30px; line-height:30px; font-size:13px; font-weight:400; border:0; border-bottom:1px solid #000; background:url(http://xexymix.jpg3.kr/xexymix/PL/img/select_arrow.png) no-repeat 95% 50%; background-size:10%;
+    -webkit-appearance: none; /* 화살표 없애기 for chrome*/
+    -moz-appearance: none;    /* 화살표 없애기 for firefox*/
+    appearance: none;         /* 화살표 없애기 공통*/
+}
+.item-sort .sort select::-ms-expand {
+    display: none;  /* 화살표 없애기 for IE10, 11*/
+}
+.sort-menu { position: absolute; top: 50%; right: 0; z-index: 5; -webkit-transform: translate(0,-50%); -ms-transform: translate(0,-50%); transform: translate(0,-50%); }
+.sort-menu .sort-btn {
+    cursor: pointer;
+    display: block;
+    font-size: 13px;
+    width: 98px;
+    border: 1px solid #E1D9D7;
+    border-radius: 4px;
+    background: #fff;
+    padding: 6px 10px;
+    line-height: 17px;
+    font-weight: 400;
+    color: #121212;}
+
+.sort-menu .sort-btn:after {
+    content: "";
+    display: block;
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    right: 12px;
+    top: 9px;
+    transform: rotate(45deg);
+    border-bottom: 1px solid #121212;
+    border-right: 1px solid #121212;
+    transition: 0.4s;}
+
+
+.sort-menu .sort-list {
+    border: 1px solid #E1D9D7;
+    border-radius: 4px;
+    position: absolute;
+    display: none;
+    width: 120px;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    margin-top: -1px;
+    background: #fff;}
+.sort-menu .sort-list li { list-style: none; line-height: 30px; box-sizing: border-box; }
+.sort-menu .sort-list li a {
+    font-size: 13px;
+    display: block;
+    padding: 5px 0;}
+
+.sort-menu .sort-list li a:hover { color: #111; }
+.sort-menu .sort-btn.active:after {
+    border-bottom: 1px solid #121212;
+    border-right: 1px solid #121212;
+    transform: rotate(-135deg);
+    top: 14px;
+    transition: 0.4s;}
+
+.sort-menu .sort-list.opened { display: block; }
+
+
+
+
+/* 하위 분류 */
+#productClass .item-cate { display: flex; justify-content: space-between; align-items: end; _padding: 30px 0; }
+#productClass .item-cate a { font-weight: bold; color: #1c1c1c; letter-spacing: -1px; }
+#productClass .item-cate .scate a { font-size: 18px; }
+#productClass .item-cont .thumb .main_icons {  position:relative;}
+
+/*일반상품리스트*/
+
+#PrdWrp .item-wrap .item-cont .item-list {
+    float: left;
+    width: calc(25% - 18px);
+    margin-right: 24px;
+    padding-bottom: 80px;
+}
+
+#PrdWrp .item-wrap .item-cont .item-list:nth-child(4n){margin-right:0;}
+
+#PrdWrp .item-wrap .item-cont .item-list:last-child{margin-right:0}
+
+#PrdWrp .item-wrap .item-cont .item-list .thumb{width:100%}
+#PrdWrp{width: 100%;  padding: 0;}
+
+#wrap.small-screen #contentWrapper #recmdPrdWrp {
+    max-width: 100% !important;
+    margin: 0;
+    padding-top: 100px;
+}
+
+@media (max-width:1024px) {
+    .product-wrap {
+        margin: 0;
+    }
+
+    #productClass .cate-wrap {
+        padding-top: 40px;
+    }
+
+    #productClass .cate-wrap .class-list {
+        margin-bottom: 80px;
+    }
+
+    /* class-list */
+    #productClass .cate-wrap {overflow:hidden;}
+    #productClass .cate-wrap .bcate {
+        padding-top: 0;
+        padding-bottom: 16px;
+        font-size: 26px;
+        color: #5F4541;
+        font-weight: 600;}
+
+
+    #productClass .cate-wrap .class-list{margin-bottom:80px}
+    #productClass .cate-wrap .class-list ul {  *zoom:1 }
+    #productClass .cate-wrap .class-list ul:after { display:block; clear:both; content:'' }
+    #productClass .cate-wrap .class-list ul li {
+        padding: 0 8px 8px 0;
+        float: left; }
+    #productClass .cate-wrap .class-list ul li a {
+        background: #fff;
+        display: block;
+        color: #656565;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 0 24px;
+    }
+
+    #productClass .cate-wrap .class-list ul li a.sel{
+        background: #5F4541;
+        color: #fff;
+        font-weight: 700;}
+
+    .slide-section {
+        padding: 80px 0;
+    }
+
+    #PrdWrp .item-wrap .item-cont .item-list {
+        width: calc(50% - 6px);
+        margin-right: 12px;
+        padding-bottom: 40px;
+    }
+
+    #PrdWrp .item-wrap .item-cont .item-list:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    #PrdWrp .item-wrap .item-cont .item-list:nth-child(4n) {
+        margin-right: inherit;
+    }
+
+    .sort-menu .sort-btn {
+        height: 30px;
+    }
+
+    .product-wrap .more {
+        margin: 30px 0 0;
+    }
+
+    #wrap.small-screen #contentWrapper #recmdPrdWrp {
+        padding-top: 0;
+    }
+
+}
+</style>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+    const bestSwiper = new Swiper(".bstPrdWrp", {
+        spaceBetween: 8,
+        slidesPerView: 2.1,
+        //loop:true,
+        //autoplay: {
+        //    delay: 4000,
+        //    disableOnInteraction: false,
+        //},
+        navigation: {
+            nextEl: "#bstPrdWrp .swiper-button-next",
+            prevEl: "#bstPrdWrp .swiper-button-prev",
+        },
+        pagination: {
+            el: ".bstPrdWrp .swiper-pagination",
+            type: "progressbar",
+        },
+        breakpoints: {
+            // 화면 너비가 1024px 이상일 때
+            1024: {
+                slidesPerView : '6',
+                spaceBetween: 22,
+            }
+        },
+
+    });
+
+    const recmdSwiper = new Swiper(".recmdPrdWrp", {
+        spaceBetween: 8,
+        slidesPerView: 2.1,
+        //loop:true,
+        //autoplay: {
+        //    delay: 4000,
+        //    disableOnInteraction: false,
+        //},
+
+        navigation: {
+            nextEl: "#recmdPrdWrp .swiper-button-next",
+            prevEl: "#recmdPrdWrp .swiper-button-prev",
+        },
+
+        pagination: {
+            el: ".recmdPrdWrp .swiper-pagination",
+            type: "progressbar",
+        },
+        breakpoints: {
+            // 화면 너비가 1024px 이상일 때
+            1024: {
+                slidesPerView : '6',
+                spaceBetween: 22,
+            }
+        },
+
+    });
+});
+
+
+//상품정렬 드롭다운
+var dropdown = document.querySelector('.sort-btn');
+var dropdownList = document.querySelector('.sort-list');
+
+dropdown.onclick = function openList() {
+    dropdown.classList.toggle('active');
+    dropdownList.classList.toggle('opened');
+};
+
+
+</script>
+
+<!--/script_scroll(1)/-->
+<div id="wrap">
+    <!--/include_header(1)/-->
+    <div id="contentWrapper">
+        <div id="contentWrap">
+            <!--/include_menu(1)/-->
+            <div id="content">
+                <div id="productClass">
+                    <div class="prd-class-hd">
+                        <dl class="loc-navi">
+                            <dt class="blind">현재 위치</dt>
+                            <dd>
+                                <a href="/">HOME</a>
+                                <!--/if_cate1_name/--> &gt; <a
+                                    href="<!--/link_cate1/-->"><!--/cate1_name/--></a><!--/end_if/-->
+                                <!--/if_cate2_name/--> &gt; <a
+                                    href="<!--/link_cate2/-->"><!--/cate2_name/--></a><!--/end_if/-->
+                                <!--/if_cate3_name/--> &gt; <a
+                                    href="<!--/link_cate3/-->"><!--/cate3_name/--></a><!--/end_if/-->
+                            </dd>
+                        </dl>
+                    </div><!-- .prd-class-hd -->
+
+                    <div class="page-body">
+                        <div class="cate-wrap">
+                            <div class="bcate"><!--/now_cate_name/--></div>
+
+                            <!--/if_category/-->
+                            <div class="class-list">
+                                <ul>
+                                    <!--/loop_category/-->
+                                    <!--/if_upper_category_set/-->
+                                    <!--/if_category@is_pc_display/-->
+                                    <li><a href="<!--/category@link/-->"><!--/category@name/--></a></li>
+                                    <!--/end_if/-->
+                                    <!--/else/-->
+                                    <li><a href="<!--/category@link/-->"><!--/category@name/--></a></li>
+                                    <!--/end_if/-->
+                                    <!--/end_loop/-->
+                                </ul>
+                            </div>
+                            <!--/else/-->
+                            <!--/if_same_level_category/-->
+                            <div class="class-list">
+                                <ul>
+                                    <!--/loop_same_level_category/-->
+                                    <!--/if_upper_category_set/-->
+                                    <!--/if_category@is_pc_display/-->
+                                    <li><a href="<!--/same_level_category@link/-->"
+                                           class="<!--/if_same_level_category@is_sel/-->sel<!--/end_if/-->"><!--/same_level_category@name/--></a>
+                                    </li>
+                                    <!--/end_if/-->
+                                    <!--/else/-->
+                                    <li><a href="<!--/same_level_category@link/-->"
+                                           class="<!--/if_same_level_category@is_sel/-->sel<!--/end_if/-->"><!--/same_level_category@name/--></a>
+                                    </li>
+                                    <!--/end_if/-->
+                                    <!--/end_loop/-->
+                                </ul>
+                            </div>
+                            <!--/end_if/-->
+                            <!--/end_if/-->
+                        </div><!-- .cate-wrap -->
+
+                        <!-- 베스트상품 영역 -->
+                        <!--/if_best_product/-->
+                        <div class="product-wrap slide-section" id="bstPrdWrp">
+                            <div class="item-wrap ifslide">
+                                <div class="cateTit">
+                                    <h3>Best item</h3>
+                                    <div class="arrowBox">
+                                        <div class="swiper-button-prev"><span><img
+                                                src="//skin.makeshop.co.kr/skin/fortnight/pc/img/swipe-prev.png"></span>
+                                        </div>
+                                        <div class="l-line"></div>
+                                        <div class="swiper-button-next"><span><img
+                                                src="//skin.makeshop.co.kr/skin/fortnight/pc/img/swipe-next.png"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mySwiper bstPrdWrp">
+
+                                    <div class="item-cont swiper-wrapper">
+                                        <!--/loop_best_product(20)/-->
+                                        <dl class="item-list swiper-slide">
+                                            <dt class="thumb">
+                                                <a href="<!--/best_product@link/-->" class="prd_thumb">
+                                                    <!--/makeshop{label_product_img(best_product,image_m)}/-->
+                                                </a>
+                                                <div class="new_option">
+                                                    <!--/if_best_product@link_wish_toggle/-->
+                                                    <a href="<!--/best_product@link_wish_toggle/-->"
+                                                       class="ico prd-wish">
+                                                        <!--/best_product@block_btn_wish/-->
+                                                        <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_off.png"
+                                                             class="off">
+                                                        <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_on.png"
+                                                             class="on">
+                                                        <!--/end_block/-->
+                                                    </a>
+                                                    <!--/end_if/-->
+                                                </div>
+                                            </dt>
+                                            <dd class="prd-info">
+                                                <ul>
+                                                    <li class="prd-name">
+                                                        <a href="<!--/best_product@link/-->"><!--/best_product@name/--></a>
+                                                        <span class="prd-ico">
+                                                            <!--/best_product@icons/--><!--/best_product@subs_icon/--><!--/best_product@promotion_icon/-->
+                                                            <!--/best_product@present_icon/-->
+                                                        </span>
+                                                    </li>
+                                                    <!--/if_best_product@subname/-->
+                                                    <li class="prd-subname"><!--/best_product@subname/--></li>
+                                                    <!--/end_if/-->
+                                                    <li class="prd-price">
+                                                        <!--/if_best_product@price_replace/-->
+                                                        <span class="replace"><!--/best_product@price_replace/--></span>
+                                                        <!--/else_if_best_product@is_soldout/-->
+                                                        <span class="soldOut">Sold Out</span>
+                                                        <!--/else/-->
+                                                        <!--/if_best_product@price_discount/-->
+                                                        <span
+                                                                class="price"><!--/number/best_product@price_discount/--></span>
+                                                        <strike><!--/number/best_product@price_sell/--></strike>
+                                                        <!--/else/-->
+                                                        <span
+                                                                class="price"><!--/number/best_product@price_sell/--></span>
+                                                        <!--/if_best_product@price_consumer(+1)/-->
+                                                        <strike><!--/number/best_product@price_consumer/--></strike>
+                                                        <!--/end_if/-->
+                                                        <!--/end_if/-->
+                                                        <!--/end_if/-->
+                                                        <!--/if_best_product@discount_percent/-->
+                                                        <span class="discount"><!--/best_product@discount_percent/-->%</span>
+                                                        <!--/end_if/-->
+                                                    </li>
+                                                    <!--/if_best_product@color/-->
+                                                    <li class="prd-color">
+                                                        <!--/loop_best_product@color/-->
+                                                        <font color="<!--/best_product@color@code/-->">■</font>
+                                                        <!--/end_loop/-->
+                                                    </li>
+                                                    <!--/end_if/-->
+                                                    <!--/if_best_product@link_pop_product_benefit/-->
+                                                    <li class="prd-benefit">
+                                                        <a href="<!--/best_product@link_pop_product_benefit/-->"><img
+                                                                src="/images/d3/modern_simple/btn_benefit.gif"
+                                                                alt="혜택팝업보기" /></a>
+                                                    </li>
+                                                    <!--/end_if/-->
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                        <!--/end_loop/-->
+                                    </div>
+
+                                    <div class="swiper-pagination"></div>
+                                    <div class="item-cont"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/end_if/-->
+                        <!-- 베스트상품 영역 -->
+
+                        <!-- 추천상품 영역 -->
+                        <!--/if_recmd_product/-->
+                        <div class="product-wrap slide-section" id="recmdPrdWrp">
+                            <div class="item-wrap ifslide">
+                                <div class="cateTit">
+                                    <h3>Best item</h3>
+                                    <div class="arrowBox">
+                                        <div class="swiper-button-prev"><span><img
+                                                src="//skin.makeshop.co.kr/skin/fortnight/pc/img/swipe-prev.png"></span>
+                                        </div>
+                                        <div class="l-line"></div>
+                                        <div class="swiper-button-next"><span><img
+                                                src="//skin.makeshop.co.kr/skin/fortnight/pc/img/swipe-next.png"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mySwiper recmdPrdWrp">
+
+                                    <div class="item-cont swiper-wrapper">
+                                        <!--/loop_recmd_product(20)/-->
+                                        <dl class="item-list swiper-slide">
+                                            <dt class="thumb">
+                                                <a href="<!--/recmd_product@link/-->" class="prd_thumb">
+                                                    <!--/makeshop{label_product_img(recmd_product,image_m)}/-->
+                                                </a>
+                                                <div class="new_option">
+                                                    <!--/if_recmd_product@link_wish_toggle/-->
+                                                    <a href="<!--/recmd_product@link_wish_toggle/-->"
+                                                       class="ico prd-wish">
+                                                        <!--/recmd_product@block_btn_wish/-->
+                                                        <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_off.png"
+                                                             class="off">
+                                                        <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_on.png"
+                                                             class="on">
+                                                        <!--/end_block/-->
+                                                    </a>
+                                                    <!--/end_if/-->
+                                                </div>
+                                            </dt>
+                                            <dd class="prd-info">
+                                                <ul>
+                                                    <li class="prd-name">
+                                                        <a href="<!--/recmd_product@link/-->"><!--/recmd_product@name/--></a>
+                                                        <span class="prd-ico">
+                                                            <!--/recmd_product@icons/--><!--/recmd_product@subs_icon/--><!--/recmd_product@promotion_icon/-->
+                                                            <!--/recmd_product@present_icon/-->
+                                                        </span>
+                                                    </li>
+                                                    <!--/if_recmd_product@subname/-->
+                                                    <li class="prd-subname"><!--/recmd_product@subname/--></li>
+                                                    <!--/end_if/-->
+                                                    <li class="prd-price">
+                                                        <!--/if_recmd_product@price_replace/-->
+                                                        <span class="replace"><!--/recmd_product@price_replace/--></span>
+                                                        <!--/else_if_recmd_product@is_soldout/-->
+                                                        <span class="soldOut">Sold Out</span>
+                                                        <!--/else/-->
+                                                        <!--/if_recmd_product@price_discount/-->
+                                                        <span
+                                                                class="price"><!--/number/recmd_product@price_discount/--></span>
+                                                        <strike><!--/number/recmd_product@price_sell/--></strike>
+                                                        <!--/else/-->
+                                                        <span
+                                                                class="price"><!--/number/recmd_product@price_sell/--></span>
+                                                        <!--/if_recmd_product@price_consumer(+1)/-->
+                                                        <strike><!--/number/recmd_product@price_consumer/--></strike>
+                                                        <!--/end_if/-->
+                                                        <!--/end_if/-->
+                                                        <!--/end_if/-->
+                                                        <!--/if_recmd_product@discount_percent/-->
+                                                        <span class="discount"><!--/recmd_product@discount_percent/-->%</span>
+                                                        <!--/end_if/-->
+                                                    </li>
+                                                    <!--/if_recmd_product@color/-->
+                                                    <li class="prd-color">
+                                                        <!--/loop_recmd_product@color/-->
+                                                        <font color="<!--/recmd_product@color@code/-->">■</font>
+                                                        <!--/end_loop/-->
+                                                    </li>
+                                                    <!--/end_if/-->
+                                                    <!--/if_recmd_product@link_pop_product_benefit/-->
+                                                    <li class="prd-benefit">
+                                                        <a href="<!--/recmd_product@link_pop_product_benefit/-->"><img
+                                                                src="/images/d3/modern_simple/btn_benefit.gif"
+                                                                alt="혜택팝업보기" /></a>
+                                                    </li>
+                                                    <!--/end_if/-->
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                        <!--/end_loop/-->
+                                    </div>
+
+                                    <div class="swiper-pagination"></div>
+                                    <div class="item-cont"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/end_if/-->
+                        <!-- 추천상품 영역 -->
+
+                        <div class="item-wrap">
+
+
+                            <div class="item-sort">
+                                <p class="ea">총 <strong><!--/total_product_count/-->개</strong>의 상품</p>
+                                <div class="sort-menu">
+                                    <div class="sort-btn">
+                                        <!--/if_now_sort_type(order)/-->최신순<!--/else_if_now_sort_type(sellcnt)/-->인기순<!--/else_if_now_sort_type(price)/-->낮은가격순<!--/else_if_now_sort_type(price2)/-->높은가격순<!--/else/-->상품정렬<!--/end_if/-->
+                                    </div>
+                                    <ul class="sort-list">
+                                        <li><a href="javascript:sendsort('order')">최신순</a></li>
+                                        <li><a href="javascript:sendsort('sellcnt')">인기순</a></li>
+                                        <li><a href="javascript:sendsort('price')">낮은가격순</a></li>
+                                        <li><a href="javascript:sendsort('price2')">높은가격순</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+                            <!--/if_category@upper_img_use/-->
+                            <div class="item-cate">
+                                <div class="scate-img">
+                                    <a href="<!--/category@upper_category_link/-->"><img src="<!--/category@upper_img/-->" alt="<!--/category@upper_category_name/-->" /></a>
+                                </div>
+                            </div>
+                            <!--/else/-->
+                            <div class="item-cate">
+                                <div class="scate"><a href="<!--/category@upper_category_link/-->"><!--/category@upper_category_name/--></a>
+                                </div>
+                            </div>
+                            <!--/end_if/-->
+
+
+
+                            <div class="product-wrap" id="PrdWrp">
+                                <div class="item-wrap">
+                                    <div class="newPrdWrp">
+                                        <!--/block_product/-->
+                                        <!--/if_product_list/-->
+                                        <div class="items item-cont">
+                                            <!--/loop_product_list(12)/-->
+                                            <dl class="item-list">
+                                                <dt class="thumb">
+                                                    <a href="<!--/product_list@link/-->" class="prd_thumb">
+                                                        <img src="<!--/product_list@image_m/-->">
+                                                    </a>
+                                                    <div class="new_option">
+                                                        <!--/if_product_list@link_wish_toggle/-->
+                                                        <a href="<!--/product_list@link_wish_toggle/-->" class="ico prd-wish">
+                                                            <!--/product_list@block_btn_wish/-->
+                                                            <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_off.png" class="off">
+                                                            <img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wish_on.png" class="on">
+                                                            <!--/end_block/-->
+                                                        </a>
+                                                        <!--/end_if/-->
+                                                    </div>
+                                                </dt>
+                                                <dd class="prd-info">
+                                                    <ul>
+                                                        <li class="prd-name">
+                                                            <a href="<!--/product_list@link/-->">
+                                                                <!--/product_list@name/-->
+                                                            </a>
+                                                            <span class="prd-ico">
+                                            <!--/product_list@icons/-->
+                                                                <!--/product_list@subs_icon/-->
+                                                                <!--/product_list@promotion_icon/-->
+                                                                <!--/product_list@present_icon/-->
+                                            </span>
+                                                        </li>
+                                                        <!--/if_product_list@subname/-->
+                                                        <li class="prd-subname">
+                                                            <!--/product_list@subname/-->
+                                                        </li>
+                                                        <!--/end_if/-->
+                                                        <li class="prd-price">
+                                                            <!--/if_product_list@price_replace/-->
+                                                            <span class="replace">
+                                            <!--/product_list@price_replace/-->
+                                            </span>
+                                                            <!--/else_if_product_list@is_soldout/-->
+                                                            <span class="soldOut">Sold Out</span>
+                                                            <!--/else/-->
+                                                            <!--/if_product_list@price_discount/-->
+                                                            <span class="price">
+                                            <!--/number/product_list@price_discount/-->
+                                            </span>
+                                                            <strike>
+                                                                <!--/number/product_list@price_sell/-->
+                                                            </strike>
+                                                            <!--/else/-->
+                                                            <span class="price">
+                                            <!--/number/product_list@price_sell/-->
+                                            </span>
+                                                            <!--/if_product_list@price_consumer(+1)/-->
+                                                            <strike>
+                                                                <!--/number/product_list@price_consumer/-->
+                                                            </strike>
+                                                            <!--/end_if/-->
+                                                            <!--/end_if/-->
+                                                            <!--/end_if/-->
+                                                            <!--/if_product_list@discount_percent/-->
+                                                            <span class="discount">
+                                            <!--/product_list@discount_percent/-->%</span>
+                                                            <!--/end_if/-->
+                                                        </li>
+                                                        <!--/if_product_list@link_pop_product_benefit/-->
+                                                        <li class="prd-benefit">
+                                                            <a href="<!--/product_list@link_pop_product_benefit/-->"><img src="/images/d3/modern_simple/btn_benefit.gif" alt="혜택팝업보기"/></a>
+                                                        </li>
+                                                        <!--/end_if/-->
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                            <!--/end_loop/-->
+                                        </div>
+                                        <!--/end_if/-->
+                                        <!--/end_block/-->
+                                        <!--/block_product_more/-->
+                                        <div class="more">
+                                            <a href="<!--/link_more_product_list/-->"><button type="button" class="btn_moreGray">더보기 ▼</button></a>
+                                        </div>
+                                        <!--/end_block/-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- //item-wrap -->
+                    </div><!-- .page-body -->
+                </div><!-- #productClass -->
+            </div><!-- #content -->
+        </div><!-- #contentWrap -->
+    </div><!-- #contentWrapper-->
+    <!--/include_footer(1)/-->
+</div><!-- #wrap -->

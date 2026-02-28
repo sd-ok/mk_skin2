@@ -1,0 +1,1958 @@
+<style type="text/css">
+	#preview_wrap {
+    display: none;
+}
+
+:root {
+    /*color*/
+    --point-color:#5F4541;
+    /*font*/
+    --base-font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    /*size*/
+    --base-size:14px;
+}
+/* small-screen 클래스가 있을 때 */
+#wrap.small-screen #bstPrdWrp,#wrap.small-screen #newPrdWrp {
+    max-width: 1240px;
+}
+#wrap.small-screen #trend,#wrap.small-screen #recmdPrdWrp {
+    max-width:1240px !important;
+    padding-top:0;
+}
+#wrap {
+    background:#F6F4F3;
+    overflow:auto;
+}
+#mask {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    z-index: 200
+}
+/* header */
+#head_box {
+    z-index:11;
+    position:fixed;
+    top: 0;
+    background:#fff;
+    border-bottom:1px solid #E1D9D7;
+    width:100%;
+}
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width:1760px;
+    _background:#fff;
+    z-index:100;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+#topBnr {
+    text-align:center;
+    height:34px;
+    align-content:center;
+    background:#5f4541;
+}
+#topBnr .topBnrBox {
+}
+#topBnr .topBnrBox p {
+    color:#fff;
+    font-size:13px;
+    line-height:16px;
+    font-weight:500;
+    _font-family:Pretendard;
+}
+#topBnr .topBnrBox p span {
+    font-weight:800
+}
+#header .headerTnb {
+    height:80px;
+    line-height:80px;
+}
+#header .headerTnb:after {
+    display:block;
+    clear:both;
+    content:''
+}
+#header .headerTnb .tnb ul {
+    height:80px;
+    line-height:80px;
+    align-content:center;
+}
+#header .headerTnb .tnb li {
+    padding-left:15px;
+    display:inline-block;
+    vertical-align:middle;
+}
+#header .ham-open-btn {
+    width: 84px;
+}
+
+#header .headerTnb .tnb li.cart {
+    position:relative;
+}
+#header .headerTnb .tnb li.cart a {
+    position: relative;
+}
+#header .headerTnb .tnb li.cart a p {
+    width:16px;
+    height:16px;
+    background:var(--point-color);
+    border-radius:100%;
+    display:block;
+    color:#fff;
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    line-height:15px;
+    position:absolute;
+    right: 0;
+    top: 58%;
+    transform: translateY(-50%);
+}
+#header .headerTnb .tnb li a {
+    display:block;
+    font-size:var(--base-size);
+    color:var(--point-color);
+}
+#header .headerTop {
+    position:absolute;
+    height:80px;
+    top:0;
+    left:50%;
+    transform:translateX(-50%)
+}
+#header .headerTop:after {
+    display:block;
+    clear:both;
+    content:''
+}
+#header .headerTop .tlogo {
+    text-align:center;
+    height:80px;
+    line-height:80px;
+}
+#header .headerTop .tlogo a {
+    height:80px;
+    display:block;
+    line-height:74px;
+}
+#header .headerGnb .gnbInner {
+    position:relative;
+    margin:20px 0;
+}
+#header .headerGnb .gnbInner>ul {
+    *zoom:1
+}
+#header .headerGnb .gnbInner>ul:after {
+    display:block;
+    clear:both;
+    content:''
+}
+#header .headerGnb .gnbInner>ul li {
+    margin:0 20px;
+    position:relative;
+    float:left
+}
+#header .headerGnb .gnbInner>ul li:first-child {
+    margin-left:0
+}
+#header .headerGnb .gnbInner>ul li:last-child {
+    margin-right:0
+}
+#header .headerGnb .gnbInner>ul>li a {
+    text-transform:capitalize;
+    display:block;
+    height:41px;
+    font-size:14px;
+    color:#202020;
+    line-height:41px;
+    white-space:nowrap;
+    box-shadow:0 0 1px transparent
+}
+#header .headerGnb .gnbInner>ul>li a:before {
+    content:"";
+    position:absolute;
+    left:50%;
+    right:50%;
+    bottom:0;
+    height:2px;
+    z-index:-1;
+    background:#231f20;
+    -webkit-transition-property:left,right;
+    transition-property:left,right;
+    -webkit-transition-duration:0.3s;
+    transition-duration:0.3s;
+    -webkit-transition-timing-function:ease-out;
+    transition-timing-function:ease-out
+}
+#header .headerGnb .gnbInner>ul>li a:active:before,#header .headerGnb .gnbInner>ul>li a:focus:before,#header .headerGnb .gnbInner>ul>li a:hover:before {
+    left:0;
+    right:0
+}
+#header .headerGnb .gnbInner>ul>a:hover {
+    *height:39px;
+    *border-bottom:2px solid #000;
+}
+#header .headerGnb .gnbInner>ul li.first {
+    padding-left:0
+}
+#header .headerGnb .gnbInner>ul li.last {
+    padding:0 0 0 40px
+}
+#header .headerGnb .gnbInner .submenu {
+    display:none;
+    position:absolute;
+    border-radius:6px;
+    box-shadow:0 0 5px 0 rgba(145,158,171,0.2);
+    background:#fff;
+    min-width:156px;
+    left:-10px;
+}
+#header .headerGnb .gnbInner .submenu.on {
+    display:block;
+}
+#header .headerGnb .gnbInner .submenu ul {
+    padding-bottom:15px;
+}
+#header .headerGnb .gnbInner .submenu ul li {
+    margin:0;
+    padding:15px 20px 0;
+    float:unset;
+    text-align:left;
+}
+#header .headerGnb .gnbInner .submenu ul li:hover a {
+    color:#5f4541;
+    font-weight:600
+}
+#header .headerGnb .gnbInner .submenu ul li a {
+    height:unset;
+    line-height: unset;
+}
+
+/* 다찾다 자동완성*/
+.search-auto-complete-list {
+    display:none;
+    z-index:1;
+    position:absolute;
+    top:40px;
+    left:0;
+    border:1px solid #ddd;
+    border-top:1px solid #000;
+    line-height:14px;
+    background:#fff;
+}
+.search-auto-complete-list ul {
+    width:202px;
+    padding:4px 0 6px;
+    border-bottom:1px solid #ddd;
+}
+.search-auto-complete-list ul li {
+    text-align:left;
+}
+.search-auto-complete-list ul li.on {
+    background:#f3f3f3;
+}
+.search-auto-complete-list ul li a {
+    display:block;
+    padding:8px 14px 7px;
+    color:#000;
+    background:none;
+    _font-family:'dotum';
+    font-size:12px;
+    letter-spacing:-1px;
+}
+.search-auto-complete-list ul li a strong {
+    color:#ab3e41;
+}
+.search-auto-complete-list ul li a:hover {
+    background:#f2f2f2;
+}
+.search-auto-complete-list ul li a:hover span {
+    border-bottom:1px solid #000;
+}
+.search-auto-complete-list .search-list-close {
+    display:block;
+    padding:10px 11px;
+    text-align:right;
+    color:#999;
+    font-size: 11px;
+}
+
+/* 고정 버튼 */
+.floating-wrap {
+    position: fixed;
+    bottom: 104px;
+    right: 21px;
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+}
+
+.floating-btns.toggle-show.show { opacity: 1; visibility: visible; }
+.floating-btns.always-show { opacity: 1; visibility: visible; }
+.floating-btns { opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+.floating-btns .floating-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--cw-color-20);
+    background: var(--cw-color-white);
+}
+
+.floating-btns .btn-smart-finder { background: #fff url("//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_smart_finder.svg") no-repeat center center / 16px 16px; }
+.floating-btns .btn-go-top { background: #fff url("//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_arrow_expand.svg") no-repeat center center / 14px 14px; }
+
+
+/* 다찾다 검색 파인더 - 레이어 */
+.side-sfinder-overlay { z-index: 100; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; background: rgba(0, 0, 0, 0.7); }
+.side-sfinder-overlay.active { opacity: 1; visibility: visible; }
+.side-sfinder-wrap { z-index: 101; position: fixed; top: 0; right: -100%; width: var(--cw-size-360); max-width:100%; height: 100vh; padding-bottom: var(--cw-size-48); overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; transition: right 0.3s ease; background: var(--cw-color-white); }
+.side-sfinder-wrap.active { display: block; right: 0; }
+.sfinder-header { z-index: 1; position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: var(--cw-size-17) var(--cw-size-24); border-bottom: 1px solid var(--cw-color-30); background-color: var(--cw-color-white); }
+.sfinder-header .sfider-title { font-size: var(--cw-size-18); font-weight: 700; line-height: var(--cw-size-26); }
+.sfinder-header .side-sfinder-close { width: var(--cw-size-24); height: var(--cw-size-24); border: none; outline: none; background: url('//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_x.svg') no-repeat center center; filter: invert(59%) sepia(0%) saturate(413%) hue-rotate(281deg) brightness(115%) contrast(55%); }
+.side-sfinder-list .option li { border-bottom: 1px solid var(--cw-color-30); }
+.side-sfinder-list .option li .option-title { position: relative; padding: var(--cw-size-12) var(--cw-size-24); border-bottom: 1px solid var(--cw-color-20); font-size: var(--cw-size-16); font-weight: 700; line-height: var(--cw-size-24); cursor: pointer; }
+.side-sfinder-list .option li .option-title::after { content: ""; display: block; position: absolute; top: 0; right: 0; transform: translate(calc(var(--cw-size-24) * -1), var(--cw-size-16)); width: var(--cw-size-16); height: var(--cw-size-16); background: url('//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_arrow_cheveron-down.svg') no-repeat center center; }
+.side-sfinder-list .option li .option-title.on::after { background: url('//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_arrow_cheveron-up.svg') no-repeat center center; }
+.side-sfinder-list .option li .option-title.on + .finder-subs { display: block; }
+.side-sfinder-list .option li .finder-subs .class-none { display: flex; flex-wrap: wrap; gap: 4px; }
+.side-sfinder-list .option li .finder-subs { display: none; padding: var(--cw-size-16) var(--cw-size-24); background-color: var(--cw-color-10); }
+.side-sfinder-list .option li .finder-subs .form-check-label { display: grid; }
+.side-sfinder-list .option li .finder-subs :where(.finder-category, .finder-size) { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cw-size-4); }
+.side-sfinder-list .option li .finder-subs :where(.finder-price) { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--cw-size-4); }
+.side-sfinder-list .option li .finder-subs :where(.finder-color) { display: flex; flex-wrap: wrap; gap: var(--cw-size-8); }
+.side-sfinder-list .option li .finder-subs .finder-options:not(.color-picker) { display: flex; align-items: center; justify-content: center; padding: var(--cw-size-8) var(--cw-size-16); border: 1px solid var(--cw-color-30); border-radius: var(--cw-size-24); font-size: var(--cw-size-12); line-height: var(--cw-size-16); word-break: break-all; background-color: var(--cw-color-white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side-sfinder-list .option li .finder-subs .finder-options:not(.color-picker).on { border-color: var(--cw-heading-color); font-weight: 700; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); }
+.side-sfinder-list .option li .finder-subs .finder-option-color.color-picker { display: inline-flex; width: var(--cw-size-32); height: var(--cw-size-32); border-radius: var(--cw-size-50); text-indent: -9999px; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.color-picker.on::after { content: ""; display: inline-flex; width: 100%; height: 100%; background: url('//skin.makeshop.co.kr/skin/rw_shop/images/icons/ico_check.svg') no-repeat center;  background-size: var(--cw-size-20); }
+.side-sfinder-list .option li .finder-subs .finder-option-color.color-picker:not(.finder-option-color-white).on::after { filter: invert(1) brightness(2); }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-black { background-color: #000; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-white { background-color: #FFF; border: 1px solid var(--cw-color-30); }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-gray { background-color: #808080; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-beige { background-color: #e5d0b2; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-brown { background-color: #aa6810; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-navy { background-color: #425583; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-blue { background-color: #0000ff; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-light-blue { background-color: #62acff; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-red { background-color: #ff0000; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-orange { background-color: #ffa500; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-yellow { background-color: #ffff00; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-pink { background-color: #ffc0cb; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-purple { background-color: #800080; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-jaju { background-color: #a63f7f; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-khaki { background-color: #2f5e2f; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-green { background-color: #008000; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-light-green { background-color: #72dd95; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-silver { background-color: #dfdfdf; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-gold { background-color: #cfbc4e; }
+.side-sfinder-list .option li .finder-subs .finder-option-color.finder-option-color-apricot { background-color: #fbceb1; }
+.side-sfinder-list .option li .finder-subs .finder-price .finder-price-input { position: relative; grid-column: 1 / 3; display: flex; align-items: center; column-gap: var(--cw-size-4); padding-top: var(--cw-size-30); }
+.side-sfinder-list .option li .finder-subs .finder-price .finder-price-input::before { content: "직접입력"; position: absolute; top: var(--cw-size-4); left: 0; display: block; font-size: var(--cw-size-14); font-weight: 700; line-height: var(--cw-size-20); }
+.side-sfinder-list .option li .finder-subs .finder-price .finder-price-input label { display: flex; align-items: center; height: var(--cw-size-40); padding: 0 var(--cw-size-12); border: 1px solid var(--cw-color-30); border-radius: var(--cw-border-radius); font-size: var(--cw-size-14); background: var(--cw-color-white); }
+.side-sfinder-list .option li .finder-subs .finder-price .finder-price-input label .cw-textfield { width: 100%; padding: 0; border: 0; text-align: right; }
+.side-sfinder-list .option li .finder-subs .finder-search * { width: 100%; }
+.side-sfinder-btns { z-index: 1; position: fixed; bottom: 0; display: grid; grid-template-columns: var(--cw-size-120) var(--cw-size-240); }
+.side-sfinder-btns :where(.btn) { padding: 0; border-radius: 0; }
+.side-sfinder-btns .btn-gray { border: 0; border-top: 1px solid var(--cw-color-30); }
+.side-sfinder-btns .finder-count { color: var(--cw-point-color); }
+
+
+/* pc더보기 버튼 추가 영역 */
+.product-wrap .more {
+    text-align:center;
+    _margin:24px 0px;
+}
+.btn_moreGray {
+    font-size:0;
+    border-radius:4px;
+    width:181px;
+    height:50px;
+    line-height:50px;
+    border:0px none;
+    display:block;
+    margin:0 auto;
+    font-weight:500;
+    color:#5F4541;
+    background:url(//skin.makeshop.co.kr/skin/fortnight/pc/img/more_btn.png) #E0D6D4 no-repeat;
+    background-position:115px center;
+}
+button.btn_moreGray:after {
+    margin-left:-15px;
+    font-size:15px;
+    content:"더보기";
+}
+.btn_moreGray span {
+    line-height:20px;
+    font-size:15px;
+    font-weight:500;
+    color:#5F4541;
+}
+.btn_moreGray span em {
+    color: #f1191f;
+}
+/*검색 팝업*/
+.popup-wrap {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:none;
+    /* 초기 숨김 */
+    z-index:9999;
+}
+.popup-bg {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.5);
+    /* 검정 빈 공간 */
+}
+.popup-layer {
+    position:absolute;
+    top:0;
+    right:0;
+    width:420px;
+    height:100%;
+    background:#fff;
+    /* 팝업 본체 흰색 */
+    box-shadow:-2px 0 10px rgba(0,0,0,0.3);
+}
+.popup-close-btn {
+    position:absolute;
+    top:24px;
+    right:24px;
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+}
+.searchArea {
+    padding:80px 24px;
+}
+.searchArea .search {
+    position:relative;
+    height:48px;
+    line-height:48px;
+    border-bottom:1px solid #5F4541;
+}
+.searchArea .search input {
+    width:342px;
+    height:44px;
+    line-height:44px;
+    border:0;
+    font-size:16px;
+    color:#999;
+    font-weight:400;
+    padding: 0 8px;
+}
+.searchArea .search a {
+    position:absolute;
+    bottom:13px;
+    right:0;
+    width:21px;
+    height:21px;
+    line-height: var(--bs-body-line-height);
+}
+
+.popup-content .keyword {
+    margin-top:60px;
+}
+.popup-content .keyword h3 {
+    font-size:18px;
+    font-weight:600;
+    color:#5F4541;
+}
+.popup-content .keyword ul {
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+.popup-content .keyword ul li {
+    margin-bottom:16px;
+}
+.popup-content .keyword ul li:nth-child(1) {
+    grid-column:1;
+    grid-row:1;
+}
+.popup-content .keyword ul li:nth-child(2) {
+    grid-column:1;
+    grid-row:2;
+}
+.popup-content .keyword ul li:nth-child(3) {
+    grid-column:1;
+    grid-row:3;
+}
+.popup-content .keyword ul li:nth-child(4) {
+    grid-column:1;
+    grid-row:4;
+}
+.popup-content .keyword ul li:nth-child(5) {
+    grid-column:1;
+    grid-row:5;
+}
+.popup-content .keyword ul li:nth-child(6) {
+    grid-column:2;
+    grid-row:1;
+}
+.popup-content .keyword ul li:nth-child(7) {
+    grid-column:2;
+    grid-row:2;
+}
+.popup-content .keyword ul li:nth-child(8) {
+    grid-column:2;
+    grid-row:3;
+}
+.popup-content .keyword ul li:nth-child(9) {
+    grid-column:2;
+    grid-row:4;
+}
+.popup-content .keyword ul li:nth-child(10) {
+    grid-column:2;
+    grid-row:5;
+}
+.popup-content .keyword ul li a {
+    font-size:14px;
+    font-weight:400;
+    color:#656565
+}
+.popup-content .keyword ul li:nth-child(1) a,.popup-content .keyword ul li:nth-child(2) a,.popup-content .keyword ul li:nth-child(3) a {
+    font-weight:600;
+    color:#5F4541
+}
+.popup-content .keyword ul li a em {
+    font-weight:400;
+    color:#5F4541;
+    margin-right:10px;
+    width:15px;
+    display: inline-block;
+}
+
+@media (max-width:1024px) {
+
+    .scroll-lock{overflow: hidden;}
+
+    .dn{display:none !important}
+
+    body{
+        background:#F6F4F3;}
+
+
+    main{padding-bottom:20px}
+
+    #container{
+        background: #F6F4F3;
+        padding-top:90px}
+
+    #wrap {
+        overflow:auto;
+    }
+    #mask {
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.6);
+        z-index: 200
+    }
+
+    #contents{  min-height: 420px;}
+
+    /* header */
+    #head_box {
+        z-index:11;
+        position:fixed;
+        background:#fff;
+        width:100%;
+    }
+    #header {
+        z-index: 100;
+        height: 60px;
+        width: 100%;
+        position: relative;
+    }
+    #topBnr {
+        text-align:center;
+        height:30px;
+        align-content:center;
+        background:#5f4541;
+    }
+    #topBnr .topBnrBox {
+    }
+    #topBnr .topBnrBox p {
+        color:#fff;
+        font-size:12px;
+        line-height:16px;
+        font-weight:500;
+    }
+    #topBnr .topBnrBox p span {
+        font-weight:800
+    }
+
+    #header .headerTnb {
+        height: auto;
+        line-height: 1;
+    }
+    #header .headerTnb:after {
+        display:block;
+        clear:both;
+        content:''
+    }
+    #header .headerTnb .tnb {
+        height: auto;
+        line-height: 1;
+    }
+    #header .headerTnb .tnb ul {
+        height: auto;
+        line-height: 1;
+    }
+
+    #header .headerTnb .tnb li {
+        padding-left:12px;
+        display:inline-block;
+        vertical-align:middle;
+    }
+    #header .headerTnb .tnb li.src {
+    }
+
+    #header .headerTnb .tnb li.cart {
+        position:relative;
+    }
+    #header .headerTnb .tnb li.cart a {
+    }
+    #header .headerTnb .tnb li.cart a p {
+        width:16px;
+        height:16px;
+        background:var(--point-color);
+        border-radius:100%;
+        display:block;
+        color:#fff;
+        text-align:center;
+        font-size:11px;
+        font-weight:700;
+        line-height:15px;
+        position:absolute;
+        right:0;
+        bottom:0;
+    }
+    #header .headerTnb .tnb li a {
+        display:block;
+        font-size:var(--base-size);
+        color:var(--point-color);
+    }
+    #header .headerTop {
+        *zoom:1;
+        height: auto;
+    }
+    #header .headerTop:after {
+        display:block;
+        clear:both;
+        content:''
+    }
+    #header .headerTop .tlogo {
+        text-align:center;
+        height: auto;
+        line-height: 1;
+    }
+    #header .headerTop .tlogo a {
+        display:block;
+        height: auto;
+        line-height: 1;
+    }
+    #header .headerTop .tlogo a img{
+        vertical-align:middle;
+        width:120px;
+    }
+
+
+
+    #header .headerGnb {
+    }
+    #header .headerGnb .gnbInner {
+    }
+    #header .headerGnb .gnbInner>ul {
+        *zoom:1
+    }
+    #header .headerGnb .gnbInner>ul:after {
+    }
+    #header .headerGnb .gnbInner>ul li {
+    }
+    #header .headerGnb .gnbInner>ul li:first-child {
+        margin-left:0
+    }
+    #header .headerGnb .gnbInner>ul li:last-child {
+        margin-right:0
+    }
+    #header .headerGnb .gnbInner>ul>li a {
+    }
+    #header .headerGnb .gnbInner>ul>li a:before {
+    }
+    #header .headerGnb .gnbInner>ul>li a:active:before,#header .headerGnb .gnbInner>ul>li a:focus:before,#header .headerGnb .gnbInner>ul>li a:hover:before {
+    }
+    #header .headerGnb .gnbInner>ul>a:hover {
+    }
+    #header .headerGnb .gnbInner>ul li.first {
+    }
+    #header .headerGnb .gnbInner>ul li.last {
+    }
+    #header .headerGnb .gnbInner .submenu {
+    }
+    #header .headerGnb .gnbInner .submenu.on {
+    }
+    #header .headerGnb .gnbInner .submenu ul {
+    }
+    #header .headerGnb .gnbInner .submenu ul li {
+    }
+    #header .headerGnb .gnbInner .submenu ul li a {
+    }
+
+
+    /* 다찾다 자동완성*/
+    .search-auto-complete-list {
+        display:none;
+        z-index:1;
+        position:absolute;
+        top:40px;
+        left:0;
+        border:1px solid #ddd;
+        border-top:1px solid #000;
+        line-height:14px;
+        background:#fff;
+    }
+    .search-auto-complete-list ul {
+        width:202px;
+        padding:4px 0 6px;
+        border-bottom:1px solid #ddd;
+    }
+    .search-auto-complete-list ul li {
+        text-align:left;
+    }
+    .search-auto-complete-list ul li.on {
+        background:#f3f3f3;
+    }
+    .search-auto-complete-list ul li a {
+        display:block;
+        padding:8px 14px 7px;
+        color:#000;
+        background:none;
+        _font-family:'dotum';
+        font-size:12px;
+        letter-spacing:-1px;
+    }
+    .search-auto-complete-list ul li a strong {
+        color:#ab3e41;
+    }
+    .search-auto-complete-list ul li a:hover {
+        background:#f2f2f2;
+    }
+    .search-auto-complete-list ul li a:hover span {
+        border-bottom:1px solid #000;
+    }
+    .search-auto-complete-list .search-list-close {
+        display:block;
+        padding:10px 11px;
+        text-align:right;
+        color:#999;
+        font-size: 11px;
+    }
+    /* 다찾다 검색 파인더 */
+    #allfinder-layer {
+        z-index:9999;
+        position:fixed;
+        top:50px;
+        right:110px;
+        width:1000px;
+        zoom:1;
+        overflow:hidden;
+    }
+    #allfinder-layer .finder-body {
+        display:none;
+        z-index:1;
+        position:relative;
+        width:998px;
+        *width:918px;
+        padding:35px 40px 5px;
+        max-height:800px;
+        overflow-x:hidden;
+        overflow-y:auto;
+        box-sizing:border-box;
+        border:1px solid #666;
+        background:#fff;
+    }
+    #allfinder-layer .finder-body .finder-close {
+        position:absolute;
+        top:15px;
+        right:10px;
+        font-size:24px;
+        color:#000;
+        *width:19px;
+        *height:24px;
+        *background:url('/images/common/btn_h11_close.gif') no-repeat center center;
+        *background-size:19px 24px;
+    }
+    #allfinder-ctr {
+        z-index:10000;
+        position:fixed;
+        top:50px;
+        right:0;
+        width:103px;
+        height:86px;
+    }
+    #allfinder-ctr a {
+        display:block;
+        width:100%;
+        height:100%;
+        background:url('/images/common/allfinder_ctrl_pc.png') no-repeat right top;
+        border:none;
+        outline:none;
+        font-size:0;
+    }
+    .all-finder-layer .finder-body .finder-tbl table {
+        border:1px solid #ccc;
+        border-top:1px solid #000;
+    }
+    .all-finder-layer .finder-body .finder-tbl th,.all-finder-layer .finder-body .finder-tbl td {
+        height:40px;
+        border-top:1px solid #e5e5e5;
+        font-size:13px;
+        _font-family:'Malgun Gothic';
+        color:#000;
+    }
+    .all-finder-layer .finder-body .finder-tbl tr:first-child th,.all-finder-layer .finder-body .finder-tbl tr:first-child td {
+        border-top:none;
+    }
+    .all-finder-layer .finder-body .finder-tbl th {
+        padding:5px 0;
+        background:#f4f4f4;
+        text-align:left;
+        vertical-align:top;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l {
+        position:relative;
+        height:34px;
+        line-height:34px;
+        padding:0 20px;
+        margin:3px 0;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .fa {
+        position:absolute;
+        top:50%;
+        right:15px;
+        margin-top:-6px;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .finder-tooltip-btn {
+        display:inline-block;
+        width:20px;
+        height:20px;
+        line-height:22px;
+        border:1px solid #cecece;
+        border-radius:20px;
+        color:#666;
+        font-size:11px;
+        background:#fff;
+        text-align:center;
+        outline:none;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .finder-comm-layer {
+        display:none;
+        position:absolute;
+        top:33px;
+        left:52px;
+        width:270px;
+        padding:0 20px 18px;
+        border:1px solid #000;
+        background:#fff;
+        text-align:left;
+        font-weight:normal;
+        color:#000;
+        z-index:1
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .finder-comm-layer .finder-btn-close {
+        display:inline-block;
+        position:absolute;
+        top:14px;
+        right:20px;
+        margin:0;
+        font-size:21px;
+        color:#000;
+        outline:none;
+        *width:19px;
+        *height:22px;
+        *background:url('/images/common/btn_h11_close.gif') no-repeat center center;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .finder-comm-layer .finder-layer-tit {
+        padding:18px 0;
+        border-bottom:1px solid #e5e5e5;
+        font-size:15px;
+        font-weight:bold;
+        line-height:15px;
+    }
+    .all-finder-layer .finder-body .finder-tbl th .txt-l .finder-comm-layer .finder-layer-cnt {
+        padding-top:16px;
+        line-height:1.5;
+        font-size:13px;
+    }
+    .all-finder-layer .finder-body .finder-tbl td {
+        padding:5px 10px;
+    }
+    .all-finder-layer .finder-body .txt-input {
+        height:21px;
+        line-height:21px;
+        padding:0 5px;
+        font-size:13px;
+        _font-family:'Malgun Gothic';
+    }
+    .all-finder-layer .finder-body .finder-category {
+        height:40px;
+        overflow:hidden;
+    }
+    .all-finder-layer .finder-body .finder-category.open {
+        height:100%;
+        overflow:visible;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category {
+        display:none;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category th,.all-finder-layer .finder-body tr.finder-child-category td {
+        border-top:none;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category td {
+        background:#fbfbfb;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category td .finder-category2 .finder-cate2 {
+        display:inline-block;
+        margin:3px 5px 3px 0;
+        padding:5px 10px;
+        cursor:pointer;
+        line-height:22px;
+        vertical-align:top;
+        word-break:break-all;
+        color:#9a9a9a;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category td .finder-category2 .finder-cate2 .fa-check {
+        display:none;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category td .finder-category2 .finder-cate2.on {
+        font-weight:bold;
+        color:#000;
+        border:0;
+        border-radius:0;
+        box-shadow:unset;
+    }
+    .all-finder-layer .finder-body tr.finder-child-category td .finder-category2 .finder-cate2.on .fa-check {
+        display:inline-block;
+        margin-right:3px;
+    }
+    .all-finder-layer .finder-body .finder-color {
+        padding-left:10px;
+    }
+    .all-finder-layer .finder-body .finder-price .finder-price-input {
+        display:inline-block;
+        padding-top:5px
+    }
+    .all-finder-layer .finder-body .finder-price .finder-price-input label {
+        display:inline-block;
+        width:110px;
+        padding:0 10px;
+        border:1px solid #ccc;
+        border-radius:3px;
+        color:#666;
+    }
+    .all-finder-layer .finder-body .finder-price .finder-price-input label .txt-input {
+        display:inline-block;
+        width:90px;
+        height:29px;
+        line-height:29px;
+        padding:0;
+        border:none;
+        background:none;
+        color:#333;
+        text-align:right;
+    }
+    .all-finder-layer .finder-body .finder-search {
+        position:relative;
+        padding-left:5px;
+    }
+    .all-finder-layer .finder-body .finder-search label {
+        display:inline-block;
+        width:320px;
+        padding:0 10px;
+        border:1px solid #ccc;
+        border-radius:3px;
+    }
+    .all-finder-layer .finder-body .finder-search label .txt-input {
+        display:block;
+        width:100%;
+        height:29px;
+        line-height:29px;
+        padding:0;
+        border:none;
+        background:none;
+        color:#333;
+        text-align:left;
+    }
+    .all-finder-layer .finder-body .finder-btn-c {
+        padding:30px 0;
+        text-align:center;
+    }
+    .all-finder-layer .finder-body .finder-btn-c a.reset {
+        display:inline-block;
+        width:140px;
+        height:60px;
+        line-height:57px;
+        border:none;
+        border-radius:3px;
+        background:#999;
+        color:#fff;
+        font-size:18px;
+        font-weight:bold;
+        letter-spacing:1px;
+        _font-family:'Malgun Gothic';
+        margin-right:15px;
+    }
+    .all-finder-layer .finder-body .finder-btn-c button {
+        display:inline-block;
+        height:60px;
+        line-height:57px;
+        padding:0 30px;
+        *padding:0;
+        border:none;
+        border-radius:3px;
+        background:#000;
+        color:#fff;
+        font-size:18px;
+        font-weight:bold;
+        letter-spacing:-0.5px;
+        font-family:'Malgun Gothic';
+        cursor:pointer;
+    }
+    .all-finder-layer .finder-body .finder-btn-c button span.ico-search {
+        visibility:visible;
+        display:inline-block;
+        width:16px;
+        height:15px;
+        margin-right:10px;
+        margin-top:-4px;
+        *margin-top:0;
+        vertical-align:middle;
+        background:url('/images/common/btn_h15_search.png') no-repeat 0 0;
+    }
+    .all-finder-layer .finder-body .finder-btn-c button span.finder-count {
+        visibility:visible;
+        display:inline-block;
+        height:60px;
+        color:#ffd800;
+        font-size:23px;
+        *vertical-align:middle;
+    }
+    .all-finder-layer .finder-body .finder-btn-c button span.finder-count-toggle {
+        visibility:visible;
+        display:none;
+    }
+    .all-finder-layer .finder-body .finder-options {
+        display:inline-block;
+        margin:3px 5px 3px 0;
+        padding:5px 10px;
+        cursor:pointer;
+        line-height:22px;
+        border:1px solid #fff;
+        vertical-align:top;
+        word-break:break-all;
+    }
+    .all-finder-layer .finder-body .finder-options.on {
+        font-weight:bold;
+        border:1px solid #000;
+        border-radius:20px;
+        box-shadow:2px 2px 3px #d2d2d2;
+    }
+    .all-finder-layer .finder-body .finder-option-color em {
+        display:inline-block;
+        width:22px;
+        height:22px;
+        border-radius:20px;
+        font-size:0;
+        vertical-align:top;
+    }
+    .all-finder-layer .finder-body .finder-option-color.color-picker {
+        width:22px;
+        height:22px;
+        padding:0;
+        border:none;
+    }
+    .all-finder-layer .finder-body .finder-option-color.color-picker.on {
+        border:none;
+    }
+    .all-finder-layer .finder-body .finder-option-color.color-picker .fa-check {
+        display:none;
+        width:22px;
+        height:22px;
+        margin-top:-17px;
+        color:#fff;
+        text-align:center;
+    }
+    .all-finder-layer .finder-body .finder-option-color.color-picker.on .fa-check {
+        display:block;
+    }
+    .all-finder-layer .finder-body .finder-option-color.color-picker.on.finder-option-color-white .fa-check {
+        color:#000;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-black em {
+        background-color:#000;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-white em {
+        background-color:#FFF;
+        width:20px;
+        height:20px;
+        border:1px solid #e5e5e5;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-gray em {
+        background-color:#808080;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-beige em {
+        background-color:#e5d0b2;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-brown em {
+        background-color:#aa6810;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-navy em {
+        background-color:#425583;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-blue em {
+        background-color:#0000ff;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-light-blue em {
+        background-color:#62acff;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-red em {
+        background-color:#ff0000;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-orange em {
+        background-color:#ffa500;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-yellow em {
+        background-color:#ffff00;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-pink em {
+        background-color:#ffc0cb;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-purple em {
+        background-color:#800080;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-jaju em {
+        background-color:#a63f7f;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-khaki em {
+        background-color:#2f5e2f;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-green em {
+        background-color:#008000;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-light-green em {
+        background-color:#72dd95;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-silver em {
+        background-color:#dfdfdf;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-gold em {
+        background-color:#cfbc4e;
+    }
+    .all-finder-layer .finder-body .finder-option-color.finder-option-color-apricot em {
+        background-color:#fbceb1;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list {
+        display:none;
+        z-index:1;
+        position:absolute;
+        top:30px;
+        left:5px;
+        border:1px solid #ddd;
+        line-height:14px;
+        background:#fff;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul {
+        width:340px;
+        padding:4px 0 6px;
+        border-bottom:1px solid #ddd;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li {
+        text-align:left;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li.on {
+        background:#f3f3f3;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li a {
+        display:block;
+        padding:8px 14px 7px;
+        color:#000;
+        background:none;
+        _font-family:'dotum';
+        font-size:12px;
+        letter-spacing:-1px;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li a strong {
+        color:#ab3e41;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li a:hover {
+        background:#f2f2f2;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list ul li a:hover span {
+        border-bottom:1px solid #000;
+    }
+    .all-finder-layer .finder-body .search-auto-complete-list .search-list-close {
+        display:block;
+        padding:10px 11px;
+        text-align:right;
+        color:#999;
+        font-size:11px;
+    }
+    .all-finder-layer .finder-body .finder-search-data .finder-options {
+        border:1px solid #e5e5e5;
+        box-shadow:none;
+    }
+    .all-finder-layer .finder-body .finder-search-data .finder-options .fa-close {
+        margin-left:10px;
+        color: #999;
+    }
+    /* pc더보기 버튼 추가 영역 */
+    .product-wrap .more {
+        text-align:center;
+        _margin:24px 0px;
+    }
+    .btn_moreGray {
+        font-size:0;
+        border-radius:4px;
+        width: 179px;
+        height: 46px;
+        line-height: 46px;
+        border:0px none;
+        display:block;
+        margin:0 auto;
+        font-weight:500;
+        color:#5F4541;
+        background:url(//skin.makeshop.co.kr/skin/fortnight/pc/img/more_btn.png) #E0D6D4 no-repeat;
+        background-position:115px center;
+    }
+    button.btn_moreGray:after {
+        margin-left:-15px;
+        font-size:14px;
+        content:"더보기";
+    }
+    .btn_moreGray span {
+        line-height:20px;
+        font-size:15px;
+        font-weight:500;
+        color:#5F4541;
+    }
+    .btn_moreGray span em {
+        color: #f1191f;
+    }
+
+
+    /*검색 팝업*/
+    .popup-wrap {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display:none;
+        /* 초기 숨김 */
+        z-index:9999;
+    }
+    .popup-bg {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background: rgba(0,0,0,0.5);
+        /* 검정 빈 공간 */
+    }
+    .popup-layer {
+        position:absolute;
+        top:0;
+        right:0;
+        width:100%;
+        height:100%;
+        background:#fff;
+        /* 팝업 본체 흰색 */
+        box-shadow:-2px 0 10px rgba(0,0,0,0.3);
+    }
+    .popup-close-btn {
+        position:absolute;
+        top:24px;
+        right:24px;
+        background:none;
+        border:none;
+        font-size:20px;
+        cursor:pointer;
+    }
+    .searchArea {
+        padding:80px 24px;
+    }
+    .searchArea .search {
+        position:relative;
+        height:48px;
+        line-height:48px;
+        border-bottom:1px solid #5F4541;
+    }
+    .searchArea .search input {
+        width: 100%;
+        height:44px;
+        line-height:44px;
+        padding-right: 30px;
+        border:0;
+        font-size:16px;
+        color:#999;
+        font-weight:400;
+    }
+    .searchArea .search a {
+        position:absolute;
+        bottom:13px;
+        right:0;
+        width:21px;
+        height:21px;
+    }
+    .popup-content .keyword {
+        margin-top:60px;
+    }
+    .popup-content .keyword h3 {
+        font-size:18px;
+        font-weight:600;
+        color:#5F4541;
+    }
+    .popup-content .keyword ul {
+        margin-top:24px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+    .popup-content .keyword ul li {
+        margin-bottom:16px;
+    }
+    .popup-content .keyword ul li:nth-child(1) {
+        grid-column:1;
+        grid-row:1;
+    }
+    .popup-content .keyword ul li:nth-child(2) {
+        grid-column:1;
+        grid-row:2;
+    }
+    .popup-content .keyword ul li:nth-child(3) {
+        grid-column:1;
+        grid-row:3;
+    }
+    .popup-content .keyword ul li:nth-child(4) {
+        grid-column:1;
+        grid-row:4;
+    }
+    .popup-content .keyword ul li:nth-child(5) {
+        grid-column:1;
+        grid-row:5;
+    }
+    .popup-content .keyword ul li:nth-child(6) {
+        grid-column:2;
+        grid-row:1;
+    }
+    .popup-content .keyword ul li:nth-child(7) {
+        grid-column:2;
+        grid-row:2;
+    }
+    .popup-content .keyword ul li:nth-child(8) {
+        grid-column:2;
+        grid-row:3;
+    }
+    .popup-content .keyword ul li:nth-child(9) {
+        grid-column:2;
+        grid-row:4;
+    }
+    .popup-content .keyword ul li:nth-child(10) {
+        grid-column:2;
+        grid-row:5;
+    }
+    .popup-content .keyword ul li a {
+        font-size:14px;
+        font-weight:400;
+        color:#656565
+    }
+    .popup-content .keyword ul li:nth-child(1) a,.popup-content .keyword ul li:nth-child(2) a,.popup-content .keyword ul li:nth-child(3) a {
+        font-weight:600;
+        color:#5F4541
+    }
+    .popup-content .keyword ul li a em {
+        font-weight:400;
+        color:#5F4541;
+        margin-right:10px;
+        width:15px;
+        display: inline-block;
+    }
+
+
+
+    /*햄버거메뉴*/
+    .ham-wrap {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display:none;
+        /* 초기 숨김 */
+        z-index:9999;
+    }
+
+    .ham-bg {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background: rgba(0,0,0,0.5);
+        /* 검정 빈 공간 */
+    }
+    .ham-layer {
+        overflow: auto;
+        position:absolute;
+        top:0;
+        right:0;
+        width:100%;
+        height:100%;
+        background:#F6F4F3;
+    }
+    .ham-layer .ham-content{
+    }
+
+    .ham-layer .ham-content .logonoff{
+        margin: 24px;
+    }
+
+    .ham-layer .ham-content .logonoff a{
+        font-size: 14px;
+        font-weight: 400;
+        color: #5F4541;
+    }
+
+    .ham-layer .ham-content .logonoff > a{}
+    .ham-layer .ham-content .logonoff > a:nth-child(1){padding-right:20px;position:relative;}
+    .ham-layer .ham-content .logonoff > a:nth-child(1)::after{content:"";height:12px; width:1px; position:absolute; right:0; top: 3px; background: #E1D9D7;}
+    .ham-layer .ham-content .logonoff > a:nth-child(2){padding-left:20px;}
+
+    .ham-layer .ham-content .logonoff a img{
+        vertical-align: middle;
+        margin-right: 4px;
+        margin-top: -2px;
+    }
+
+    .ham-close-btn {
+        position:absolute;
+        top:24px;
+        right:24px;
+        background:none;
+        border:none;
+        font-size:20px;
+        cursor:pointer;
+    }
+
+    .popup-close-btn img,
+    .ham-close-btn img{display:block !important}
+
+    .ham-wrap .headerGnb {
+        padding: 0 24px;
+    }
+
+    .ham-wrap .headerGnb .gnbInner {
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul {
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul >li {
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul >li > a {
+        font-size: 16px;
+        color: #5F4541;
+        font-weight: 500;
+        font-family: var(--base-font);
+        display: inline-block;
+        width: 100%;
+        padding: 14px 0;
+        position: relative;
+    }
+
+
+    .ham-wrap .headerGnb .gnbInner >ul >li > a.sub::after{content: "";
+        background: url(//skin.makeshop.co.kr/skin/fortnight/pc/img/toggle_arrow.png) no-repeat right center;
+        transition: transform 0.3s;
+        font-size: inherit;
+        width: 14px;
+        height: 8px;
+        display: inline-block;
+        float: right;
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul >li > a.sub.active::after{
+        transform: rotate(180deg);
+    }
+
+
+    .ham-wrap .headerGnb .gnbInner >ul >li .submenu {
+        display: none;
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul >li .submenu > ul{
+
+    }
+
+
+    .ham-wrap .headerGnb .gnbInner >ul >li .submenu > ul > li{
+        font-size: 15px;
+        color: #656565;
+        font-weight: 400;
+        padding: 1px;
+
+    }
+
+    .ham-wrap .headerGnb .gnbInner >ul >li .submenu > ul > li > a{
+        font-size: 15px;
+        color: #656565;
+        font-weight: 400;
+        padding: 10px 0;
+        display: block;
+    }
+
+    .floating-wrap {
+        bottom: 116px;
+        right: 21px;
+    }
+
+    .floating-btns .floating-btn {
+        width: 46px;
+        height: 46px;
+    }
+}
+</style>
+
+<script type="text/javascript">
+//해상도 반응
+function handleResize() {
+    const element = document.querySelector('#wrap');
+    if (window.innerWidth <= 1600) {
+        element.classList.add('small-screen');
+    } else {
+        element.classList.remove('small-screen');
+    }
+}
+
+window.addEventListener('resize', handleResize);
+window.addEventListener('load', handleResize); // 초기 로드 시 적용
+
+function mobile_homebutton(title) {
+    var page_uri = "http://" + document.domain,
+        main_uri = page_uri + "/m/main.html",
+        icon_uri = '',
+        user_agent = navigator.userAgent.toLowerCase();
+    var title = (title.length > 0) ? title : shop_name,
+        encode_title = encodeURI(title);
+
+    (function($) {
+        $(function() {
+            $('link').each(function() {
+                if ($(this).attr('rel') == "apple-touch-icon-precomposed") {
+                    icon_uri = page_uri + $(this).attr('href');
+                }
+            });
+        });
+    })(jQuery);
+
+    var call_uri= "intent://addshortcut?url="+main_uri +"&icon="+icon_uri +"&title="+encode_title+"&oq="+encode_title+"&serviceCode=nstore&version=7#Intent;scheme=naversearchapp;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.search;end";
+    if (user_agent.match(/ipad|iphone|ipod/g)) {
+        alert('아이폰, 아이패드계열은 직접 홈버튼 추가를 사용하셔야 합니다.');
+    } else {
+        alert(title+'을(를) 홈화면에 추가합니다. 네이버앱이 없는 고객님께서는 네이버앱 설치페이지로 이동됩니다.');
+        document.location.href = call_uri;
+    }
+}
+
+
+
+
+//중분류 노출
+jQuery(document).ready(function() {
+    jQuery('#header .headerGnb .gnbInner ul li').hover(
+        function() { // 마우스 오버
+            jQuery(this).children(".submenu").addClass('on');
+        },
+        function() { // 마우스 아웃
+            jQuery(this).children(".submenu").removeClass('on');
+        }
+    );
+});
+
+//검색 팝업
+jQuery(document).ready(function(){
+    // 팝업 열기
+    jQuery('.popup-open-btn').on('click', function(){
+        jQuery('.popup-wrap').fadeIn();
+    });
+
+    // 팝업 닫기 (X버튼 or 검정배경 클릭)
+    jQuery('.popup-close-btn, .popup-bg').on('click', function(){
+        jQuery('.popup-wrap').fadeOut();
+    });
+
+    //링크이동
+    jQuery('.link-item').on('click', function(e){
+        e.preventDefault(); // 기존 링크 기능 막기
+        var text = $(this).children("span").text().trim(); // a요소의 텍스트 추출
+        var targetUrl = '/shop/shopbrand.html?search=&prize1=' + text;
+        window.location.href = targetUrl; // 링크 이동
+    });
+
+    // 다찾다 검색 파인더 레이어 열기 닫기
+    jQuery('.all-finder-open').click(function(e){
+        e.preventDefault();
+        jQuery('body, html').css('overflow-y', 'hidden');
+        jQuery('#all-finder-layer').show();
+    });
+    jQuery('.all-finder-close').click(function(e){
+        e.preventDefault();
+        jQuery('body, html').css('overflow-y', 'visible');
+        jQuery('#all-finder-layer').hide();
+    });
+
+// 다찾다 검색 파인더 레이어 옵션 열기 닫기
+    jQuery('.all-finder-layer .finder-opt dl dt').click(function(e){
+        if (e.target.classList.contains('finder-tooltip-btn') || findParentElementClassName(e.target, 'finder-comm-layer')) {
+            e.preventDefault();
+            return;
+        }
+        if ( jQuery(this).find('span').hasClass('fa-angle-down') ){
+            jQuery(this).find('span').addClass('fa-angle-up').removeClass('fa-angle-down');
+        } else {
+            jQuery(this).find('span').addClass('fa-angle-down').removeClass('fa-angle-up');
+        }
+        jQuery(this).next('dd').toggle();
+        jQuery('.all-finder-layer').scrollTop(0).stop().animate({ scrollTop: jQuery(this).offset().top - 120 }, 0);
+    });
+
+    function findParentElementClassName(el, className) {
+        return (el.classList.contains(className)) ? el : (el.parentElement !== null) ? findParentElementClassName(el.parentElement, className) : null;
+    }
+
+});
+
+//햄버거메뉴
+
+jQuery(document).ready(function(){
+    // 팝업 열기
+    jQuery('.ham-open-btn').on('click', function(){
+        jQuery("html,body").addClass("scroll-lock");
+        jQuery('.ham-wrap').fadeIn();
+    });
+
+    // 팝업 닫기 (X버튼클릭)
+    jQuery('.ham-close-btn').on('click', function(){
+        jQuery("html,body").removeClass("scroll-lock");
+        jQuery('.ham-wrap').fadeOut();
+    });
+
+
+    jQuery('.ham-wrap .headerGnb .gnbInner ul li > a.sub').on('click', function(e) {
+        e.preventDefault();
+        var submenu = jQuery(this).next('.submenu');
+        submenu.stop().slideToggle(200); // 서브메뉴 슬라이드 토글
+        jQuery(this).toggleClass('active'); // 화살표 회전 클래스 토글
+    });
+
+});
+
+
+//헤더높이설정
+function setHeaderPadding() {
+    var headerHeight = jQuery('#head_box').outerHeight();
+    jQuery('body').css('padding-top', headerHeight + 'px');
+}
+setHeaderPadding();
+var resizeTimer;
+jQuery(window).on('resize orientationchange', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setHeaderPadding, 100);
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 다찾다 검색 파인더
+    const sfinderMenu = document.querySelector('.side-sfinder-wrap');
+    const sfinderOpen = document.querySelectorAll('.side-sfinder-open, .btn-smart-finder');
+    const sfinderClose = document.querySelector('.side-sfinder-close');
+    const sfinderOverlay = document.querySelector('.side-overlay');
+
+    const sfinderScroll_off = () => {
+        document.documentElement.classList.add('no-scroll');
+        document.body.classList.add('no-scroll');
+    };
+
+    const sfinderScroll_on = () => {
+        document.documentElement.classList.remove('no-scroll');
+        document.body.classList.remove('no-scroll');
+    };
+
+    const openfinderMenu = (e) => {
+        sfinderMenu?.classList.add('active');
+        sfinderOverlay?.classList.add('active');
+        sfinderScroll_off();
+    };
+
+    const closefinderMenu = () => {
+        sfinderMenu?.classList.remove('active');
+        sfinderOverlay?.classList.remove('active');
+        sfinderScroll_on();
+    };
+
+    // 여러 버튼 이벤트 처리
+    sfinderOpen.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openfinderMenu();
+        });
+    });
+
+    sfinderClose?.addEventListener('click', closefinderMenu);
+    sfinderOverlay?.addEventListener('click', closefinderMenu);
+
+    const toggleOnClick = (selector) => {
+        document.querySelectorAll(selector).forEach(el =>
+            el?.addEventListener('click', () => el.classList.toggle('on'))
+        );
+    };
+
+    toggleOnClick('.side-sfinder-wrap .finder-options');
+    toggleOnClick('.side-sfinder-wrap .option-title');
+});
+</script>
+
+<!--//(주)커넥트웨이브에서 제작한 모든 이미지, 스킨은 저작권법으로 보호받으며 허가 없이 무단 사용, 복제, 변경, 재배포 등의 행위를 할 시 저작권법에 의거하여 법적인 처벌을 받을 수 있습니다.//-->
+<link rel="stylesheet" as="style" crossorigin href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
+<script src="//image.makeshop.co.kr/makeshop/d3/basic_simple/js/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" href="//skin.makeshop.co.kr/images/d3/m_01/css/font-awesome.min.css"/>
+<!-- Swiper JS -->
+<script src="//skin.makeshop.co.kr/skin/js/swiper-bundle.min.js"></script>
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="//skin.makeshop.co.kr/skin/js/swiper-bundle.min.css"/>
+<!-- 상단 시작 -->
+<div id="head_box">
+    <!-- 상단 배너 -->
+    <div id="topBnr">
+        <div class="topBnrBox">
+            <p>
+                지금 가입하고 적립금 <span>3,000원</span> 받기
+            </p>
+        </div>
+    </div>
+    <!--/if_head_banner/-->
+    <!--/head_banner/-->
+    <!--/end_if/-->
+    <header class="sticky">
+        <div id="header">
+            <a href="#none" class="ham-open-btn only-mo"><img src="//skin.makeshop.co.kr/skin/fortnight/mo/tabler-icon-menu-2.png"></a>
+            <div class="headerGnb only-pc">
+                <div class="gnbInner">
+                    <ul>
+                        <!--/loop_category1(3)/-->
+                        <li>
+                            <a href="<!--/category1@link/-->">
+                                <!--/category1@name/-->
+                            </a>
+                            <!--/if_category1@category2/-->
+                            <div class="submenu">
+                                <ul>
+                                    <!--/loop_category1@category2/-->
+                                    <li><a href="<!--/category1@category2@link/-->">
+                                        <!--/category1@category2@name/-->
+                                    </a></li>
+                                    <!--/end_loop/-->
+                                </ul>
+                            </div>
+                            <!--/end_if/-->
+                        </li>
+                        <!--/end_loop/-->
+                    </ul>
+                </div>
+            </div>
+            <!-- //headerGnb -->
+            <div class="headerTop">
+                <h1 class="tlogo"><a href="<!--/link_home/-->"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/logo.png" alt="LOGO"/></a></h1>
+            </div>
+            <!-- //headerTop -->
+            <div class="headerTnb">
+                <div class="tnb">
+                    <ul>
+                        <!--/if_login/-->
+                        <li class="only-pc"><a href="<!--/link_logout/-->">Logout&nbsp;&nbsp;&nbsp;/</a></li>
+                        <li class="only-pc"><a href="<!--/link_join/-->">Modify</a></li>
+                        <!--/else/-->
+                        <li class="only-pc"><a href="<!--/link_login/-->">Login&nbsp;&nbsp;&nbsp;/</a></li>
+                        <li class="only-pc"><a href="<!--/link_join/-->">Join</a></li>
+                        <!--/end_if/-->
+                        <li class="src"><a href="#none" class="popup-open-btn"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/tabler-icon-search.png"></a></li>
+                        <li class="wish only-pc"><a href="/shop/mypage.html?mypage_type=mywishlist"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/wishlist.png"></a></li>
+                        <li class="cart"><a href="<!--/link_basket/-->"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/ShoppingBagOutline.png">
+                            <p>
+                                <!--/user_basket_quantity/-->
+                            </p>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- //headerTnb -->
+        </div>
+    </header>
+    <!-- //header -->
+    <!-- //상단 시작 -->
+</div>
+
+<div class="ham-wrap">
+    <!-- 검정 빈 공간 -->
+    <div class="ham-layer only-mo">
+        <button class="ham-close-btn"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/pop-close.png"></button>
+        <div class="ham-content">
+            <div class="logonoff">
+                <!--/if_login/--><a href="<!--/link_logout/-->"><span><img src="//skin.makeshop.co.kr/skin/fortnight/mo/Login.png"></span> Logout</a><a href="<!--/link_join/-->"><span><img src="//skin.makeshop.co.kr/skin/fortnight/mo/Join.png"></span> Info</a><!--/else/--><a href="<!--/link_login/-->"><img src="//skin.makeshop.co.kr/skin/fortnight/mo/Login.png"> Login</a><a href="<!--/link_join/-->"><span><img src="//skin.makeshop.co.kr/skin/fortnight/mo/Join.png"></span> Join</a><!--/end_if/-->
+            </div>
+
+            <div class="headerGnb">
+                <div class="gnbInner">
+                    <ul>
+                        <!--/loop_category1(5)/-->
+                        <li>
+                            <a href="<!--/category1@link/-->" class="<!--/if_category1@category2/-->sub<!--/end_if/-->"><!--/category1@name/--></a>
+                            <!--/if_category1@category2/-->
+                            <div class="submenu">
+                                <ul>
+                                    <!--/loop_category1@category2/-->
+                                    <li><a href="<!--/category1@category2@link/-->">
+                                        <!--/category1@category2@name/-->
+                                    </a></li>
+                                    <!--/end_loop/-->
+                                </ul>
+                            </div>
+                            <!--/end_if/-->
+                        </li>
+                        <!--/end_loop/-->
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="popup-wrap">
+    <div class="popup-bg">
+    </div>
+    <!-- 검정 빈 공간 -->
+    <div class="popup-layer">
+        <button class="popup-close-btn"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/pop-close.png"></button>
+        <div class="popup-content">
+            <div class="searchArea">
+                <div class="search">
+                    <!--/form_search/-->
+                    <fieldset>
+                        <legend>상품 검색 폼</legend>
+                        <!--/input_search_word(search_auto_completion)/-->
+                        <a href="<!--/link_search_button/-->"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/pop-src.png"></a>
+                    </fieldset>
+                    <!--/end_form/-->
+                </div>
+                <div class="keyword">
+                    <h3>인기 검색어</h3>
+                    <ul>
+                        <li><a href="" class="link-item"><em>1</em><span>클렌저</span></a></li>
+                        <li><a href="" class="link-item"><em>2</em><span>바디워시</span></a></li>
+                        <li><a href="" class="link-item"><em>3</em><span>미스트</span></a></li>
+                        <li><a href="" class="link-item"><em>4</em><span>바디 크림</span></a></li>
+                        <li><a href="" class="link-item"><em>5</em><span>헤어 오일</span></a></li>
+                        <li><a href="" class="link-item"><em>6</em><span>앰플</span></a></li>
+                        <li><a href="" class="link-item"><em>7</em><span>바디에멀전</span></a></li>
+                        <li><a href="" class="link-item"><em>8</em><span>헤어팩</span></a></li>
+                        <li><a href="" class="link-item"><em>9</em><span>트리트먼트</span></a></li>
+                        <li><a href="" class="link-item"><em>10</em><span>핸드크림</span></a></li>
+                    </ul>
+                </div>
+                <div class="search-auto-complete-list">
+                </div>
+            </div>
+            <!-- //searchArea -->
+        </div>
+    </div>
+</div>
+
+<!-- 고정 버튼  -->
+<div class="floating-wrap">
+    <!--/if_form_smart_finder/-->
+    <div class="floating-btns always-show">
+        <button type="button" class="floating-btn btn-smart-finder"></button>
+    </div>
+    <!--/end_if/-->
+</div>
+<!-- // 고정 버튼  -->
+
+<!-- 다찾다 검색 파인더 -->
+<!--/if_form_smart_finder/-->
+<!--/form_smart_finder/-->
+<div class="side-sfinder-wrap">
+    <div class="sfinder-header">
+        <div class="sfider-title">스마트 검색</div>
+        <button type="button" class="side-sfinder-close"></button>
+    </div>
+    <div class="side-sfinder-list">
+        <ul class="option">
+            <!--/loop_smart_finder/-->
+            <li>
+                <div class="option-title on"><!--/smart_finder@title/--></div>
+                <div class="finder-subs">
+                    <div class="<!--/if_smart_finder@class_name/--><!--/smart_finder@class_name/--><!--/else/-->class-none<!--/end_if/-->">
+                        <!--/loop_smart_finder@items(20)/-->
+                        <!--/smart_finder@items@name/-->
+                        <!--/end_loop/-->
+                    </div>
+                </div>
+                <!--/if_smart_finder@is_category/-->
+                <div class="finder-child-category">
+                    <div class="mobile-select-category"></div>
+                    <div class="finder-category2"></div>
+                </div>
+                <!--/end_if/-->
+            </li>
+            <!--/end_loop/-->
+        </ul>
+    </div>
+    <div class="side-sfinder-btns">
+        <a href="#none" class="btn btn-gray btn-lg reset"><span>초기화</span></a>
+        <button type="submit" class="btn btn-primary btn-lg"><span><span class="finder-count"></span>개 상품검색</span></button>
+    </div>
+</div>
+<!--/end_form/-->
+<!--/end_if/-->
+<!-- //다찾다 검색 파인더 -->

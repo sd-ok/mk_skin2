@@ -1,0 +1,449 @@
+<style type="text/css">
+	/* 하단 */
+#footer {
+    position:relative;
+    width:100%;
+    max-width: 100%;
+    background:#232323;
+    padding-top:40px;
+    padding-bottom:48px;
+    margin-top: 80px;
+}
+#footer * {
+    color:#fff;
+}
+#wrap.small-screen #footer .footerTop {
+    max-width:1240px;
+}
+#footer .footerTop {
+    margin:0 auto;
+    position:relative;
+    max-width: 1760px;
+    padding: 0 16px;
+    *zoom:1
+}
+#footer .footerTop:after {
+    display:block;
+    clear:both;
+    content:''
+}
+#footer .footerTop .infoBx {
+}
+#footer .footerTop .infoBx h3 {
+    padding-bottom:10px;
+    font-size:16px;
+    font-weight:600;
+}
+#footer .footerTop .infoBx .tx {
+    color:#999999;
+    line-height:22px;
+}
+#footer .footerTop .linkInfo {
+    display:flex;
+}
+#footer .footerTop .linkInfo li {
+    margin-top:16px;
+}
+#footer .footerTop .linkInfo li {
+    float:left;
+    padding-bottom:13px;
+    color:inherit;
+}
+#footer .footerTop .linkInfo li a {
+    font-weight:400;
+    color:#999999;
+    font-size:13px;
+}
+#footer .footerTop .linkInfo li a:after {
+    font-size:9px;
+    content:"|";
+    margin:4px 10px;
+    /* vertical-align:top;*/
+}
+#footer .footerTop .linkInfo li:nth-last-child(1) a:after {
+    display:none
+}
+#footer .footerTop .csInfo {
+    float:right;
+    text-align:right;
+}
+#footer .footerTop .csInfo .tel {
+    font-size:13px;
+    font-weight:400;
+    line-height:22px;
+    color:#999;
+}
+#footer .footerTop .csInfo .tx {
+    line-height:20px
+}
+#footer .footerTop .csInfo .tx em {
+    color:#999;
+}
+#footer .footerTop .csInfo .tx em:nth-last-child(1) {
+    display:none
+}
+#footer .footerTop .shopInfo {
+    float:left
+}
+#footer .footerTop .shopInfo .tx span {
+    font-weight:400;
+    padding-right:25px;
+    color:#999999;
+    font-size:13px
+}
+#footer .footerTop .shopInfo .tx a {
+    color:unset;
+    text-decoration:underline;
+    vertical-align:text-top;
+}
+#footer .footerTop .shopInfo .tx a.btn_email {
+    color:#5d5d5d
+}
+#footer .footerTop .shopInfo .copy {
+    padding-top:5px;
+    color:#a5a5a5
+}
+#footer .footerBottom {
+    margin:0 auto;
+    position:relative;
+    width:1100px
+}
+#footer .footerTop .sns {
+    margin-top:40px;
+}
+#footer .footerTop .sns ul {
+    display:flex;
+    justify-content:flex-end;
+}
+#footer .footerTop .sns ul li {
+    margin-left:16px
+}
+.sc_script {
+    position:fixed;
+    bottom:24px;
+    right:16px;
+    z-index:100;
+}
+.sc_script a {
+    display:block;
+    margin: -14px 0;
+}
+
+@media (max-width:1024px) {
+    /* 하단 */
+    #footer {
+        position:relative;
+        width:100%;
+        background:#232323;
+        padding-top:32px;
+        padding-bottom:60px;
+        text-align: center;
+    }
+
+    #footer * {
+        color:#fff;
+    }
+    #wrap.small-screen #footer .footerTop {
+        position: relative;
+        width: 100%;
+    }
+    #footer .footerTop {
+        margin:0 auto;
+        position:relative;
+        width:100%;
+        *zoom:1
+    }
+    #footer .footerTop:after {
+        display:block;
+        clear:both;
+        content:''
+    }
+    #footer .footerTop .infoBx {
+    }
+    #footer .footerTop .infoBx h3 {
+        padding-bottom: 6px;
+        font-size: 15px;
+        font-weight:600;
+    }
+
+    #footer .footerTop .infoBx h3.arr{padding-bottom:0}
+
+    #footer .footerTop .infoBx h3.arr::after{content: "";
+        background: url(//skin.makeshop.co.kr/skin/fortnight/mo/arr_white.png) no-repeat right center;
+        transition: transform 0.3s;
+        font-size: inherit;
+        width: 14px;
+        height: 8px;
+        display: inline-block;
+        margin-left: 8px;}
+
+    #footer .footerTop .infoBx h3.arr.active::after{
+        transform: rotate(180deg);
+    }
+
+
+
+    #footer .footerTop .infoBx .arrBox{
+        display:none}
+
+    #footer .footerTop .infoBx .tx {
+        padding-top:6px;
+        color:#999999;
+        line-height:22px;
+    }
+    #footer .footerTop .linkInfo {
+        display:flex;
+        width: 100%;
+        justify-content: center;
+    }
+    #footer .footerTop .linkInfo li {
+        float:left;
+        padding-bottom:24px;
+        margin-top:0;
+        color:inherit;
+    }
+    #footer .footerTop .linkInfo li a {
+        font-weight:400;
+        color:#999999;
+        font-size:13px;
+    }
+    #footer .footerTop .linkInfo li a:after {
+        font-size: 9px;
+        content: "|";
+        margin: 0px 12px;
+        vertical-align: top;
+    }
+    #footer .footerTop .linkInfo li:nth-last-child(1) a:after {
+        display:none
+    }
+    #footer .footerTop .csInfo {
+        float: none;
+        text-align: center;
+    }
+    #footer .footerTop .csInfo .tel {
+        font-size:13px;
+        font-weight:400;
+        line-height:22px;
+        color:#999;
+    }
+    #footer .footerTop .csInfo .tx {
+        line-height: 100%;
+        padding-bottom: 24px;
+        font-size: 13px;
+    }
+    #footer .footerTop .csInfo .tx em {
+        color:#999;
+    }
+    #footer .footerTop .csInfo .tx em:nth-last-child(1) {
+        display:none
+    }
+    #footer .footerTop .shopInfo {
+        padding-bottom: 24px;
+        float: none;
+        text-align: center;
+    }
+
+
+    #footer .footerTop .shopInfo .tx span {
+        font-weight:400;
+        color:#999999;
+        font-size:13px
+    }
+    #footer .footerTop .shopInfo .tx a {
+        color:unset;
+        text-decoration:underline;
+        vertical-align:text-top;
+    }
+    #footer .footerTop .shopInfo .tx a.btn_email {
+        color:#5d5d5d
+    }
+
+    #footer .footerTop .copy {
+        color: #999999;
+        font-size: 13px;
+        font-weight: 400;
+    }
+    #footer .footerBottom {
+        margin:0 auto;
+        position:relative;
+        width:100%
+    }
+    #footer .footerTop .sns {
+        margin-top: 0;
+    }
+    #footer .footerTop .sns ul {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+    }
+    #footer .footerTop .sns ul li {
+        margin:0 8px
+    }
+    .sc_script {
+        position:fixed;
+        bottom:24px;
+        right:16px;
+        z-index:100;
+    }
+    .sc_script a {
+        display:block;
+        margin: -8px 0;
+    }
+}
+</style>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('.sc_top').click(function(){
+        jQuery('html, body').animate({
+            scrollTop:0
+        },1300);
+    });
+
+    jQuery('#footer .footerTop .infoBx h3.arr').on('click', function(e) {
+        var arrBox  = jQuery(this).next('.arrBox');
+        arrBox.stop().slideToggle(200); // 서브메뉴 슬라이드 토글
+        jQuery(this).toggleClass('active'); // 화살표 회전 클래스 토글
+    });
+
+
+});
+
+
+</script>
+
+<!-- 하단 시작 -->
+<div id="footer">
+    <div class="only-pc">
+        <div class="footerTop">
+            <div class="infoBx shopInfo">
+                <h3 class="">Fortnight</h3>
+                <p class="tx">
+				<span>대표 :
+                    <!--/company_owner/-->
+				</span><span>주소 :
+                    <!--/company_addr/-->
+				</span><br/>
+                    <span>전화 :
+                        <!--/shop_tel/-->
+				</span><span>팩스 :
+                    <!--/shop_fax/-->
+				</span><span>사업자등록번호 :
+                    <!--/company_number/-->
+				<a href="<!--/link_company_number/-->" target="_blank">사업자정보확인</a></span><br/>
+                    <span>통신판매업신고 :
+                        <!--/online_sale_number/-->
+				</span><span>개인정보보호책임자 :
+                    <!--/privacy_charge/-->
+				(
+                    <!--/shop_email/-->
+				)</span><br/>
+                </p>
+                <div class="infoBx linkInfo">
+                    <ul>
+                        <li><a href="#none">회사소개</a></li>
+                        <li><a href="<!--/link_join_terms/-->">이용약관</a></li>
+                        <li><a href="<!--/link_privacy/-->">개인정보처리방침</a></li>
+                        <li><a href="<!--/link_useinfo/-->">이용안내</a></li>
+                        <!--/if_link_new_barotalk/-->
+                        <li><a href="<!--/link_new_barotalk/-->"><img src="//image.makeshop.co.kr/makeshop/d3/basic_simple/common/ico_logo_barotalk.png"/> 바로톡</a></li>
+                        <!--/end_if/-->
+                    </ul>
+                </div>
+                <p class="copy">
+                    Copyright ⓒFortnight All Rights Reserved.
+                </p>
+            </div>
+            <div class="infoBx csInfo">
+                <h3 class="fe">고객센터</h3>
+                <p class="tel fe">
+                    <!--/shop_tel/-->
+                </p>
+                <p class="tx">
+                    <!--/loop_shop_cs/-->
+                    <!--/shop_cs@value/-->
+                    <em> / </em>
+                    <!--/end_loop/-->
+                </p>
+                <div class="infoBx sns">
+                    <ul>
+                        <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/facebook.png"></a></li>
+                        <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/insta.png"></a></li>
+                        <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/youtube.png"></a></li>
+                        <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/kakaotalk.png"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footerBottom">
+            <p class="escrow">
+                <!--/img_logo_escrow/-->
+            </p>
+        </div>
+    </div>
+    <div class="only-mo">
+        <div class="footerTop">
+
+            <div class="infoBx csInfo">
+                <h3 class="fe">고객센터 <!--/shop_tel/--></h3>
+                <p class="tx">
+                    <!--/loop_shop_cs/-->
+                    <!--/shop_cs@value/-->
+                    <em> / </em>
+                    <!--/end_loop/-->
+                </p>
+            </div>
+
+            <div class="infoBx shopInfo">
+                <h3 class="arr">사업자정보</h3>
+                <p class="arrBox tx">
+                    <span>대표 :<!--/company_owner/--></span><br/>
+                    <span>주소 : <!--/company_addr/--></span><br/>
+                    <span>전화 : <!--/shop_tel/--></span><br/>
+                    <span>팩스 : <!--/shop_fax/--></span><br/>
+                    <span>사업자등록번호 : <!--/company_number/--><a href="<!--/link_company_number/-->" target="_blank">사업자정보확인</a></span><br/>
+                    <span>통신판매업신고 : <!--/online_sale_number/--></span><br/>
+                    <span>개인정보보호책임자 :<!--/privacy_charge/-->(<!--/shop_email/-->)</span>
+                </p>
+            </div>
+
+            <div class="infoBx linkInfo">
+                <ul>
+                    <li><a href="#none">회사소개</a></li>
+                    <li><a href="<!--/link_join_terms/-->">이용약관</a></li>
+                    <li><a href="<!--/link_privacy/-->">개인정보처리방침</a></li>
+                    <li><a href="<!--/link_useinfo/-->">이용안내</a></li>
+                </ul>
+            </div>
+
+            <div class="infoBx sns">
+                <ul>
+                    <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/facebook.png"></a></li>
+                    <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/insta.png"></a></li>
+                    <li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/youtube.png"></a></li>
+                    <!--li><a href="#none"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/kakaotalk.png"></a></li-->
+                </ul>
+            </div>
+
+
+            <p class="copy">
+                Copyright ⓒFortnight All Rights Reserved.
+            </p>
+
+
+
+        </div>
+        <div class="footerBottom">
+            <p class="escrow">
+                <!--/img_logo_escrow/-->
+            </p>
+        </div>
+    </div>
+</div>
+<div id="mask">
+</div>
+<div class="sc_script">
+    <a href="/shop/todaygoods.html" class="trans2"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/fixBtn_recent.png" alt="bottom"></a>
+    <a href="#none" class="trans2 sc_top"><img src="//skin.makeshop.co.kr/skin/fortnight/pc/img/fixBtn_top.png" alt="top"></a>
+</div>
+<!-- //하단 끝 -->
