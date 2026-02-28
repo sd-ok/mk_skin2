@@ -1,0 +1,200 @@
+/* =============================================================
+   MK_SKIN2 — Base Styles
+   전체 레이아웃 기반, body, #wrap, 공통 컨테이너 정의.
+   ============================================================= */
+
+/* ── Body & Root ──────────────────────────────────────────── */
+body {
+  font-family: var(--font-base);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ── #wrap (메이크샵 최상위 래퍼) ────────────────────────── */
+#wrap {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+/* ── 컨테이너 ─────────────────────────────────────────────── */
+.mk-container {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.mk-container--max {
+  max-width: var(--container-max);
+}
+
+.mk-container--base {
+  max-width: var(--container-base);
+}
+
+.mk-container--narrow {
+  max-width: var(--container-narrow);
+}
+
+@media (min-width: 1024px) {
+  .mk-container,
+  .mk-container--max,
+  .mk-container--base,
+  .mk-container--narrow {
+    padding-left: var(--gutter-pc);
+    padding-right: var(--gutter-pc);
+  }
+}
+
+/* ── contentWrapper (메이크샵 헤더 높이 보정) ──────────────
+   헤더가 fixed이므로 콘텐츠 상단에 헤더 높이만큼 padding.
+   헤더 높이는 header.css에서 --header-height 변수로 제어.
+   ──────────────────────────────────────────────────────────── */
+:root {
+  --header-height:    60px;   /* 기본 헤더 높이 (모바일) */
+  --header-height-pc: 80px;   /* PC 헤더 높이 */
+  --topbanner-height: 34px;   /* 상단 배너 높이 (닫기 전) */
+}
+
+#contentWrapper {
+  padding-top: calc(var(--header-height) + var(--topbanner-height));
+}
+
+/* 상단 배너가 닫혔을 때 */
+#wrap.no-topbanner #contentWrapper {
+  padding-top: var(--header-height);
+}
+
+@media (min-width: 1024px) {
+  #contentWrapper {
+    padding-top: calc(var(--header-height-pc) + var(--topbanner-height));
+  }
+  #wrap.no-topbanner #contentWrapper {
+    padding-top: var(--header-height-pc);
+  }
+}
+
+/* 메인 페이지는 헤더 아래로 컨텐츠가 오버랩되는 구조 */
+#wrap.main-page #contentWrapper {
+  padding-top: 0;
+}
+
+/* ── Section 공통 ─────────────────────────────────────────── */
+.mk-section {
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-20);
+}
+
+@media (min-width: 1024px) {
+  .mk-section {
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-32);
+  }
+}
+
+/* ── Divider ──────────────────────────────────────────────── */
+.mk-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 0;
+}
+
+/* ── 오버레이 마스크 (메이크샵 기존 #mask 활용) ───────────── */
+#mask {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-dark);
+  z-index: var(--z-modal);
+  cursor: pointer;
+}
+
+#mask.is-active {
+  display: block;
+}
+
+/* ── 스크롤바 스타일 (WebKit) ─────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ── Focus 스타일 (접근성) ───────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* focus-visible 지원 불가 브라우저 보완 */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Selection ────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-brand);
+  color: var(--color-white);
+}
+
+/* ── 이미지 드래그 방지 ───────────────────────────────────── */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* ── 고정 버튼 영역 (상단으로, 최근 본 상품 등) ─────────── */
+.sc_script {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-4);
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sc_script a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: background var(--duration-fast), box-shadow var(--duration-fast);
+  cursor: pointer;
+}
+
+.sc_script a:hover {
+  background: var(--color-bg-subtle);
+  box-shadow: var(--shadow-lg);
+}
+
+.sc_script a img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}

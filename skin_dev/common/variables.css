@@ -1,0 +1,154 @@
+/* =============================================================
+   MK_SKIN2 — CSS Custom Properties (Design Token)
+   STYLE_GUIDE.md 기준. 모든 파일에서 이 변수를 참조할 것.
+   Makeshop: 상단(Header) CSS탭 최상단에 포함시킬 것.
+   ============================================================= */
+
+:root {
+
+  /* ── Font ─────────────────────────────────────────── */
+  --font-base: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  /* ── Font Sizes ───────────────────────────────────── */
+  --text-2xs:   0.625rem;   /* 10px */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.8125rem;  /* 13px */
+  --text-base:  0.875rem;   /* 14px */
+  --text-md:    1rem;       /* 16px */
+  --text-lg:    1.125rem;   /* 18px */
+  --text-xl:    1.25rem;    /* 20px */
+  --text-2xl:   1.5rem;     /* 24px */
+  --text-3xl:   2rem;       /* 32px */
+  --text-4xl:   2.5rem;     /* 40px */
+  --text-5xl:   3.5rem;     /* 56px */
+  --text-6xl:   5rem;       /* 80px */
+
+  /* ── Font Weights ─────────────────────────────────── */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ── Line Heights ─────────────────────────────────── */
+  --leading-tight:   1.2;
+  --leading-snug:    1.4;
+  --leading-normal:  1.6;
+  --leading-relaxed: 1.75;
+
+  /* ── Base Neutrals ────────────────────────────────── */
+  --color-white:        #FFFFFF;
+  --color-bg:           #F8F6F4;
+  --color-bg-subtle:    #F0EDE9;
+  --color-border:       #E4DDD8;
+  --color-border-strong:#C8BDB7;
+
+  /* ── Text ─────────────────────────────────────────── */
+  --color-text-primary:   #121212;
+  --color-text-secondary: #5A5A5A;
+  --color-text-muted:     #999999;
+  --color-text-inverse:   #FFFFFF;
+
+  /* ── Brand (공통 포인트 컬러) ─────────────────────── */
+  --color-brand:       #8B1A1A;
+  --color-brand-light: #A52020;
+  --color-brand-dark:  #6B1414;
+
+  /* ── 돈육 (Pork) Theme — Black / Dark Red ─────────── */
+  --pork-bg:           #0D0D0D;
+  --pork-bg-2:         #1A1A1A;
+  --pork-accent:       #8B1A1A;
+  --pork-accent-light: #C0392B;
+  --pork-text:         #F5F0ED;
+  --pork-text-muted:   #999999;
+  --pork-border:       #2A2A2A;
+
+  /* ── 수산 (Seafood) Theme — Dark Blue ─────────────── */
+  --sea-bg:            #050D1A;
+  --sea-bg-2:          #0A1628;
+  --sea-accent:        #1A4A8B;
+  --sea-accent-light:  #2563EB;
+  --sea-accent-vivid:  #38BDF8;
+  --sea-text:          #EAF2FF;
+  --sea-text-muted:    #7099CC;
+  --sea-border:        #0F2040;
+
+  /* ── Status ───────────────────────────────────────── */
+  --color-success: #16A34A;
+  --color-error:   #DC2626;
+  --color-warning: #D97706;
+  --color-info:    #2563EB;
+
+  /* ── Overlay ──────────────────────────────────────── */
+  --overlay-dark:   rgba(0, 0, 0, 0.6);
+  --overlay-darker: rgba(0, 0, 0, 0.85);
+  --overlay-light:  rgba(255, 255, 255, 0.08);
+
+  /* ── Spacing (4px grid) ───────────────────────────── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* ── Layout ───────────────────────────────────────── */
+  --container-max:    1760px;
+  --container-wide:   1400px;
+  --container-base:   1240px;
+  --container-narrow: 960px;
+  --gutter:           16px;
+  --gutter-pc:        40px;
+
+  /* ── Border Radius ────────────────────────────────── */
+  --radius-none: 0px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 999px;
+
+  /* ── Shadows ──────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.06);
+  --shadow-dark-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-dark-lg: 0 12px 32px rgba(0,0,0,0.5);
+
+  /* ── Transitions ──────────────────────────────────── */
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 600ms;
+
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-out-quart:   cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Button ───────────────────────────────────────── */
+  --btn-radius:      0px;
+  --btn-radius-soft: 4px;
+  --btn-radius-pill: 999px;
+  --btn-height-sm:   36px;
+  --btn-height-md:   44px;
+  --btn-height-lg:   52px;
+  --btn-height-xl:   60px;
+
+  /* ── Z-index ──────────────────────────────────────── */
+  --z-base:    1;
+  --z-dropdown:100;
+  --z-sticky:  200;
+  --z-header:  300;
+  --z-modal:   400;
+  --z-toast:   500;
+}

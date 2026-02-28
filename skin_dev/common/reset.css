@@ -1,0 +1,103 @@
+/* =============================================================
+   MK_SKIN2 — Reset CSS
+   메이크샵 기본 스타일과의 충돌을 최소화하면서
+   일관된 렌더링 기반을 확보하기 위한 Selective Reset.
+   전체 Reset(Eric Meyer, Tailwind Preflight)은 메이크샵
+   내부 기능 UI를 깨뜨리므로 사용하지 않음.
+   ============================================================= */
+
+/* ── Box Sizing ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── 기본 여백 초기화 (스킨 영역 내부만) ──────────────────── */
+#wrap,
+#wrap * {
+  margin: 0;
+  padding: 0;
+}
+
+/* ── 목록 스타일 초기화 ───────────────────────────────────── */
+#wrap ul,
+#wrap ol {
+  list-style: none;
+}
+
+/* ── 테이블 ───────────────────────────────────────────────── */
+#wrap table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ── 미디어 ───────────────────────────────────────────────── */
+#wrap img,
+#wrap video,
+#wrap svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── 폼 요소 font 상속 ────────────────────────────────────── */
+#wrap input,
+#wrap button,
+#wrap textarea,
+#wrap select {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── 버튼 기본 스타일 제거 ────────────────────────────────── */
+#wrap button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ── a 태그 기본 스타일 ───────────────────────────────────── */
+#wrap a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── select 화살표 제거 (커스텀 UI 사용 시) ──────────────── */
+#wrap select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* ── 텍스트 영역 리사이즈 ────────────────────────────────── */
+#wrap textarea {
+  resize: vertical;
+}
+
+/* ── 수평선 ───────────────────────────────────────────────── */
+#wrap hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+
+/* ── 스크롤 부드럽게 ──────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── 움직임 감소 설정 사용자 배려 ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

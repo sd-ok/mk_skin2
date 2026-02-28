@@ -1,0 +1,260 @@
+/* =============================================================
+   MK_SKIN2 — Utilities
+   반응형 분기, 접근성, 레이아웃 헬퍼 유틸리티.
+   ============================================================= */
+
+/* ── PC / 모바일 분기 (기존 Fortnight 스킨 방식 유지) ────── */
+.only-pc { display: block; }
+.only-mo { display: none;  }
+
+@media (max-width: 1023px) {
+  .only-pc { display: none;  }
+  .only-mo { display: block; }
+}
+
+/* flex 자식일 때 */
+.only-pc-flex { display: flex; }
+.only-mo-flex { display: none; }
+
+@media (max-width: 1023px) {
+  .only-pc-flex { display: none; }
+  .only-mo-flex { display: flex; }
+}
+
+/* ── 스크린리더 전용 (시각적으로 숨김) ───────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* focus 시 표시 (키보드 접근성) */
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── 숨김 / 표시 ──────────────────────────────────────────── */
+.mk-hidden    { display: none !important; }
+.mk-invisible { visibility: hidden; }
+
+/* ── 가시성 전환 (애니메이션용) ──────────────────────────── */
+.mk-fade-in {
+  opacity: 1;
+  transition: opacity var(--duration-base) var(--ease-out-quart);
+}
+
+.mk-fade-out {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out-quart);
+}
+
+/* ── Flex 헬퍼 ────────────────────────────────────────────── */
+.mk-flex         { display: flex; }
+.mk-flex-center  { display: flex; align-items: center; justify-content: center; }
+.mk-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.mk-flex-col     { display: flex; flex-direction: column; }
+.mk-flex-wrap    { flex-wrap: wrap; }
+.mk-flex-1       { flex: 1; }
+
+/* ── 위치 헬퍼 ────────────────────────────────────────────── */
+.mk-relative { position: relative; }
+.mk-absolute { position: absolute; }
+.mk-sticky   { position: sticky; }
+.mk-fixed    { position: fixed; }
+.mk-inset-0  { inset: 0; }
+
+/* ── 오버플로우 ───────────────────────────────────────────── */
+.mk-overflow-hidden { overflow: hidden; }
+.mk-overflow-x-auto { overflow-x: auto; overflow-y: hidden; }
+
+/* ── 이미지 비율 컨테이너 ────────────────────────────────── */
+.mk-aspect-square { aspect-ratio: 1 / 1; }
+.mk-aspect-4-3    { aspect-ratio: 4 / 3; }
+.mk-aspect-16-9   { aspect-ratio: 16 / 9; }
+.mk-aspect-3-4    { aspect-ratio: 3 / 4; }
+
+.mk-aspect-square img,
+.mk-aspect-4-3 img,
+.mk-aspect-16-9 img,
+.mk-aspect-3-4 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── 로딩 스켈레톤 ────────────────────────────────────────── */
+.mk-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-subtle) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: mk-skeleton-shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes mk-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── 구분선 ───────────────────────────────────────────────── */
+.mk-sep {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--color-border);
+  vertical-align: middle;
+  margin: 0 var(--space-3);
+}
+
+/* ── 텍스트 줄바꿈 방지 ───────────────────────────────────── */
+.mk-nowrap { white-space: nowrap; }
+
+/* ── 포인터 이벤트 ────────────────────────────────────────── */
+.mk-pointer { cursor: pointer; }
+.mk-no-pointer { pointer-events: none; }
+
+/* ── 스크롤 스냅 (가로 슬라이더) ────────────────────────── */
+.mk-scroll-x {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.mk-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+.mk-scroll-x > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ── 카테고리 테마 배경 헬퍼 ─────────────────────────────── */
+.theme-pork {
+  background-color: var(--pork-bg);
+  color: var(--pork-text);
+}
+
+.theme-sea {
+  background-color: var(--sea-bg);
+  color: var(--sea-text);
+}
+
+/* ── 텍스트 그라디언트 (히어로 타이틀 등) ───────────────── */
+.mk-text-gradient-pork {
+  background: linear-gradient(135deg, var(--pork-text) 0%, var(--pork-accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mk-text-gradient-sea {
+  background: linear-gradient(135deg, var(--sea-text) 0%, var(--sea-accent-vivid) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 브레드크럼 ───────────────────────────────────────────── */
+.mk-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-5) 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.mk-breadcrumb a {
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast);
+}
+
+.mk-breadcrumb a:hover {
+  color: var(--color-text-primary);
+}
+
+.mk-breadcrumb__sep {
+  font-size: 10px;
+  color: var(--color-border-strong);
+  line-height: 1;
+}
+
+.mk-breadcrumb__current {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+/* ── 페이지 제목 헤더 ─────────────────────────────────────── */
+.mk-page-header {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-6);
+}
+
+.mk-page-header__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+  .mk-page-header__title {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* ── 섹션 헤더 (제목 + 더보기) ──────────────────────────── */
+.mk-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: var(--space-6);
+}
+
+.mk-section-header__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+  .mk-section-header__title {
+    font-size: var(--text-3xl);
+  }
+}
+
+.mk-section-header__more {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: color var(--duration-fast);
+  white-space: nowrap;
+}
+
+.mk-section-header__more:hover {
+  color: var(--color-text-primary);
+}

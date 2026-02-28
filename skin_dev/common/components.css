@@ -1,0 +1,477 @@
+/* =============================================================
+   MK_SKIN2 — Common Components
+   버튼, 배지, 상품 카드 셸, 입력 폼 등 공통 컴포넌트.
+   각 페이지 CSS에서 이 파일을 기반으로 확장.
+   ============================================================= */
+
+/* =============================================================
+   BUTTONS
+   ============================================================= */
+
+/* ── 버튼 기반 ────────────────────────────────────────────── */
+.mk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--btn-height-lg);
+  padding: 0 var(--space-6);
+  font-family: var(--font-base);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius);
+  transition:
+    background var(--duration-fast) var(--ease-out-quart),
+    color var(--duration-fast) var(--ease-out-quart),
+    border-color var(--duration-fast) var(--ease-out-quart),
+    box-shadow var(--duration-fast) var(--ease-out-quart);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mk-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── 버튼 크기 ────────────────────────────────────────────── */
+.mk-btn--sm {
+  height: var(--btn-height-sm);
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.mk-btn--md {
+  height: var(--btn-height-md);
+  padding: 0 var(--space-5);
+}
+
+.mk-btn--xl {
+  height: var(--btn-height-xl);
+  padding: 0 var(--space-8);
+  font-size: var(--text-md);
+  letter-spacing: 0.04em;
+}
+
+.mk-btn--full {
+  width: 100%;
+}
+
+/* ── Primary 버튼 (장바구니, 주문 등 메인 CTA) ────────────── */
+.mk-btn--primary {
+  background: var(--color-text-primary);
+  color: var(--color-white);
+  border-color: var(--color-text-primary);
+}
+
+.mk-btn--primary:hover {
+  background: #2A2A2A;
+  border-color: #2A2A2A;
+}
+
+.mk-btn--primary:active {
+  background: var(--color-text-primary);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ── Brand 버튼 (포인트 CTA — 바로구매 등) ────────────────── */
+.mk-btn--brand {
+  background: var(--color-brand);
+  color: var(--color-white);
+  border-color: var(--color-brand);
+}
+
+.mk-btn--brand:hover {
+  background: var(--color-brand-light);
+  border-color: var(--color-brand-light);
+}
+
+.mk-btn--brand:active {
+  background: var(--color-brand-dark);
+  border-color: var(--color-brand-dark);
+}
+
+/* ── Outline 버튼 ─────────────────────────────────────────── */
+.mk-btn--outline {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+}
+
+.mk-btn--outline:hover {
+  border-color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Ghost 버튼 (텍스트 링크형) ──────────────────────────── */
+.mk-btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.mk-btn--ghost:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-subtle);
+}
+
+/* ── Pill 버튼 (카테고리 탭, 필터 등) ───────────────────── */
+.mk-btn--pill {
+  border-radius: var(--btn-radius-pill);
+  padding: 0 var(--space-5);
+}
+
+/* ── Icon 버튼 ────────────────────────────────────────────── */
+.mk-btn--icon {
+  width: var(--btn-height-md);
+  height: var(--btn-height-md);
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+.mk-btn--icon-sm {
+  width: var(--btn-height-sm);
+  height: var(--btn-height-sm);
+}
+
+/* ── 카테고리 테마 버튼 ───────────────────────────────────── */
+.mk-btn--pork {
+  background: var(--pork-accent);
+  color: var(--color-white);
+  border-color: var(--pork-accent);
+}
+.mk-btn--pork:hover {
+  background: var(--pork-accent-light);
+  border-color: var(--pork-accent-light);
+}
+
+.mk-btn--sea {
+  background: var(--sea-accent);
+  color: var(--color-white);
+  border-color: var(--sea-accent);
+}
+.mk-btn--sea:hover {
+  background: var(--sea-accent-light);
+  border-color: var(--sea-accent-light);
+}
+
+/* =============================================================
+   BADGES & TAGS
+   ============================================================= */
+.mk-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 var(--space-2);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-none);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.mk-badge--new     { background: var(--color-text-primary); color: var(--color-white); }
+.mk-badge--best    { background: var(--color-brand);        color: var(--color-white); }
+.mk-badge--sale    { background: #C0392B;                   color: var(--color-white); }
+.mk-badge--soldout { background: var(--color-text-muted);   color: var(--color-white); }
+.mk-badge--hit     { background: #D97706;                   color: var(--color-white); }
+
+/* ── 태그 (필터/분류 칩) ──────────────────────────────────── */
+.mk-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-secondary);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast),
+    border-color var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.mk-tag:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.mk-tag--active {
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-white);
+  font-weight: var(--weight-semibold);
+}
+
+/* =============================================================
+   PRODUCT CARD SHELL
+   실제 상품 이미지/정보는 loop_product_list 가상태그로 출력.
+   이 셸은 레이아웃과 스타일만 담당.
+   ============================================================= */
+.prd-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 썸네일 ───────────────────────────────────────────────── */
+.prd-card__thumb {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-subtle);
+  aspect-ratio: 1 / 1;   /* 1:1 고정 비율 */
+}
+
+.prd-card__thumb a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.prd-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out-quart);
+}
+
+.prd-card:hover .prd-card__thumb img {
+  transform: scale(1.04);
+}
+
+/* ── 배지 그룹 (썸네일 좌상단) ───────────────────────────── */
+.prd-card__badges {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  z-index: var(--z-base);
+}
+
+/* ── 위시리스트 버튼 (썸네일 우상단) ─────────────────────── */
+.prd-card__wish {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: var(--z-base);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.prd-card:hover .prd-card__wish {
+  opacity: 1;
+}
+
+/* 모바일: 항상 표시 */
+@media (max-width: 1023px) {
+  .prd-card__wish {
+    opacity: 1;
+  }
+}
+
+/* ── 상품 정보 ────────────────────────────────────────────── */
+.prd-card__info {
+  padding-top: var(--space-3);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.prd-card__name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prd-card__subname {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-snug);
+}
+
+.prd-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-1);
+}
+
+.prd-card__price-current {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.prd-card__price-original {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.prd-card__price-discount {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-brand);
+}
+
+.prd-card__price-soldout {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+/* =============================================================
+   FORM ELEMENTS
+   ============================================================= */
+
+/* ── 입력 필드 ────────────────────────────────────────────── */
+.mk-input {
+  width: 100%;
+  height: var(--btn-height-md);
+  padding: 0 var(--space-4);
+  font-family: var(--font-base);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--duration-fast);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mk-input:focus {
+  border-color: var(--color-text-primary);
+}
+
+.mk-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ── 수량 조절 ────────────────────────────────────────────── */
+.mk-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.mk-qty__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  border: none;
+  transition: background var(--duration-fast);
+  flex-shrink: 0;
+}
+
+.mk-qty__btn:hover {
+  background: var(--color-border);
+}
+
+.mk-qty__input {
+  width: 48px;
+  height: 36px;
+  text-align: center;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  border: none;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-white);
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.mk-qty__input::-webkit-inner-spin-button,
+.mk-qty__input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* =============================================================
+   SWIPER 공통 커스텀
+   ============================================================= */
+
+/* ── 프로그레스바 페이지네이션 ───────────────────────────── */
+.swiper-pagination-progressbar {
+  width: 200px !important;
+  height: 2px !important;
+  background: rgba(18, 18, 18, 0.15) !important;
+  position: unset !important;
+  display: block;
+  margin: var(--space-10) auto 0;
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: var(--color-text-primary) !important;
+}
+
+/* ── 네비게이션 화살표 ────────────────────────────────────── */
+.mk-swiper-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.mk-swiper-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+
+.mk-swiper-nav__btn:hover {
+  border-color: var(--color-text-primary);
+  background: var(--color-text-primary);
+  color: var(--color-white);
+}
+
+.mk-swiper-nav__btn svg {
+  width: 16px;
+  height: 16px;
+}

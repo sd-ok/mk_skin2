@@ -10,7 +10,7 @@
 | Phase | 이름 | 상태 | 완료일 |
 |-------|------|------|--------|
 | P0 | 문서 & 플랜 | ✅ 완료 | 2026-02-28 |
-| P1 | 공통 기반 (CSS 변수, Reset, Base) | ⏳ 대기 | - |
+| P1 | 공통 기반 (CSS 변수, Reset, Base) | ✅ 완료 | 2026-02-28 |
 | P2 | 상단 Header + 하단 Footer | ⏳ 대기 | - |
 | P3 | 메인 페이지 (히어로 + 상품 섹션) | ⏳ 대기 | - |
 | P4 | 상품 분류 페이지 | ⏳ 대기 | - |
@@ -60,11 +60,17 @@ skin_dev/common/
 - [ ] 입력 폼 기본 스타일
 
 **수락 기준**:
-- CSS 변수가 STYLE_GUIDE.md와 100% 일치
-- PC/모바일 분기 유틸리티 정상 동작
-- Tailwind 충돌 여부 판단 완료 (사용/미사용 결정)
+- [x] CSS 변수가 STYLE_GUIDE.md와 100% 일치
+- [x] PC/모바일 분기 유틸리티 정상 동작
+- [x] Tailwind: 공통 기반은 순수 CSS 확정. 개별 페이지에서 선택 활용
 
-**예상 파일 수**: 6개 CSS 파일
+**완료 파일 (6개)**:
+- `skin_dev/common/variables.css` — 전체 CSS Custom Properties (토큰)
+- `skin_dev/common/reset.css` — 메이크샵 충돌 방지 Selective Reset
+- `skin_dev/common/base.css` — body, #wrap, 컨테이너, sc_script
+- `skin_dev/common/typography.css` — 텍스트 스타일 유틸리티
+- `skin_dev/common/components.css` — 버튼, 배지, 상품카드 셸, 수량 조절, Swiper 커스텀
+- `skin_dev/common/utilities.css` — only-pc/mo, sr-only, flex 헬퍼, 테마, 브레드크럼
 
 ---
 
@@ -445,3 +451,4 @@ GitHub에 업로드:
 | 날짜 | Phase | 내용 |
 |------|-------|------|
 | 2026-02-28 | P0 | 전체 계획 문서 초안 작성 완료 |
+| 2026-02-28 | P1 | 공통 CSS 기반 6개 파일 완료 (variables, reset, base, typography, components, utilities) |
