@@ -70,7 +70,7 @@ img{display:block;max-width:100%;}
 
 /* ── HERO (180vh pin) ──────────────────────────────────── */
 #heroPin{height:180vh;position:relative;}
-#heroSticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;}
+#heroSticky{position:relative;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;z-index:1;}
 #heroSwiper{position:absolute;inset:0;z-index:0;}
 #heroSwiper .swiper-slide{height:100vh;}
 #heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;}
@@ -1132,6 +1132,22 @@ img{display:block;max-width:100%;}
   </div>
 </footer>
 
+<!-- ── FLOATING WIDGET ──────────────────────────────── -->
+<div id="floatWidget">
+  <!-- 카카오 1:1 상담 -->
+  <a href="#" class="fw-btn fw-kakao" data-tip="카카오 1:1 상담" aria-label="카카오 상담">
+    <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+  </a>
+  <!-- 네이버 간편상담 -->
+  <a href="#" class="fw-btn fw-naver" data-tip="네이버 간편문의" aria-label="네이버 문의">
+    <svg viewBox="0 0 24 24"><path d="M16.27 12.75L7.2 3H4v18h3.73l9.07-9.75L21 21h3V3h-7.73z"/></svg>
+  </a>
+  <!-- 스크롤 TOP -->
+  <button class="fw-btn fw-top" data-tip="맨 위로" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -1450,12 +1466,11 @@ gsap.from('.ie', {
   scrollTrigger:{trigger:'.insta-grid', start:'top 82%'}
 });
 
-/* ── Floating widget: 히어로 섹션 벗어날 때부터 표시 ───────── */
+/* ── Floating widget: 히어로 핀 섹션 지나면 표시 ──────────── */
 var floatWidget = document.getElementById('floatWidget');
 var heroPinEl = document.getElementById('heroPin');
 function updateFloatWidget(){
   var bottom = heroPinEl.getBoundingClientRect().bottom;
-  // heroPin 하단이 뷰포트 안에 들어오면 (스크롤 80vh+) 위젯 표시
   var show = bottom <= window.innerHeight;
   floatWidget.style.opacity = show ? '1' : '0';
   floatWidget.style.pointerEvents = show ? 'auto' : 'none';
@@ -1463,34 +1478,32 @@ function updateFloatWidget(){
 window.addEventListener('scroll', updateFloatWidget, {passive:true});
 updateFloatWidget();
 
-/* ── Auto-idle: 4초 무액션 → 독립 GSAP 애니메이션 (스크롤 위치 변경 없음) ── */
+/* ── Auto-idle: 4초 무액션 → rAF smooth scroll (ScrollTrigger 유지, kill 없음) ── */
 var idleFired = false;
 function cancelIdle(){
-  if(!idleFired){ idleFired=true; clearTimeout(idleTimer); }
+  if(!idleFired){ idleFired = true; clearTimeout(idleTimer); }
 }
 var idleTimer = setTimeout(function(){
   if(idleFired || window.pageYOffset > 60) return;
   idleFired = true;
-  // 스크롤 기반 타임라인 해제 — CSS sticky는 그대로 유지됨
-  if(heroTl && heroTl.scrollTrigger){
-    var _hst = heroTl.scrollTrigger;
-    heroTl.kill();
-    _hst.kill();
+  var st = heroTl.scrollTrigger;
+  if(!st) return;
+  // heroPin 74% 지점으로 3.2초간 부드럽게 스크롤 (scrub이 자연스럽게 따라옴)
+  var target = st.start + (st.end - st.start) * 0.74;
+  var startPos = window.pageYOffset;
+  var dur = 3200;
+  var t0 = null;
+  function easeInOut(p){ return p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p; }
+  function raf(ts){
+    if(!t0) t0 = ts;
+    var p = Math.min((ts - t0) / dur, 1);
+    window.scrollTo(0, startPos + (target - startPos) * easeInOut(p));
+    if(p < 1) requestAnimationFrame(raf);
   }
-  // 독립 재생: 타이틀 천천히 위로 사라짐 → 헤더 → 메인카피 → 하단요소
-  gsap.timeline()
-    .to(heroScrollHint, {opacity:0, duration:0.5, ease:'none'}, 0)
-    .to(heroTitle, {
-      scale:0.08, y:-(window.innerHeight/2 - 36),
-      duration:2.2, ease:'power2.inOut'
-    }, 0)
-    .to(heroTitle, {opacity:0, duration:0.4, ease:'power2.out'}, 1.8)
-    .call(function(){ hd.classList.add('visible','solid'); }, [], 2.2)
-    .to(heroMainCopy, {opacity:1, duration:0.8, ease:'power2.out'}, 2.4)
-    .call(function(){ heroBottom.classList.add('visible'); }, [], 3.1);
+  requestAnimationFrame(raf);
 }, 4000);
-['mousemove','wheel','touchstart','keydown','click'].forEach(function(e){
-  window.addEventListener(e, cancelIdle, {once:true, passive:true});
+['mousemove','wheel','touchstart','keydown','click'].forEach(function(ev){
+  window.addEventListener(ev, cancelIdle, {once:true, passive:true});
 });
 window.addEventListener('scroll', cancelIdle, {once:true, passive:true});
 
@@ -1513,20 +1526,5 @@ new Swiper('#gallerySwiper', {
 });
 </script>
 
-<!-- ── FLOATING WIDGET ──────────────────────────────── -->
-<div id="floatWidget">
-  <!-- 카카오 1:1 상담 -->
-  <a href="#" class="fw-btn fw-kakao" data-tip="카카오 1:1 상담" aria-label="카카오 상담">
-    <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
-  </a>
-  <!-- 네이버 간편상담 -->
-  <a href="#" class="fw-btn fw-naver" data-tip="네이버 간편문의" aria-label="네이버 문의">
-    <svg viewBox="0 0 24 24"><path d="M16.27 12.75L7.2 3H4v18h3.73l9.07-9.75L21 21h3V3h-7.73z"/></svg>
-  </a>
-  <!-- 스크롤 TOP -->
-  <button class="fw-btn fw-top" data-tip="맨 위로" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-</div>
 </body>
 </html>
