@@ -346,13 +346,13 @@ img{display:block;max-width:100%;}
 .hvc-btn svg{width:14px;height:14px;fill:#F0EBE3;stroke:none;}
 .hvc-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,227,.3);}
 
-/* ── HERO PAG LABELS ────────────────────────────────────── */
-.hero-pag{position:absolute;bottom:36px;right:52px;z-index:10;display:flex;align-items:center;gap:10px;}
-.hero-pag-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;}
-.hero-pag-bar{width:28px;height:2px;background:rgba(240,235,227,.22);transition:background .3s,width .3s;}
-.hero-pag-item.on .hero-pag-bar{background:#F0EBE3;width:44px;}
-.hero-pag-lbl{font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,227,.25);transition:color .3s;}
-.hero-pag-item.on .hero-pag-lbl{color:rgba(240,235,227,.6);}
+/* ── HERO PAG BARS (progress fill) ─────────────────────── */
+.hero-pag{position:absolute;bottom:36px;right:52px;z-index:10;display:flex;align-items:center;gap:8px;}
+.hero-pag-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 4px;}
+.hero-pag-bar{width:36px;height:6px;background:rgba(240,235,227,.18);border-radius:3px;overflow:hidden;position:relative;}
+.hero-pag-fill{position:absolute;left:0;top:0;width:0%;height:100%;background:#F0EBE3;border-radius:3px;}
+@keyframes barFill{from{width:0%}to{width:100%}}
+.hero-pag-lbl{display:none;}
 
 /* ── KEN BURNS — 전체 이미지 슬라이드, in/out 교대 ────────── */
 @keyframes kbIn{from{transform:scale(1)}to{transform:scale(1.09)}}
@@ -486,6 +486,7 @@ img{display:block;max-width:100%;}
 #floatWidget{
   position:fixed;right:22px;bottom:80px;z-index:800;
   display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;pointer-events:none;transition:opacity .4s;
 }
 .fw-btn{
   width:48px;height:48px;border-radius:50%;
@@ -597,7 +598,7 @@ img{display:block;max-width:100%;}
       <div class="swiper-wrapper">
         <!-- Slide 1: Video (first) -->
         <div class="swiper-slide slide-video">
-          <video id="heroVid" autoplay muted loop playsinline
+          <video id="heroVid" autoplay muted playsinline
             poster="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO"
             src="./hero.mp4">
           </video>
@@ -622,10 +623,10 @@ img{display:block;max-width:100%;}
     </div>
     <!-- Labeled pagination bars -->
     <div class="hero-pag" id="heroPag">
-      <div class="hero-pag-item on" data-idx="0"><div class="hero-pag-bar"></div><span class="hero-pag-lbl">영상</span></div>
-      <div class="hero-pag-item" data-idx="1"><div class="hero-pag-bar"></div><span class="hero-pag-lbl">자연</span></div>
-      <div class="hero-pag-item" data-idx="2"><div class="hero-pag-bar"></div><span class="hero-pag-lbl">돈육</span></div>
-      <div class="hero-pag-item" data-idx="3"><div class="hero-pag-bar"></div><span class="hero-pag-lbl">수산</span></div>
+      <div class="hero-pag-item on" data-idx="0"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="1"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="2"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="3"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
     </div>
     <!-- Video controls (visible on video slide) -->
     <div class="hero-vid-ctrl" id="heroVidCtrl">
@@ -1151,54 +1152,127 @@ document.getElementById('hdBurger').addEventListener('click', openMenu);
 document.getElementById('sideClose').addEventListener('click', closeMenu);
 sideOv.addEventListener('click', closeMenu);
 
-/* ── Hero Swiper ───────────────────────────────────────── */
+/* ── Hero Swiper — manual advance, progress bars ──────── */
 var heroPagItems = document.querySelectorAll('.hero-pag-item');
-var heroSwiper = new Swiper('#heroSwiper', {
-  loop: true,
-  autoplay: {delay: 4800, disableOnInteraction: false},
-  speed: 1200,
-  effect: 'fade',
-  fadeEffect: {crossFade: true},
-  on: {
-    slideChange: function(){
-      var idx = this.realIndex;
-      heroPagItems.forEach(function(el,i){ el.classList.toggle('on', i===idx); });
-      // Show/hide video controls
-      var isVideo = (idx === 0);
-      document.getElementById('heroVidCtrl').style.opacity = isVideo ? '1' : '0';
-      document.getElementById('heroVidCtrl').style.pointerEvents = isVideo ? 'auto' : 'none';
+var heroVid      = document.getElementById('heroVid');
+var heroVidCtrl  = document.getElementById('heroVidCtrl');
+var IMG_DUR      = 5500; // image slide duration (ms)
+var slideTimer   = null;
+var curRealIdx   = 0;
+var vidPaused    = false;
+var vidMuted     = true;
+
+function getHeroFill(idx){ return heroPagItems[idx].querySelector('.hero-pag-fill'); }
+
+function startBar(idx, ms){
+  heroPagItems.forEach(function(el,i){
+    el.classList.toggle('on', i===idx);
+    var f = el.querySelector('.hero-pag-fill');
+    f.style.animation = 'none';
+    f.offsetWidth; // force reflow to restart animation
+  });
+  var f = getHeroFill(idx);
+  f.style.animation = 'barFill '+(ms/1000).toFixed(2)+'s linear forwards';
+}
+
+function stopSlide(){ clearTimeout(slideTimer); slideTimer=null; }
+
+function schedNext(ms){
+  stopSlide();
+  slideTimer = setTimeout(function(){ heroSwiper.slideNext(); }, ms);
+}
+
+function onVidEnded(){
+  heroVid.removeEventListener('ended', onVidEnded);
+  heroSwiper.slideNext();
+}
+
+function onSlideChange(swiper){
+  var idx = swiper.realIndex;
+  curRealIdx = idx;
+  var isVid = (idx===0);
+  heroVidCtrl.style.opacity = isVid ? '1' : '0';
+  heroVidCtrl.style.pointerEvents = isVid ? 'auto' : 'none';
+
+  if(isVid){
+    stopSlide();
+    heroVid.removeEventListener('ended', onVidEnded);
+    heroVid.currentTime = 0;
+    heroVid.play();
+    heroVid.addEventListener('ended', onVidEnded);
+    function startVidBar(){
+      var dur = (heroVid.duration && heroVid.duration > 0) ? heroVid.duration * 1000 : 30000;
+      startBar(0, dur);
     }
+    if(heroVid.readyState >= 1){ startVidBar(); }
+    else { heroVid.addEventListener('loadedmetadata', startVidBar, {once:true}); }
+  } else {
+    heroVid.removeEventListener('ended', onVidEnded);
+    startBar(idx, IMG_DUR);
+    if(!vidPaused){ schedNext(IMG_DUR); }
   }
+}
+
+var heroSwiper = new Swiper('#heroSwiper',{
+  loop: true,
+  speed: 1600,
+  effect: 'fade',
+  fadeEffect: {crossFade:true},
+  on: { slideChange: function(){ onSlideChange(this); } }
 });
+
+// Init: start from video slide
+onSlideChange(heroSwiper);
+
+// Pagination click
 heroPagItems.forEach(function(item){
   item.addEventListener('click', function(){
-    heroSwiper.slideToLoop(parseInt(this.dataset.idx));
+    var idx = parseInt(this.dataset.idx);
+    stopSlide();
+    heroVid.removeEventListener('ended', onVidEnded);
+    heroSwiper.slideToLoop(idx);
   });
 });
 
-/* ── Video controls ────────────────────────────────────── */
-var heroVid     = document.getElementById('heroVid');
-var vidMuteBtn  = document.getElementById('vidMuteBtn');
-var vidPlayBtn  = document.getElementById('vidPlayBtn');
-var vidPlayIco  = document.getElementById('vidPlayIco');
-var isMuted = true, isPlaying = true;
+/* ── Video controls ──────────────────────────────────── */
+var vidMuteBtn = document.getElementById('vidMuteBtn');
+var vidPlayBtn = document.getElementById('vidPlayBtn');
+var vidPlayIco = document.getElementById('vidPlayIco');
 
 vidMuteBtn.addEventListener('click', function(){
-  isMuted = !isMuted;
-  heroVid.muted = isMuted;
-  // Toggle icon: speaker with waves vs muted X
-  vidMuteBtn.querySelector('svg').innerHTML = isMuted
-    ? '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/>'
-    : '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#F0EBE3" stroke-width="1.5" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#F0EBE3" stroke-width="1.5" fill="none"/>';
+  vidMuted = !vidMuted;
+  heroVid.muted = vidMuted;
+  vidMuteBtn.querySelector('svg').innerHTML = vidMuted
+    ? '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/>'
+    : '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#F0EBE3" stroke-width="1.5" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#F0EBE3" stroke-width="1.5" fill="none"/>';
 });
 
 vidPlayBtn.addEventListener('click', function(){
-  isPlaying = !isPlaying;
-  if(isPlaying){ heroVid.play(); heroSwiper.autoplay.start(); }
-  else { heroVid.pause(); heroSwiper.autoplay.stop(); }
-  vidPlayIco.innerHTML = isPlaying
-    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
-    : '<polygon points="5,3 19,12 5,21" fill="#F0EBE3"/>';
+  vidPaused = !vidPaused;
+  if(vidPaused){
+    heroVid.pause();
+    stopSlide();
+    // Freeze progress bar in place
+    var f = getHeroFill(curRealIdx);
+    var w = parseFloat(window.getComputedStyle(f).width);
+    var bw = parseFloat(window.getComputedStyle(f.parentElement).width);
+    f.style.animation = 'none';
+    f.style.width = (bw > 0 ? (w/bw*100) : 0).toFixed(1)+'%';
+  } else {
+    if(curRealIdx===0){
+      heroVid.play();
+      heroVid.addEventListener('ended', onVidEnded);
+      var remaining = (heroVid.duration && heroVid.currentTime)
+        ? (heroVid.duration - heroVid.currentTime) * 1000 : IMG_DUR;
+      startBar(0, remaining);
+    } else {
+      schedNext(IMG_DUR);
+      startBar(curRealIdx, IMG_DUR);
+    }
+  }
+  vidPlayIco.innerHTML = vidPaused
+    ? '<polygon points="5,3 19,12 5,21" fill="#F0EBE3"/>'
+    : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 });
 
 /* ── HERO — Title morphs center → center-top ──────────── */
@@ -1361,6 +1435,35 @@ gsap.from('.ie', {
   scale:.93, opacity:0, duration:.6, stagger:.07, ease:'power3.out',
   scrollTrigger:{trigger:'.insta-grid', start:'top 82%'}
 });
+
+/* ── Floating widget: 히어로 스크롤 후에만 표시 ──────────── */
+var floatWidget = document.getElementById('floatWidget');
+window.addEventListener('scroll', function(){
+  var heroH = document.getElementById('heroPin').offsetHeight;
+  var show = window.pageYOffset > heroH * 0.85;
+  floatWidget.style.opacity = show ? '1' : '0';
+  floatWidget.style.pointerEvents = show ? 'auto' : 'none';
+}, {passive:true});
+
+/* ── Auto-idle: 4초 무액션 → 히어로 자동 스크롤 ──────────── */
+var idleFired = false;
+var idleTimer = setTimeout(function(){
+  if(!idleFired && window.pageYOffset < 60){
+    window.scrollTo({
+      top: document.getElementById('heroPin').offsetHeight * 0.75,
+      behavior: 'smooth'
+    });
+  }
+}, 4000);
+function cancelIdle(){
+  if(idleFired) return;
+  idleFired = true;
+  clearTimeout(idleTimer);
+}
+['mousemove','wheel','touchstart','keydown','click'].forEach(function(e){
+  window.addEventListener(e, cancelIdle, {once:true, passive:true});
+});
+window.addEventListener('scroll', cancelIdle, {once:true, passive:true});
 
 /* ── Gallery Swiper ────────────────────────────────────── */
 new Swiper('#gallerySwiper', {
