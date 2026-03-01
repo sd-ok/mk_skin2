@@ -88,7 +88,7 @@ img{display:block;max-width:100%;}
 .hb-tagline{font-size:clamp(15px,1.8vw,20px);font-weight:400;color:rgba(240,235,227,.68);max-width:440px;line-height:1.75;}
 .hb-cta{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;flex-shrink:0;background:#F0EBE3;color:#0A0806;font-size:13px;font-weight:700;letter-spacing:.08em;transition:background .2s,color .2s;}
 .hb-cta:hover{background:#8B1A1A;color:#fff;}
-#heroScrollHint{position:absolute;bottom:36px;left:52px;z-index:10;display:flex;flex-direction:column;align-items:flex-start;gap:10px;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.28);}
+#heroScrollHint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.28);}
 .hsh-line{width:1px;height:44px;background:rgba(240,235,227,.2);animation:sc 2.2s ease infinite;}
 @keyframes sc{0%,100%{transform:scaleY(1);opacity:.8}50%{transform:scaleY(.2);opacity:.1}}
 
@@ -354,16 +354,15 @@ img{display:block;max-width:100%;}
 @keyframes barFill{from{width:0%}to{width:100%}}
 .hero-pag-lbl{display:none;}
 
-/* ── KEN BURNS — 전체 이미지 슬라이드, in/out 교대 ────────── */
-@keyframes kbIn{from{transform:scale(1)}to{transform:scale(1.09)}}
-@keyframes kbOut{from{transform:scale(1.09)}to{transform:scale(1)}}
-/* 활성 슬라이드 이미지에만 적용 — Swiper active class 활용 */
+/* ── KEN BURNS — 1.04 시작으로 슬라이드 전환 시 끊김 제거 ── */
+@keyframes kbIn{from{transform:scale(1.04)}to{transform:scale(1.12)}}
+/* 비활성 슬라이드: 1.04 고정 + 2s 부드러운 리셋 (crossFade 동안 snap 방지) */
+.slide-nature img,.slide-pork img,.slide-sea img{
+  transform:scale(1.04);transition:transform 2s ease;}
+/* 활성 슬라이드: CSS animation 우선, transition 비활성화 */
 .swiper-slide-active.slide-nature img,
 .swiper-slide-active.slide-pork img,
-.swiper-slide-active.slide-sea img{animation:kbIn 9s ease-out forwards;}
-.swiper-slide-prev.slide-nature img,
-.swiper-slide-prev.slide-pork img,
-.swiper-slide-prev.slide-sea img{animation:kbOut 1.2s ease-out forwards;}
+.swiper-slide-active.slide-sea img{animation:kbIn 8s ease-out forwards;transition:none;}
 
 /* ── BEST: hidden rows + 더보기 button ──────────────────── */
 .best-row-hidden{display:none;}
@@ -449,10 +448,10 @@ img{display:block;max-width:100%;}
   .pork-more{grid-template-columns:1fr;padding:0 20px;gap:4px;}
   .fish-hd{padding:44px 20px 32px;}
   .fish-panels{flex-direction:column;height:auto;}
-  .fish-panel{flex:none;height:280px;}
+  .fish-panel{flex:none;height:360px;}
   .fish-panel:hover{flex:none;}
   .fp-label{opacity:0;}
-  .fp-info{transform:translateY(0);opacity:1;padding:24px 20px;}
+  .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
   .fish-panel+.fish-panel::after{display:none;}
   .brand-par{height:500px;}
   .brand-par-body{padding:0 20px;}
@@ -465,7 +464,15 @@ img{display:block;max-width:100%;}
   .ie:nth-child(4),.ie:nth-child(5),.ie:nth-child(6){display:none;}
   .ft-nl{grid-template-columns:1fr;gap:24px;}
   .ft-nl-input{width:100%;flex:1;}
-  .ft-grid{grid-template-columns:1fr 1fr;gap:28px;}
+  .ft-grid{grid-template-columns:1fr;gap:0;}
+  /* 아코디언: ft-col */
+  .ft-col{border-top:1px solid rgba(240,235,227,.07);margin-top:0;}
+  .ft-col h4{display:flex;align-items:center;justify-content:space-between;padding:15px 0;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,227,.38);}
+  .ft-col h4::after{content:'+';font-size:16px;font-weight:300;color:rgba(240,235,227,.3);}
+  .ft-col.open h4::after{content:'−';}
+  .ft-col ul{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.46,.45,.94),padding .3s;}
+  .ft-col ul li{margin-bottom:10px;}
+  .ft-col.open ul{max-height:280px;padding-bottom:16px;}
   .ft-in{padding:0 20px;}
   .ft-bottom{flex-direction:column;gap:10px;text-align:center;}
   .hero-vid-ctrl{left:20px;}
@@ -479,7 +486,7 @@ img{display:block;max-width:100%;}
   .gallery-swiper .swiper-slide{width:240px;}
 }
 @media(max-width:480px){
-  .ft-grid{grid-template-columns:1fr;}
+  .ft-bottom{flex-direction:column;gap:8px;text-align:center;}
 }
 
 /* ── FLOATING WIDGET ────────────────────────────────────── */
@@ -630,8 +637,8 @@ img{display:block;max-width:100%;}
     </div>
     <!-- Video controls (visible on video slide) -->
     <div class="hero-vid-ctrl" id="heroVidCtrl">
-      <button class="hvc-btn" id="vidMuteBtn" title="음소거 토글">
-        <svg viewBox="0 0 24 24" fill="#F0EBE3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#F0EBE3" stroke-width="1.5" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#F0EBE3" stroke-width="1.5" fill="none"/></svg>
+      <button class="hvc-btn" id="vidMuteBtn" title="소리 켜기">
+        <svg viewBox="0 0 24 24" fill="#F0EBE3"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/></svg>
       </button>
       <button class="hvc-btn" id="vidPlayBtn" title="재생/정지">
         <svg id="vidPlayIco" viewBox="0 0 24 24" fill="#F0EBE3"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1114,7 +1121,7 @@ img{display:block;max-width:100%;}
       </div>
     </div>
     <div class="ft-bottom">
-      <p class="ft-copy">© 2024 맛있는제주. All rights reserved.</p>
+      <p class="ft-copy">© 2026 맛있는제주. All rights reserved.</p>
       <nav class="ft-links">
         <a href="#">이용약관</a>
         <a href="#">개인정보처리방침</a>
@@ -1215,7 +1222,7 @@ function onSlideChange(swiper){
 
 var heroSwiper = new Swiper('#heroSwiper',{
   loop: true,
-  speed: 1600,
+  speed: 2000,
   effect: 'fade',
   fadeEffect: {crossFade:true},
   on: { slideChange: function(){ onSlideChange(this); } }
@@ -1234,45 +1241,52 @@ heroPagItems.forEach(function(item){
   });
 });
 
-/* ── Video controls ──────────────────────────────────── */
+/* ── Video controls — heroVid 상태 직접 제어 ──────────── */
 var vidMuteBtn = document.getElementById('vidMuteBtn');
 var vidPlayBtn = document.getElementById('vidPlayBtn');
 var vidPlayIco = document.getElementById('vidPlayIco');
 
-vidMuteBtn.addEventListener('click', function(){
-  vidMuted = !vidMuted;
-  heroVid.muted = vidMuted;
-  vidMuteBtn.querySelector('svg').innerHTML = vidMuted
+function updateMuteIcon(){
+  var m = heroVid.muted;
+  vidMuteBtn.title = m ? '소리 켜기' : '음소거';
+  vidMuteBtn.querySelector('svg').innerHTML = m
     ? '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/>'
     : '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#F0EBE3" stroke-width="1.5" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#F0EBE3" stroke-width="1.5" fill="none"/>';
+}
+
+vidMuteBtn.addEventListener('click', function(){
+  heroVid.muted = !heroVid.muted;
+  updateMuteIcon();
 });
 
 vidPlayBtn.addEventListener('click', function(){
-  vidPaused = !vidPaused;
-  if(vidPaused){
+  if(!heroVid.paused){
     heroVid.pause();
     stopSlide();
-    // Freeze progress bar in place
+    // Freeze progress bar
     var f = getHeroFill(curRealIdx);
     var w = parseFloat(window.getComputedStyle(f).width);
     var bw = parseFloat(window.getComputedStyle(f.parentElement).width);
     f.style.animation = 'none';
-    f.style.width = (bw > 0 ? (w/bw*100) : 0).toFixed(1)+'%';
+    f.style.width = (bw > 0 ? (w/bw*100).toFixed(1) : '0') + '%';
   } else {
-    if(curRealIdx===0){
-      heroVid.play();
+    if(curRealIdx === 0){
+      heroVid.play().catch(function(){});
       heroVid.addEventListener('ended', onVidEnded);
-      var remaining = (heroVid.duration && heroVid.currentTime)
+      var rem = (heroVid.duration && heroVid.currentTime)
         ? (heroVid.duration - heroVid.currentTime) * 1000 : IMG_DUR;
-      startBar(0, remaining);
+      startBar(0, rem);
     } else {
       schedNext(IMG_DUR);
       startBar(curRealIdx, IMG_DUR);
     }
   }
-  vidPlayIco.innerHTML = vidPaused
-    ? '<polygon points="5,3 19,12 5,21" fill="#F0EBE3"/>'
-    : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  // Update icon after state change
+  setTimeout(function(){
+    vidPlayIco.innerHTML = heroVid.paused
+      ? '<polygon points="5,3 19,12 5,21" fill="#F0EBE3"/>'
+      : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  }, 50);
 });
 
 /* ── HERO — Title morphs center → center-top ──────────── */
@@ -1436,34 +1450,56 @@ gsap.from('.ie', {
   scrollTrigger:{trigger:'.insta-grid', start:'top 82%'}
 });
 
-/* ── Floating widget: 히어로 스크롤 후에만 표시 ──────────── */
+/* ── Floating widget: 히어로 섹션 벗어날 때부터 표시 ───────── */
 var floatWidget = document.getElementById('floatWidget');
-window.addEventListener('scroll', function(){
-  var heroH = document.getElementById('heroPin').offsetHeight;
-  var show = window.pageYOffset > heroH * 0.85;
+var heroPinEl = document.getElementById('heroPin');
+function updateFloatWidget(){
+  var bottom = heroPinEl.getBoundingClientRect().bottom;
+  // heroPin 하단이 뷰포트 안에 들어오면 (스크롤 80vh+) 위젯 표시
+  var show = bottom <= window.innerHeight;
   floatWidget.style.opacity = show ? '1' : '0';
   floatWidget.style.pointerEvents = show ? 'auto' : 'none';
-}, {passive:true});
-
-/* ── Auto-idle: 4초 무액션 → 히어로 자동 스크롤 ──────────── */
-var idleFired = false;
-var idleTimer = setTimeout(function(){
-  if(!idleFired && window.pageYOffset < 60){
-    window.scrollTo({
-      top: document.getElementById('heroPin').offsetHeight * 0.75,
-      behavior: 'smooth'
-    });
-  }
-}, 4000);
-function cancelIdle(){
-  if(idleFired) return;
-  idleFired = true;
-  clearTimeout(idleTimer);
 }
+window.addEventListener('scroll', updateFloatWidget, {passive:true});
+updateFloatWidget();
+
+/* ── Auto-idle: 4초 무액션 → 독립 GSAP 애니메이션 (스크롤 위치 변경 없음) ── */
+var idleFired = false;
+function cancelIdle(){
+  if(!idleFired){ idleFired=true; clearTimeout(idleTimer); }
+}
+var idleTimer = setTimeout(function(){
+  if(idleFired || window.pageYOffset > 60) return;
+  idleFired = true;
+  // 스크롤 기반 타임라인 해제 — CSS sticky는 그대로 유지됨
+  if(heroTl && heroTl.scrollTrigger){
+    var _hst = heroTl.scrollTrigger;
+    heroTl.kill();
+    _hst.kill();
+  }
+  // 독립 재생: 타이틀 천천히 위로 사라짐 → 헤더 → 메인카피 → 하단요소
+  gsap.timeline()
+    .to(heroScrollHint, {opacity:0, duration:0.5, ease:'none'}, 0)
+    .to(heroTitle, {
+      scale:0.08, y:-(window.innerHeight/2 - 36),
+      duration:2.2, ease:'power2.inOut'
+    }, 0)
+    .to(heroTitle, {opacity:0, duration:0.4, ease:'power2.out'}, 1.8)
+    .call(function(){ hd.classList.add('visible','solid'); }, [], 2.2)
+    .to(heroMainCopy, {opacity:1, duration:0.8, ease:'power2.out'}, 2.4)
+    .call(function(){ heroBottom.classList.add('visible'); }, [], 3.1);
+}, 4000);
 ['mousemove','wheel','touchstart','keydown','click'].forEach(function(e){
   window.addEventListener(e, cancelIdle, {once:true, passive:true});
 });
 window.addEventListener('scroll', cancelIdle, {once:true, passive:true});
+
+/* ── Footer accordion (mobile) ─────────────────────────── */
+document.querySelectorAll('.ft-col h4').forEach(function(h){
+  h.addEventListener('click', function(){
+    this.parentElement.classList.toggle('open');
+  });
+});
 
 /* ── Gallery Swiper ────────────────────────────────────── */
 new Swiper('#gallerySwiper', {
