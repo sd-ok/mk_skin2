@@ -134,7 +134,7 @@ img{display:block;max-width:100%;}
 .best-row:hover::before{transform:scaleX(1);}
 .row-thumb{width:84px;height:84px;border-radius:8px;overflow:hidden;border:1px solid rgba(240,235,227,.08);position:relative;z-index:1;}
 .row-thumb img{width:100%;height:100%;object-fit:cover;}
-.row-info{position:relative;z-index:1;min-width:0;}
+.row-info{position:relative;z-index:1;min-width:0;overflow:hidden;}
 .row-name{font-size:clamp(16px,1.9vw,22px);font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .best-row:hover .row-name{color:#fff;}
 .row-sub{font-size:11px;color:rgba(240,235,227,.28);letter-spacing:.04em;margin-top:5px;}
@@ -341,7 +341,7 @@ img{display:block;max-width:100%;}
 
 /* ── HERO VIDEO CONTROLS ────────────────────────────────── */
 .hero-vid-ctrl{position:absolute;bottom:36px;left:52px;z-index:20;display:flex;align-items:center;gap:10px;}
-.hvc-btn{width:36px;height:36px;border:1px solid rgba(240,235,227,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(10,8,6,.35);backdrop-filter:blur(8px);}
+.hvc-btn{width:36px;height:36px;border:1px solid rgba(240,235,227,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(10,8,6,.35);backdrop-filter:blur(8px);touch-action:manipulation;}
 .hvc-btn:hover{border-color:rgba(240,235,227,.6);background:rgba(10,8,6,.6);}
 .hvc-btn svg{width:14px;height:14px;fill:#F0EBE3;stroke:none;}
 .hvc-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,227,.3);}
@@ -432,7 +432,7 @@ img{display:block;max-width:100%;}
   .hd-icons{display:flex;}
   .hd-logo img{height:28px;}
   #heroBottom{padding:0 20px 80px;flex-direction:column;gap:20px;}
-  #heroScrollHint{left:20px;}
+  #heroScrollHint{left:50%;transform:translateX(-50%);}
   .hero-pag{right:20px;}
   #heroBigTitle h1{font-size:clamp(56px,16vw,96px);}
   #jejuStoryPin{height:240vh;}
@@ -449,7 +449,7 @@ img{display:block;max-width:100%;}
   .fish-hd{padding:44px 20px 32px;}
   .fish-panels{flex-direction:column;height:auto;}
   .fish-panel{flex:none;height:360px;}
-  .fish-panel:hover{flex:none;}
+  .fish-panel:hover,.fish-panel.auto-hover{flex:none;}
   .fp-label{opacity:0;}
   .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
   .fish-panel+.fish-panel::after{display:none;}
@@ -498,10 +498,10 @@ img{display:block;max-width:100%;}
 .fw-btn{
   width:48px;height:48px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:transform .2s,box-shadow .2s;
-  font-size:0;position:relative;
+  cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s;
+  font-size:0;position:relative;opacity:0.62;
 }
-.fw-btn:hover{transform:scale(1.1);box-shadow:0 6px 22px rgba(0,0,0,.4);}
+.fw-btn:hover{transform:scale(1.1);box-shadow:0 6px 22px rgba(0,0,0,.4);opacity:1;}
 .fw-btn svg{width:22px;height:22px;}
 /* 카카오 상담 */
 .fw-kakao{background:#FEE500;}
@@ -1422,6 +1422,8 @@ function fishAutoStep(){
   fpEls[fishAutoIdx].classList.add('auto-hover');
 }
 var fishIO = new IntersectionObserver(function(entries){
+  // Mobile: all panels always visible via CSS — skip auto-hover to prevent layout jumps
+  if(window.innerWidth <= 1023) return;
   if(entries[0].isIntersecting){
     fishAutoStep();
     fishAutoId = setInterval(fishAutoStep, 2800);
@@ -1505,7 +1507,13 @@ var idleTimer = setTimeout(function(){
 ['mousemove','wheel','touchstart','keydown','click'].forEach(function(ev){
   window.addEventListener(ev, cancelIdle, {once:true, passive:true});
 });
-window.addEventListener('scroll', cancelIdle, {once:true, passive:true});
+// Cancel only on real scroll (ignore browser micro-adjustments at load)
+window.addEventListener('scroll', function onScrollIdleCancel(){
+  if(window.pageYOffset > 10){
+    cancelIdle();
+    window.removeEventListener('scroll', onScrollIdleCancel);
+  }
+}, {passive:true});
 
 /* ── Footer accordion (mobile) ─────────────────────────── */
 document.querySelectorAll('.ft-col h4').forEach(function(h){
