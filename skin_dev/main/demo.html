@@ -56,25 +56,52 @@ img{display:block;max-width:100%;}
 .hd-icon-badge{position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;}
 
 /* ── SIDE MENU (mobile) ────────────────────────────────── */
-#sideOv{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:599;opacity:0;pointer-events:none;transition:opacity .35s;}
+#sideOv{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:599;opacity:0;pointer-events:none;transition:opacity .35s;}
 #sideOv.on{opacity:1;pointer-events:auto;}
-#sideMenu{position:fixed;top:0;left:0;bottom:0;width:260px;background:#110E0C;z-index:600;transform:translateX(-100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);padding:72px 32px 40px;display:flex;flex-direction:column;}
+#sideMenu{position:fixed;top:0;left:0;bottom:0;width:300px;background:#110E0C;z-index:600;transform:translateX(-100%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;}
 #sideMenu.on{transform:translateX(0);}
-.side-close{position:absolute;top:16px;right:16px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(240,235,227,.45);cursor:pointer;transition:color .2s;}
-.side-close:hover{color:#F0EBE3;}
-.side-nav a{display:block;font-size:22px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;padding:15px 0;border-bottom:1px solid rgba(240,235,227,.07);transition:color .2s,padding-left .2s;}
-.side-nav a:hover{color:#C4A265;padding-left:8px;}
-.side-sub{margin-top:32px;display:flex;flex-direction:column;gap:12px;}
-.side-sub a{font-size:14px;color:rgba(240,235,227,.38);transition:color .2s;}
-.side-sub a:hover{color:#F0EBE3;}
+/* SM — Header */
+.sm-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+.sm-logo{display:flex;align-items:center;gap:9px;}
+.sm-logo span{font-size:14px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;}
+.sm-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.sm-close svg{width:18px;height:18px;stroke:rgba(240,235,227,.4);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s;}
+.sm-close:hover svg{stroke:#F0EBE3;}
+/* SM — Nav categories */
+.sm-nav{flex:1;padding:4px 0;}
+.sm-cat{border-bottom:1px solid rgba(240,235,227,.05);}
+.sm-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;cursor:pointer;transition:color .2s;text-align:left;}
+.sm-cat-btn:hover{color:#C4A265;}
+.sm-cat-link{display:flex;align-items:center;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s,padding-left .2s;}
+.sm-cat-link:hover{color:#C4A265;padding-left:28px;}
+.sm-arr{width:15px;height:15px;stroke:rgba(240,235,227,.3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;transition:transform .3s,stroke .2s;}
+.sm-cat-btn:hover .sm-arr{stroke:rgba(240,235,227,.6);}
+.sm-cat.open .sm-arr{transform:rotate(180deg);}
+.sm-sub{max-height:0;overflow:hidden;transition:max-height .36s cubic-bezier(.25,.46,.45,.94);background:rgba(0,0,0,.18);}
+.sm-cat.open .sm-sub{max-height:400px;}
+.sm-sub a{display:flex;align-items:center;gap:10px;padding:10px 22px 10px 38px;font-size:14px;font-weight:500;color:rgba(240,235,227,.48);transition:color .2s,padding-left .2s;position:relative;}
+.sm-sub a::before{content:'';position:absolute;left:24px;top:50%;transform:translateY(-50%);width:3px;height:3px;border-radius:50%;background:rgba(240,235,227,.22);}
+.sm-sub a:hover{color:#C4A265;padding-left:42px;}
+/* SM — Util links */
+.sm-util{display:flex;flex-direction:column;padding:8px 0;border-top:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+.sm-util-link{display:flex;align-items:center;gap:11px;padding:12px 22px;font-size:13px;font-weight:600;color:rgba(240,235,227,.4);transition:color .2s;}
+.sm-util-link:hover{color:#F0EBE3;}
+.sm-util-link svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+/* SM — Promo Banner */
+.sm-promo{margin:0;padding:22px;background:linear-gradient(135deg,#5F4541 0%,#3a2825 100%);flex-shrink:0;}
+.sm-promo-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;color:rgba(240,235,227,.55);margin-bottom:10px;text-transform:uppercase;}
+.sm-promo-txt{font-size:13px;color:rgba(240,235,227,.7);line-height:1.6;margin-bottom:14px;}
+.sm-promo-txt strong{font-size:22px;font-weight:900;color:#F0EBE3;letter-spacing:-.03em;display:block;margin-top:2px;}
+.sm-promo-cta{display:inline-flex;align-items:center;height:38px;padding:0 18px;background:#F0EBE3;color:#3a2825;font-size:11px;font-weight:800;letter-spacing:.08em;transition:background .2s;}
+.sm-promo-cta:hover{background:#fff;}
 
 /* ── HERO (180vh pin) ──────────────────────────────────── */
 #heroPin{height:180vh;position:relative;}
 #heroSticky{position:relative;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;z-index:1;}
 #heroSwiper{position:absolute;inset:0;z-index:0;}
-#heroSwiper .swiper-slide{height:100vh;}
-#heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.45) 0%,rgba(10,8,6,.68) 100%);pointer-events:none;}
+#heroSwiper .swiper-slide{height:100vh;background:#0A0806;}
+#heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;vertical-align:bottom;}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.45) 0%,rgba(10,8,6,.82) 100%);pointer-events:none;}
 .hero-pag{position:absolute;bottom:36px;right:52px;z-index:10;display:flex;align-items:center;gap:8px;}
 .hero-pag-dot{width:28px;height:2px;background:rgba(240,235,227,.22);cursor:pointer;transition:background .3s,width .3s;}
 .hero-pag-dot.on{background:#F0EBE3;width:44px;}
@@ -426,21 +453,25 @@ img{display:block;max-width:100%;}
 @media(max-width:1023px){
   body{cursor:auto;}
   #cur,#curRing{display:none;}
-  #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr 1fr;}
+  #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;position:relative;}
   .hd-left,.hd-right{display:none;}
   .hd-burger{display:flex;}
   .hd-icons{display:flex;}
+  .hd-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:auto;}
   .hd-logo img{height:28px;}
+  .hd-icon[aria-label="고객센터"]{display:none;}
   #heroBottom{padding:0 20px 80px;flex-direction:column;gap:20px;}
   #heroScrollHint{left:50%;transform:translateX(-50%);}
   .hero-pag{right:20px;}
   #heroBigTitle h1{font-size:clamp(56px,16vw,96px);}
+  #heroMainCopy{bottom:auto;top:50%;transform:translate(-50%,-50%);}
   #jejuStoryPin{height:240vh;}
   .js-panel{left:20px;right:20px;}
   .js-img-right{display:none;}
   .js-dots{right:20px;}
   .best-hd{padding:0 20px 40px;}
   .best-row{padding:18px 20px;grid-template-columns:64px 1fr auto;gap:14px;}
+  .row-name{font-size:13px;}
   .row-arrow{display:none;}
   .cat{grid-template-columns:1fr;}
   .cat-card{height:360px;}
@@ -552,16 +583,77 @@ img{display:block;max-width:100%;}
 <!-- Side Menu (mobile) -->
 <div id="sideOv"></div>
 <nav id="sideMenu">
-  <button class="side-close" id="sideClose">✕</button>
-  <div class="side-nav">
-    <a href="#">흑돼지</a>
-    <a href="#">수산</a>
-    <a href="#">간편식</a>
+  <!-- Header -->
+  <div class="sm-head">
+    <div class="sm-logo">
+      <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv" alt="맛있는제주" style="height:24px;width:auto;">
+      <span>맛있는제주</span>
+    </div>
+    <button class="sm-close" id="sideClose" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
-  <div class="side-sub">
-    <a href="#">로그인</a>
-    <a href="#">장바구니</a>
-    <a href="#">고객센터</a>
+  <!-- Navigation -->
+  <div class="sm-nav">
+    <!-- 선물세트 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>선물세트</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">돈육 선물세트</a>
+        <a href="#">수산 선물세트</a>
+        <a href="#">간편식 선물세트</a>
+      </div>
+    </div>
+    <!-- 제주 흑돼지 (중분류 없음) -->
+    <div class="sm-cat">
+      <a href="#" class="sm-cat-link">제주 흑돼지</a>
+    </div>
+    <!-- 제주 수산물 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>제주 수산물</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">은갈치</a>
+        <a href="#">옥돔</a>
+        <a href="#">고등어</a>
+        <a href="#">삼치</a>
+        <a href="#">참조기</a>
+      </div>
+    </div>
+    <!-- 간편 가공식품 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>간편 가공식품</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">육가공 간편식</a>
+        <a href="#">수산 가공 간편식</a>
+      </div>
+    </div>
+  </div>
+  <!-- Quick links -->
+  <div class="sm-util">
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>로그인
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>장바구니
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>고객센터
+    </a>
+  </div>
+  <!-- Promo Banner -->
+  <div class="sm-promo">
+    <span class="sm-promo-badge">SPECIAL OFFER</span>
+    <p class="sm-promo-txt">신규 회원 첫 주문<strong>10% 할인</strong></p>
+    <a href="#" class="sm-promo-cta">지금 가입하기 →</a>
   </div>
 </nav>
 
@@ -593,7 +685,7 @@ img{display:block;max-width:100%;}
       <span class="hd-icon-badge">2</span>
     </a>
     <a href="#" class="hd-icon" aria-label="고객센터">
-      <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
     </a>
   </div>
 </header>
@@ -728,8 +820,6 @@ img{display:block;max-width:100%;}
         <h2 class="best-sec-title">베스트<br>상품</h2>
         <div style="display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;">
           <span style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(196,162,101,.1);border:1px solid rgba(196,162,101,.35);font-size:11px;font-weight:700;color:#C4A265;letter-spacing:.05em;">✓ 전 제품 무료배송</span>
-          <span style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(240,235,227,.04);border:1px solid rgba(240,235,227,.1);font-size:11px;font-weight:600;color:rgba(240,235,227,.45);letter-spacing:.03em;">법인 중도매인 직납</span>
-          <span style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(240,235,227,.04);border:1px solid rgba(240,235,227,.1);font-size:11px;font-weight:600;color:rgba(240,235,227,.45);letter-spacing:.03em;">당일 도축·출고</span>
         </div>
       </div>
       <a href="#" class="best-more">전체보기 →</a>
@@ -748,7 +838,7 @@ img{display:block;max-width:100%;}
         <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/128GSO11cJcEDmgnFnDOjgR47ekTYfuMa" alt=""></div>
         <div class="row-info">
           <div class="row-name">제주 프리미엄 은갈치 · 주낙 500~750g</div>
-          <div class="row-sub">1m~120cm 대물 · 법인중도매인 새벽경매 · 당일 가공</div>
+          <div class="row-sub">1m~120cm 대물 · 당일 가공</div>
         </div>
         <div class="row-price">38,000원<small class="row-orig">42,000원</small></div>
         <span class="row-arrow">→</span>
@@ -1175,6 +1265,16 @@ document.getElementById('hdBurger').addEventListener('click', openMenu);
 document.getElementById('sideClose').addEventListener('click', closeMenu);
 sideOv.addEventListener('click', closeMenu);
 
+/* ── Side menu accordion ──────────────────────────────── */
+document.querySelectorAll('.sm-cat-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var cat = this.closest('.sm-cat');
+    var isOpen = cat.classList.contains('open');
+    document.querySelectorAll('.sm-cat.open').forEach(function(c){ c.classList.remove('open'); });
+    if(!isOpen) cat.classList.add('open');
+  });
+});
+
 /* ── Hero Swiper — manual advance, progress bars ──────── */
 var heroPagItems = document.querySelectorAll('.hero-pag-item');
 var heroVid      = document.getElementById('heroVid');
@@ -1315,6 +1415,7 @@ var hd             = document.getElementById('hd');
 // GSAP centers title only (heroMainCopy uses CSS transform for centering)
 gsap.set(heroTitle, {xPercent:-50, yPercent:-50});
 
+var titleLocked = false;
 var heroTl = gsap.timeline({
   scrollTrigger:{
     trigger: '#heroPin',
@@ -1323,28 +1424,34 @@ var heroTl = gsap.timeline({
     scrub: 1.5,
     pin: '#heroSticky',
     onUpdate: function(self){
-      // Header 등장: 타이틀이 거의 사라지는 시점(0.46+)에 정확히 합류
-      var showHeader = self.progress > 0.44;
-      hd.classList.toggle('visible', showHeader);
-      hd.classList.toggle('solid',   showHeader);
+      // Once title reaches header, lock it there for the rest of the session
+      if(self.progress > 0.44 && !titleLocked){
+        titleLocked = true;
+      }
+      if(titleLocked){
+        hd.classList.add('visible','solid');
+        gsap.set(heroTitle,    {opacity:0});
+        gsap.set(heroMainCopy, {opacity:1});
+      } else {
+        hd.classList.toggle('visible', self.progress > 0.44);
+        hd.classList.toggle('solid',   self.progress > 0.44);
+      }
       heroBottom.classList.toggle('visible', self.progress > 0.72);
     }
   }
 });
 heroTl
   .to(heroScrollHint, {opacity:0, duration:.15, ease:'none'}, 0)
-  // 1단계: 타이틀이 위로 올라가며 작아짐 (0~0.45구간)
+  // Phase 1: title shrinks upward (0~0.45)
   .to(heroTitle, {
     scale: 0.08,
     y: function(){ return -(window.innerHeight/2 - 36); },
     duration: .45, ease: 'power2.inOut'
   }, 0)
-  // 타이틀 페이드아웃 (0.40~0.48)
+  // Title fade-out (0.40~0.48)
   .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40)
-  // 2단계: 타이틀 완전히 사라진 후(0.50) 브랜드 카피 등장 — 공간도 다르고 시간도 다름
-  .to(heroMainCopy, {opacity:1, duration:.18, ease:'power2.out'}, .50)
-  // 브랜드 카피 페이드아웃 (0.72~0.82)
-  .to(heroMainCopy, {opacity:0, duration:.10, ease:'none'}, .72);
+  // Phase 2: brand copy appears after title gone (0.50+) — stays visible (no fade-out)
+  .to(heroMainCopy, {opacity:1, duration:.18, ease:'power2.out'}, .50);
 
 document.querySelector('.hb-cta').addEventListener('click', function(e){
   var t = document.getElementById('mainContent');
