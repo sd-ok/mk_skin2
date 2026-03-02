@@ -106,7 +106,7 @@ body.menu-open{overflow:hidden;}
 #heroBigTitle.title-locked{opacity:0!important;}
 #heroMainCopy.copy-locked{opacity:1!important;}
 /* Solid bottom edge — z-index:50 clears above all slide stacking contexts */
-#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 20%,transparent 100%);z-index:50;pointer-events:none;transform:translateZ(0);}
+#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 28%,transparent 100%);z-index:50;pointer-events:none;transform:translateZ(0);}
 #heroSwiper{position:absolute;inset:0;z-index:0;overflow:hidden;}
 #heroSwiper .swiper-slide{height:100vh;background:#0A0806;}
 #heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;vertical-align:bottom;}
@@ -262,16 +262,16 @@ body.menu-open{overflow:hidden;}
 .brand-slide-bg{position:absolute;inset:0;}
 .brand-slide-bg img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease-out;}
 .swiper-slide-active .brand-slide-bg img{transform:scale(1.04);}
-.brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.18) 100%);}
-/* body has padding-bottom so content never overlaps pagination dots */
-.brand-par-body{position:relative;z-index:2;padding:0 52px 72px;max-width:780px;}
+.brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.55) 100%);}
+/* body: top padding clears fixed 72px header on PC pin, bottom clears pagination dots */
+.brand-par-body{position:relative;z-index:2;padding:88px 52px 72px;max-width:780px;}
 /* Brand swiper pagination — left-aligned above bottom edge */
 .brand-pg.swiper-pagination{position:absolute;bottom:24px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
 .brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
 .brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
 /* Mobile: Swiper handles peek via slidesPerView:1.12 */
 @media(max-width:1023px){
-  .brand-par-body{padding:0 24px 68px;}
+  .brand-par-body{padding:52px 24px 68px;}
   .brand-pg.swiper-pagination{left:24px!important;bottom:20px;}
 }
 .bp-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
@@ -1618,7 +1618,7 @@ var brandSwiper = new Swiper('#brandSwiper', {
   grabCursor: !isPC,
   allowTouchMove: !isPC,           // PC: scroll controls, mobile: touch
   slidesPerView: isPC ? 1 : 1.12,  // mobile 12% peek
-  spaceBetween: isPC ? 0 : 14,
+  spaceBetween: 0,
   autoplay: isPC ? false : { delay: 3800, disableOnInteraction: false },
   pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
   on: {
@@ -1638,7 +1638,7 @@ if(isPC){
   var lastBrandIdx = 0;
   ScrollTrigger.create({
     trigger: '#brandPar',
-    start: 'top top',
+    start: 'top 72px',  // offset for 72px fixed header
     end: '+=' + (brandSlideCount - 1) * 110 + '%', // ~220vh for 3 slides
     pin: true,
     anticipatePin: 1,
