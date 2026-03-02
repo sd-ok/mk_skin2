@@ -505,8 +505,11 @@ body.menu-open{overflow:hidden;}
   .fp-label{opacity:0;}
   .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
   .fish-panel+.fish-panel::after{display:none;}
-  #brandPin{height:auto;}
-  .brand-par{position:relative;top:auto;height:520px;}
+  .brand-par-body{padding:72px 24px 56px;}
+  .bp-title{margin-bottom:10px;}
+  .bp-desc{font-size:14px;line-height:1.65;margin-bottom:16px;}
+  .bp-certs{margin-top:16px;}
+  .bp-cert{height:28px;}
   .reviews-hd{padding:0 20px 32px;}
   .insta-hd{padding:0 20px 28px;flex-direction:column;align-items:flex-start;gap:16px;}
   .insta-grid{padding:0 20px;grid-template-columns:repeat(6,1fr);grid-template-rows:200px 200px;}
@@ -1613,11 +1616,11 @@ var brandSwiper = new Swiper('#brandSwiper', {
   loop: false,
   speed: 650,
   effect: 'slide',
-  grabCursor: !isPC,
-  allowTouchMove: !isPC,   // PC: scroll-driven only / mobile: touch swipe
+  grabCursor: false,
+  allowTouchMove: false,   // all devices: scroll-driven only
   slidesPerView: 1,
   spaceBetween: 0,
-  autoplay: isPC ? false : { delay: 4000, disableOnInteraction: false },
+  autoplay: false,
   pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
   on: {
     slideChangeTransitionStart: function(){
@@ -1630,22 +1633,20 @@ var brandSwiper = new Swiper('#brandSwiper', {
   }
 });
 
-// PC: vertical scroll drives horizontal slide change
-if(isPC){
-  var brandIdx = 0;
-  ScrollTrigger.create({
-    trigger: '#brandPin',
-    start: 'top top',
-    end: 'bottom bottom',
-    onUpdate: function(self){
-      var idx = Math.min(Math.floor(self.progress * 3), 2);
-      if(idx !== brandIdx){
-        brandIdx = idx;
-        brandSwiper.slideTo(idx, 650);
-      }
+// All devices: vertical scroll drives horizontal slide change
+var brandIdx = 0;
+ScrollTrigger.create({
+  trigger: '#brandPin',
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: function(self){
+    var idx = Math.min(Math.floor(self.progress * 3), 2);
+    if(idx !== brandIdx){
+      brandIdx = idx;
+      brandSwiper.slideTo(idx, 650);
     }
-  });
-}
+  }
+});
 
 // First slide text reveal on enter
 ScrollTrigger.create({
