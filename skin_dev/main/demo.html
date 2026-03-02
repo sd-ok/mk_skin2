@@ -103,10 +103,10 @@ body.menu-open{overflow:hidden;}
 /* Title lock: overrides GSAP inline styles */
 #heroBigTitle.title-locked{opacity:0!important;}
 #heroMainCopy.copy-locked{opacity:1!important;}
-/* Solid bottom edge to prevent crossFade flicker */
-#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 22%,transparent 100%);z-index:2;pointer-events:none;transform:translateZ(0);}
-#heroSwiper{position:absolute;inset:0;z-index:0;}
-#heroSwiper .swiper-slide{height:100vh;background:#0A0806;overflow:hidden;}
+/* Solid bottom edge — z-index:50 clears above all slide stacking contexts */
+#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 20%,transparent 100%);z-index:50;pointer-events:none;transform:translateZ(0);}
+#heroSwiper{position:absolute;inset:0;z-index:0;overflow:hidden;}
+#heroSwiper .swiper-slide{height:100vh;background:#0A0806;}
 #heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;vertical-align:bottom;}
 .hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.45) 0%,rgba(10,8,6,.82) 100%);pointer-events:none;}
 .hero-pag{position:absolute;bottom:36px;right:52px;z-index:10;display:flex;align-items:center;gap:8px;}
@@ -261,11 +261,21 @@ body.menu-open{overflow:hidden;}
 .brand-slide-bg img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease-out;}
 .swiper-slide-active .brand-slide-bg img{transform:scale(1.04);}
 .brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.18) 100%);}
-.brand-par-body{position:relative;z-index:2;padding:0 52px;max-width:780px;}
-/* Brand swiper pagination */
-.brand-pg.swiper-pagination{position:absolute;bottom:28px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
+/* body has padding-bottom so content never overlaps pagination dots */
+.brand-par-body{position:relative;z-index:2;padding:0 52px 72px;max-width:780px;}
+/* Brand swiper pagination — left-aligned above bottom edge */
+.brand-pg.swiper-pagination{position:absolute;bottom:24px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
 .brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
 .brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
+/* Mobile: peek right edge of next slide */
+@media(max-width:1023px){
+  .brand-par{overflow:visible;}
+  .brand-swiper{overflow:visible;}
+  #brandPar{overflow:hidden;} /* clip at parent */
+  .brand-slide{min-width:calc(100vw - 48px);}
+  .brand-par-body{padding:0 24px 68px;}
+  .brand-pg.swiper-pagination{left:24px!important;bottom:20px;}
+}
 .bp-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .bp-kw::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
 .bp-title{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1.15;color:#F0EBE3;margin-bottom:22px;}
@@ -414,7 +424,7 @@ body.menu-open{overflow:hidden;}
 /* ── PORK COLLECTION (always visible) ───────────────────── */
 #porkCollection{background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);padding:80px 0 0;}
 #porkCollection .pork-more-header{max-width:1560px;margin:0 auto;padding:0 52px 28px;display:flex;align-items:center;justify-content:space-between;}
-#porkCollection .pork-more-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+#porkCollection .pork-more-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#C04040;}
 #porkCollection .pork-more-header a{font-size:13px;font-weight:600;color:rgba(240,235,227,.3);border-bottom:1px solid rgba(240,235,227,.12);padding-bottom:2px;transition:color .2s,border-color .2s;}
 #porkCollection .pork-more-header a:hover{color:#F0EBE3;border-color:rgba(240,235,227,.45);}
 .pork-card-name{font-size:20px;font-weight:700;color:#F0EBE3;margin-bottom:5px;letter-spacing:-.02em;}
@@ -443,7 +453,7 @@ body.menu-open{overflow:hidden;}
 .fish-cta:hover{background:transparent;color:#F0EBE3;border-color:#F0EBE3;transform:translateX(4px);}
 /* Fish panels (3-panel flex-expand, auto-hover capable) */
 .fish-panels-header{max-width:1560px;margin:0 auto;padding:0 52px 28px;display:flex;align-items:center;justify-content:space-between;}
-.fish-panels-header h3{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.38);}
+.fish-panels-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#4A7EC0;}
 .fish-panels-header a{font-size:13px;font-weight:600;color:rgba(240,235,227,.3);border-bottom:1px solid rgba(240,235,227,.12);padding-bottom:2px;transition:color .2s,border-color .2s;}
 .fish-panels-header a:hover{color:#F0EBE3;border-color:rgba(240,235,227,.45);}
 /* Auto-hover class mirrors :hover */
@@ -498,8 +508,7 @@ body.menu-open{overflow:hidden;}
   .fp-label{opacity:0;}
   .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
   .fish-panel+.fish-panel::after{display:none;}
-  .brand-par{height:500px;}
-  .brand-par-body{padding:0 20px;}
+  .brand-par{height:520px;}
   .reviews-hd{padding:0 20px 32px;}
   .insta-hd{padding:0 20px 28px;flex-direction:column;align-items:flex-start;gap:16px;}
   .insta-grid{padding:0 20px;grid-template-columns:repeat(6,1fr);grid-template-rows:200px 200px;}
@@ -1458,7 +1467,6 @@ var hd             = document.getElementById('hd');
 gsap.set(heroTitle, {xPercent:-50, yPercent:-50});
 
 var titleLocked = false;
-var copyLocked  = false;
 var heroTl = gsap.timeline({
   scrollTrigger:{
     trigger: '#heroPin',
@@ -1468,21 +1476,20 @@ var heroTl = gsap.timeline({
     pin: '#heroSticky',
     onUpdate: function(self){
       if(!titleLocked){
-        // Wait until GSAP has actually finished fading the title (not just scroll progress)
+        // Apply lock only when GSAP has actually rendered title to opacity 0
         var op = gsap.getProperty(heroTitle, 'opacity');
-        if(op <= 0.01 && self.progress > 0.44){
+        if(op <= 0.02 && self.progress > 0.44){
           titleLocked = true;
-          heroTitle.classList.add('title-locked');   // now safe: GSAP already at opacity 0
+          heroTitle.classList.add('title-locked');
           hd.classList.add('visible','solid');
+          // Independent fade-in: not scroll-scrubbed, always completes to opacity:1
+          gsap.to(heroMainCopy, {opacity:1, duration:1.4, ease:'power2.out', onComplete:function(){
+            heroMainCopy.classList.add('copy-locked');
+          }});
         } else {
           hd.classList.toggle('visible', self.progress > 0.44);
           hd.classList.toggle('solid',   self.progress > 0.44);
         }
-      }
-      // Lock copy only after GSAP naturally fades it in (no snap)
-      if(titleLocked && !copyLocked){
-        var cop = gsap.getProperty(heroMainCopy, 'opacity');
-        if(cop >= 0.99){ copyLocked = true; heroMainCopy.classList.add('copy-locked'); }
       }
       heroBottom.classList.toggle('visible', self.progress > 0.72);
     }
@@ -1490,16 +1497,14 @@ var heroTl = gsap.timeline({
 });
 heroTl
   .to(heroScrollHint, {opacity:0, duration:.15, ease:'none'}, 0)
-  // Phase 1: title shrinks upward (0~0.45)
+  // Phase 1: title shrinks upward to header position (0~0.45)
   .to(heroTitle, {
     scale: 0.08,
     y: function(){ return -(window.innerHeight/2 - 36); },
     duration: .45, ease: 'power2.inOut'
   }, 0)
-  // Title fade-out (0.40~0.48)
-  .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40)
-  // Phase 2: brand copy appears after title gone (0.50+) — stays visible (no fade-out)
-  .to(heroMainCopy, {opacity:1, duration:.18, ease:'power2.out'}, .50);
+  // Title fade-out (0.40~0.48) — mainCopy is triggered independently after this
+  .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40);
 
 document.querySelector('.hb-cta').addEventListener('click', function(e){
   var t = document.getElementById('mainContent');
@@ -1604,11 +1609,11 @@ fpEls.forEach(function(el){
 
 /* ── Brand Heritage Swiper ─────────────────────────────── */
 var brandSwiper = new Swiper('#brandSwiper', {
-  loop: false,
+  loop: true,
   speed: 900,
   effect: 'slide',
   grabCursor: true,
-  mousewheel: { forceToAxis: true, releaseOnEdges: true },
+  autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
   pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
   on: {
     slideChangeTransitionStart: function(){
@@ -1620,11 +1625,24 @@ var brandSwiper = new Swiper('#brandSwiper', {
     }
   }
 });
+// PC: wheel over brand section → advance slide horizontally (no page scroll intercept outside section)
+var brandWheelThrottle = false;
+document.getElementById('brandPar').addEventListener('wheel', function(e){
+  // Only intercept if not at edge (edges let page scroll through)
+  if(brandSwiper.isEnd && e.deltaY > 0) return;
+  if(brandSwiper.isBeginning && e.deltaY < 0) return;
+  e.preventDefault();
+  if(brandWheelThrottle) return;
+  brandWheelThrottle = true;
+  setTimeout(function(){ brandWheelThrottle = false; }, 900);
+  if(e.deltaY > 0) brandSwiper.slideNext();
+  else brandSwiper.slidePrev();
+}, {passive: false});
 // Initial reveal on scroll
 ScrollTrigger.create({
   trigger: '.brand-par', start: 'top 75%', once: true,
   onEnter: function(){
-    var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
+    var bodyEl = brandSwiper.slides[brandSwiper.activeIndex].querySelector('.brand-par-body');
     gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
   }
 });
