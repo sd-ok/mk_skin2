@@ -254,11 +254,18 @@ body.menu-open{overflow:hidden;}
 .fish-end-pad{height:60px;background:linear-gradient(0deg,#030810,#060F20);}
 
 /* ── BRAND PARALLAX ─────────────────────────────────────── */
-.brand-par{position:relative;height:620px;overflow:hidden;display:flex;align-items:center;}
-#brandParBg{position:absolute;top:-25%;left:0;right:0;bottom:-25%;will-change:transform;}
-#brandParBg img{width:100%;height:100%;object-fit:cover;}
-.brand-par-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.28) 100%);}
+.brand-par{position:relative;height:620px;overflow:hidden;}
+.brand-swiper{width:100%;height:100%;}
+.brand-slide{position:relative;display:flex;align-items:center;overflow:hidden;}
+.brand-slide-bg{position:absolute;inset:0;}
+.brand-slide-bg img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease-out;}
+.swiper-slide-active .brand-slide-bg img{transform:scale(1.04);}
+.brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.18) 100%);}
 .brand-par-body{position:relative;z-index:2;padding:0 52px;max-width:780px;}
+/* Brand swiper pagination */
+.brand-pg.swiper-pagination{position:absolute;bottom:28px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
+.brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
+.brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
 .bp-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .bp-kw::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
 .bp-title{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1.15;color:#F0EBE3;margin-bottom:22px;}
@@ -407,7 +414,7 @@ body.menu-open{overflow:hidden;}
 /* ── PORK COLLECTION (always visible) ───────────────────── */
 #porkCollection{background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);padding:80px 0 0;}
 #porkCollection .pork-more-header{max-width:1560px;margin:0 auto;padding:0 52px 28px;display:flex;align-items:center;justify-content:space-between;}
-#porkCollection .pork-more-header h3{font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.38);}
+#porkCollection .pork-more-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
 #porkCollection .pork-more-header a{font-size:13px;font-weight:600;color:rgba(240,235,227,.3);border-bottom:1px solid rgba(240,235,227,.12);padding-bottom:2px;transition:color .2s,border-color .2s;}
 #porkCollection .pork-more-header a:hover{color:#F0EBE3;border-color:rgba(240,235,227,.45);}
 .pork-card-name{font-size:20px;font-weight:700;color:#F0EBE3;margin-bottom:5px;letter-spacing:-.02em;}
@@ -460,7 +467,7 @@ body.menu-open{overflow:hidden;}
 @media(max-width:1023px){
   body{cursor:auto;}
   #cur,#curRing{display:none;}
-  #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;position:relative;}
+  #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;}
   .hd-left,.hd-right{display:none;}
   .hd-burger{display:flex;}
   .hd-icons{display:flex;}
@@ -478,7 +485,7 @@ body.menu-open{overflow:hidden;}
   .best-hd{padding:0 20px 40px;}
   .best-row{padding:18px 20px;grid-template-columns:64px 1fr auto;gap:14px;}
   .row-thumb{width:64px;height:64px;}
-  .row-name{font-size:13px;}
+  .row-name{font-size:clamp(15px,1.9vw,22px);}
   .row-arrow{display:none;}
   .cat{grid-template-columns:1fr;}
   .cat-card{height:360px;}
@@ -1029,25 +1036,53 @@ body.menu-open{overflow:hidden;}
     <div class="fish-end-pad"></div>
   </section>
 
-  <!-- ── BRAND PARALLAX ────────────────────────────── -->
+  <!-- ── BRAND HERITAGE SWIPER ──────────────────── -->
   <div class="brand-par" id="brandPar">
-    <div id="brandParBg">
-      <img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="">
-    </div>
-    <div class="brand-par-ov"></div>
-    <div class="brand-par-body">
-      <p class="bp-kw">Our Heritage</p>
-      <h2 class="bp-title">전국 유일,<br>제주 직영<br>이원 가공 시스템</h2>
-      <p class="bp-desc">육가공 센터와 수산가공 센터를 동시에 직영하는 대한민국 유일의 기업. 흑돼지도, 갈치도, 제주에서 직접 키우고 잡고 가공합니다. 전국 어디서도, 제주에서도 없는 단 하나의 시스템.</p>
-      <a href="#" class="bp-cta">브랜드 스토리 보기 →</a>
-      <div class="bp-certs">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1zssAKx_KAaazjUV0RtAviQXD3qKJnLUt" alt="보험인증">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1M6uQR3APJEXDLYOlCfPIyyme1aAHC4Ax" alt="이력추적">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/13YiHrM8V4imM6A3z-SP9G8aCy-OR3PNn" alt="HACCP">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1GiMjbg6Lrko8RXRhiVWw9wFHAWVgwDf0" alt="JQ인증">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1AiUkngk_j25omUZrQl72m9FLheVEgqda" alt="MASSIM">
-        <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1njPXH_XCU-xr-QrxmCoxuKbT0Gf7RB04" alt="제주지리적표시">
+    <div class="swiper brand-swiper" id="brandSwiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1: Heritage System -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="제주 가공센터"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Heritage</p>
+            <h2 class="bp-title">전국 유일,<br>제주 직영<br>이원 가공 시스템</h2>
+            <p class="bp-desc">육가공 센터와 수산가공 센터를 동시에 직영하는 대한민국 유일의 기업. 흑돼지도, 갈치도, 제주에서 직접 키우고 잡고 가공합니다. 전국 어디서도 없는 단 하나의 시스템.</p>
+            <a href="#" class="bp-cta">브랜드 스토리 보기 →</a>
+            <div class="bp-certs">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1zssAKx_KAaazjUV0RtAviQXD3qKJnLUt" alt="보험인증">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1M6uQR3APJEXDLYOlCfPIyyme1aAHC4Ax" alt="이력추적">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/13YiHrM8V4imM6A3z-SP9G8aCy-OR3PNn" alt="HACCP">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1GiMjbg6Lrko8RXRhiVWw9wFHAWVgwDf0" alt="JQ인증">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1AiUkngk_j25omUZrQl72m9FLheVEgqda" alt="MASSIM">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1njPXH_XCU-xr-QrxmCoxuKbT0Gf7RB04" alt="제주지리적표시">
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2: Ocean -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="제주 청정 바다"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Ocean</p>
+            <h2 class="bp-title">제주 청정 바다,<br>새벽 경매의<br>신선함</h2>
+            <p class="bp-desc">법인 중도매인 자격으로 제주 어항 새벽 경매에 직접 참가합니다. 중간 유통 없이 경매 당일 가공·포장·출고. 은갈치, 옥돔, 고등어가 그날 식탁 위에 오릅니다.</p>
+            <a href="#" class="bp-cta">수산 컬렉션 보기 →</a>
+          </div>
+        </div>
+        <!-- Slide 3: Farm -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="제주 직영 농장"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Farm</p>
+            <h2 class="bp-title">직영 농장 직납,<br>당일 도축의<br>차이</h2>
+            <p class="bp-desc">제주 직영 흑돼지 농장에서 사육부터 출하까지 직접 관리합니다. 주문 다음 날 오전 도축, 오후 출고. 냉동 없이 냉장 상태로 전국에 도착하는 신선함.</p>
+            <a href="#" class="bp-cta">흑돼지 컬렉션 보기 →</a>
+          </div>
+        </div>
       </div>
+      <div class="brand-pg swiper-pagination"></div>
     </div>
   </div>
 
@@ -1567,22 +1602,34 @@ fpEls.forEach(function(el){
   });
 });
 
-/* ── Brand parallax (rate 0.45) ────────────────────────── */
-var brandPar   = document.getElementById('brandPar');
-var brandParBg = document.getElementById('brandParBg');
-window.addEventListener('scroll', function(){
-  var rect = brandPar.getBoundingClientRect();
-  if(rect.top < window.innerHeight && rect.bottom > 0){
-    var offset = (window.pageYOffset - brandPar.offsetTop) * 0.45;
-    brandParBg.style.transform = 'translateY(' + offset + 'px)';
+/* ── Brand Heritage Swiper ─────────────────────────────── */
+var brandSwiper = new Swiper('#brandSwiper', {
+  loop: false,
+  speed: 900,
+  effect: 'slide',
+  grabCursor: true,
+  mousewheel: { forceToAxis: true, releaseOnEdges: true },
+  pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
+  on: {
+    slideChangeTransitionStart: function(){
+      var bodyEl = this.slides[this.activeIndex].querySelector('.brand-par-body');
+      gsap.fromTo(Array.from(bodyEl.children),
+        {y:28, opacity:0},
+        {y:0, opacity:1, duration:.72, stagger:.1, ease:'power3.out'}
+      );
+    }
   }
-}, {passive:true});
+});
+// Initial reveal on scroll
+ScrollTrigger.create({
+  trigger: '.brand-par', start: 'top 75%', once: true,
+  onEnter: function(){
+    var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
+    gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
+  }
+});
 
 /* ── Scroll reveals ────────────────────────────────────── */
-gsap.from('.bp-kw,.bp-title,.bp-desc,.bp-cta,.bp-certs', {
-  y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out',
-  scrollTrigger:{trigger:'.brand-par', start:'top 75%'}
-});
 gsap.from('.ie', {
   scale:.93, opacity:0, duration:.6, stagger:.07, ease:'power3.out',
   scrollTrigger:{trigger:'.insta-grid', start:'top 82%'}
