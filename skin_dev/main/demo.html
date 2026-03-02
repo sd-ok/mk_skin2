@@ -98,9 +98,10 @@ body.menu-open{overflow:hidden;}
 .sm-promo-cta:hover{background:#fff;}
 
 /* ── HERO (180vh pin) ──────────────────────────────────── */
-#heroPin{height:180vh;position:relative;}
-/* Close sub-pixel gap between heroPin and next section (Ken-Burns zoom can expose gap) */
-#mainContent{margin-top:-6px;background:#0A0806;}
+#heroPin{height:180vh;position:relative;z-index:2;}
+/* Dark bridge: covers the sub-pixel gap between heroPin spacer bottom and mainContent top */
+#heroPin::after{content:'';position:absolute;bottom:-6px;left:0;right:0;height:10px;background:#0A0806;z-index:3;}
+#mainContent{margin-top:-6px;background:#0A0806;position:relative;z-index:1;}
 #heroSticky{position:relative;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;z-index:1;}
 /* Title lock: overrides GSAP inline styles */
 #heroBigTitle.title-locked{opacity:0!important;}
