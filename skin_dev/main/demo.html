@@ -106,7 +106,7 @@ body.menu-open{overflow:hidden;}
 #heroBigTitle.title-locked{opacity:0!important;}
 #heroMainCopy.copy-locked{opacity:1!important;}
 /* Solid bottom edge — z-index:50 clears above all slide stacking contexts */
-#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 20%,transparent 100%);z-index:5;pointer-events:none;transform:translateZ(0);}
+#heroSticky::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(0deg,rgba(10,8,6,1) 0%,rgba(10,8,6,1) 20%,transparent 100%);z-index:50;pointer-events:none;transform:translateZ(0);}
 #heroSwiper{position:absolute;inset:0;z-index:0;overflow:hidden;}
 #heroSwiper .swiper-slide{height:100vh;background:#0A0806;}
 #heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;vertical-align:bottom;}
@@ -130,7 +130,7 @@ body.menu-open{overflow:hidden;}
 
 /* ── JEJU STORY (300vh) ────────────────────────────────── */
 #jejuStoryPin{height:300vh;position:relative;}
-#jejuStorySticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#0A0806;}
+#jejuStorySticky{position:sticky;top:0;height:100vh;overflow:hidden;}
 .js-bg{position:absolute;inset:0;opacity:0;}
 .js-bg img{width:100%;height:100%;object-fit:cover;}
 .js-bg-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.5) 0%,rgba(10,8,6,.8) 100%);}
