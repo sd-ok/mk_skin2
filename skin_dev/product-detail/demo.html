@@ -3,1517 +3,1200 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>제주 흑돼지 오겹살 · 상품 상세 — v0.11</title>
+  <title>제주 흑돼지 오겹살 · 상품 상세 — 맛있는제주</title>
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <style>
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
-      background: #0A0806;
-      color: #F0EBE3;
-      font-size: 16px;
-      line-height: 1.65;
+    /* ── Reset ─────────────────────────────────────────── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+      background:#100404;
+      color:#F0EBE3;
+      font-size:16px;
+      line-height:1.65;
     }
-    a { color: inherit; text-decoration: none; }
-    button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; }
-    img { display: block; max-width: 100%; }
+    a{color:inherit;text-decoration:none;}
+    button{background:none;border:none;cursor:pointer;font:inherit;color:inherit;}
+    img{display:block;max-width:100%;}
+    input[type=number]{-moz-appearance:textfield;appearance:textfield;}
     input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+    input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
 
-    /* ── Header ── */
-    #hd {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 72px;
-      background: rgba(14,11,9,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      display: flex;
-      align-items: center;
-      padding: 0 48px;
-      z-index: 500;
+    /* ── HEADER (메인데모 동일) ─────────────────────────── */
+    #hd{
+      position:fixed;top:0;left:0;right:0;height:72px;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;padding:0 48px;z-index:500;
+      opacity:1;pointer-events:auto;
+      background:rgba(14,11,9,.93);
+      backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+      border-bottom:1px solid rgba(255,255,255,.07);
+      transition:background .5s,border-color .5s;
     }
-    #hd__back {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: .06em;
-      color: rgba(240,235,227,.55);
-      transition: color .2s;
-    }
-    #hd__back:hover { color: #F0EBE3; }
-    #hd__back svg { flex-shrink: 0; }
-    #hd__logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: #F0EBE3;
-    }
-    #hd__icons {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    #hd__icons button { color: rgba(240,235,227,.6); transition: color .2s; }
-    #hd__icons button:hover { color: #F0EBE3; }
+    .hd-left{display:flex;align-items:center;gap:36px;}
+    .hd-left a{font-size:15px;font-weight:600;letter-spacing:.05em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;}
+    .hd-left a:hover{color:#F0EBE3;}
+    .hd-logo{display:flex;align-items:center;justify-content:center;}
+    .hd-logo img{height:34px;width:auto;display:block;}
+    .hd-logo-txt{font-size:15px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;margin-left:8px;}
+    .hd-right{display:flex;align-items:center;gap:28px;justify-content:flex-end;}
+    .hd-right a{font-size:15px;font-weight:600;letter-spacing:.05em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;display:flex;align-items:center;}
+    .hd-right a:hover{color:#F0EBE3;}
+    .cart-num{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:9px;font-weight:700;margin-left:3px;}
+    .hd-burger{display:none;align-items:center;justify-content:flex-start;width:44px;height:44px;cursor:pointer;flex-shrink:0;}
+    .hd-burger-line{display:block;width:22px;height:1.5px;background:#F0EBE3;position:relative;}
+    .hd-burger-line::before,.hd-burger-line::after{content:'';position:absolute;left:0;width:22px;height:1.5px;background:#F0EBE3;}
+    .hd-burger-line::before{top:-7px;}
+    .hd-burger-line::after{top:7px;}
+    .hd-icons{display:none;align-items:center;gap:14px;justify-content:flex-end;}
+    .hd-icon{position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+    .hd-icon svg{width:20px;height:20px;stroke:rgba(240,235,227,.65);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .hd-icon:hover svg{stroke:#F0EBE3;}
+    .hd-icon-badge{position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;}
 
-    /* ── Breadcrumb ── */
-    .breadcrumb {
-      margin-top: 72px;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .bc-inner {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 0 48px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: rgba(240,235,227,.38);
-      letter-spacing: .04em;
-    }
-    .bc-inner a:hover { color: rgba(240,235,227,.75); }
-    .bc-inner .bc-sep { opacity: .4; }
-    .bc-inner .bc-cur { color: rgba(240,235,227,.6); }
+    /* ── SIDE MENU (메인데모 동일) ──────────────────────── */
+    #sideOv{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:599;opacity:0;pointer-events:none;transition:opacity .35s;}
+    #sideOv.on{opacity:1;pointer-events:auto;}
+    #sideMenu{position:fixed;top:0;left:0;bottom:0;width:300px;background:#110E0C;z-index:600;transform:translateX(-100%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;box-shadow:6px 0 32px rgba(0,0,0,.7);border-right:1px solid rgba(240,235,227,.08);scrollbar-width:none;}
+    #sideMenu::-webkit-scrollbar{display:none;}
+    #sideMenu.on{transform:translateX(0);}
+    body.menu-open{overflow:hidden;}
+    .sm-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+    .sm-logo{display:flex;align-items:center;gap:9px;}
+    .sm-logo span{font-size:14px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;}
+    .sm-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+    .sm-close svg{width:18px;height:18px;stroke:rgba(240,235,227,.4);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s;}
+    .sm-close:hover svg{stroke:#F0EBE3;}
+    .sm-nav{flex:1;padding:4px 0;}
+    .sm-cat{border-bottom:1px solid rgba(240,235,227,.05);}
+    .sm-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;cursor:pointer;transition:color .2s;text-align:left;}
+    .sm-cat-btn:hover{color:#C4A265;}
+    .sm-cat-link{display:flex;align-items:center;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s,padding-left .2s;}
+    .sm-cat-link:hover{color:#C4A265;padding-left:28px;}
+    .sm-arr{width:15px;height:15px;stroke:rgba(240,235,227,.3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;transition:transform .3s,stroke .2s;}
+    .sm-cat.open .sm-arr{transform:rotate(180deg);}
+    .sm-sub{max-height:0;overflow:hidden;transition:max-height .36s cubic-bezier(.25,.46,.45,.94);background:rgba(0,0,0,.18);}
+    .sm-cat.open .sm-sub{max-height:400px;}
+    .sm-sub a{display:flex;align-items:center;gap:10px;padding:10px 22px 10px 38px;font-size:14px;font-weight:500;color:rgba(240,235,227,.48);transition:color .2s,padding-left .2s;}
+    .sm-sub a:hover{color:#C4A265;padding-left:42px;}
+    .sm-util{display:flex;flex-direction:row;padding:4px 0 2px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+    .sm-util-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:1;padding:12px 4px;font-size:11px;font-weight:600;color:rgba(240,235,227,.38);transition:color .2s;letter-spacing:.03em;}
+    .sm-util-link:hover{color:#F0EBE3;}
+    .sm-util-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .sm-promo{margin:0;padding:22px;background:linear-gradient(135deg,#5F4541 0%,#3a2825 100%);flex-shrink:0;}
+    .sm-promo-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;color:rgba(240,235,227,.55);margin-bottom:10px;text-transform:uppercase;}
+    .sm-promo-txt{font-size:13px;color:rgba(240,235,227,.7);line-height:1.6;margin-bottom:14px;}
+    .sm-promo-txt strong{font-size:22px;font-weight:900;color:#F0EBE3;letter-spacing:-.03em;display:block;margin-top:2px;}
+    .sm-promo-cta{display:inline-flex;align-items:center;height:38px;padding:0 18px;background:#F0EBE3;color:#3a2825;font-size:11px;font-weight:800;letter-spacing:.08em;transition:background .2s;}
+    .sm-promo-cta:hover{background:#fff;}
 
-    /* ── Container ── */
-    .pd-outer {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
+    /* ── FOOTER (메인데모 동일) ─────────────────────────── */
+    .ft{background:#100E0C;padding:80px 0 0;border-top:1px solid rgba(240,235,227,.055);}
+    .ft-in{max-width:1560px;margin:0 auto;padding:0 52px;}
+    .ft-nl{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;padding-bottom:64px;border-bottom:1px solid rgba(240,235,227,.06);margin-bottom:52px;}
+    .ft-nl-h{font-size:clamp(20px,2.5vw,30px);font-weight:700;letter-spacing:-.03em;color:#F0EBE3;margin-bottom:8px;}
+    .ft-nl-p{font-size:14px;color:rgba(240,235,227,.32);}
+    .ft-nl-form{display:flex;}
+    .ft-nl-input{width:280px;height:50px;padding:0 20px;background:rgba(240,235,227,.04);border:1px solid rgba(240,235,227,.1);border-right:none;font:inherit;font-size:14px;color:#F0EBE3;outline:none;transition:border-color .2s;}
+    .ft-nl-input::placeholder{color:rgba(240,235,227,.2);}
+    .ft-nl-input:focus{border-color:rgba(240,235,227,.28);}
+    .ft-nl-btn{height:50px;padding:0 26px;background:#F0EBE3;color:#0A0806;font-size:13px;font-weight:700;letter-spacing:.05em;white-space:nowrap;transition:background .2s;}
+    .ft-nl-btn:hover{background:#8B1A1A;color:#fff;}
+    .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:52px;}
+    .ft-logo{font-size:17px;font-weight:800;letter-spacing:.05em;color:#F0EBE3;margin-bottom:14px;}
+    .ft-brand-desc{font-size:14px;line-height:1.85;color:rgba(240,235,227,.26);margin-bottom:26px;}
+    .ft-social{display:flex;gap:9px;}
+    .ft-social a{width:35px;height:35px;border:1px solid rgba(240,235,227,.09);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(240,235,227,.3);transition:border-color .2s,color .2s;}
+    .ft-social a:hover{border-color:rgba(240,235,227,.32);color:#F0EBE3;}
+    .ft-col h4{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.28);margin-bottom:20px;}
+    .ft-col ul{list-style:none;}
+    .ft-col ul li{margin-bottom:12px;}
+    .ft-col ul li a{font-size:14px;color:rgba(240,235,227,.36);transition:color .15s;}
+    .ft-col ul li a:hover{color:#F0EBE3;}
+    .ft-bottom{border-top:1px solid rgba(240,235,227,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .ft-copy{font-size:12px;color:rgba(240,235,227,.17);}
+    .ft-links{display:flex;gap:20px;}
+    .ft-links a{font-size:12px;color:rgba(240,235,227,.17);transition:color .15s;}
+    .ft-links a:hover{color:rgba(240,235,227,.52);}
+    .ft-top{width:38px;height:38px;border:1px solid rgba(240,235,227,.1);display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(240,235,227,.28);cursor:pointer;transition:border-color .2s,color .2s;}
+    .ft-top:hover{border-color:rgba(240,235,227,.35);color:#F0EBE3;}
 
-    /* ── 2-Column Layout ── */
-    .pd-layout { padding: 40px 0 100px; }
+    /* ── Breadcrumb ─────────────────────────────────────── */
+    .breadcrumb{
+      margin-top:72px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(10,4,4,.6);
+    }
+    .bc-inner{
+      max-width:1600px;margin:0 auto;padding:0 48px;
+      display:flex;align-items:center;gap:8px;
+      font-size:13px;color:rgba(240,235,227,.35);letter-spacing:.04em;
+    }
+    .bc-inner a:hover{color:rgba(240,235,227,.7);}
+    .bc-sep{opacity:.35;}
+    .bc-cur{color:rgba(240,235,227,.55);}
 
-    .pd-cols {
-      display: flex;
-      gap: 64px;
-      /* align-items 기본값 stretch → 두 컬럼 같은 높이 → sticky 동작 필수 */
-    }
+    /* ── Container ──────────────────────────────────────── */
+    .pd-outer{max-width:1600px;margin:0 auto;padding:0 48px;}
 
-    /* LEFT col: 57% */
-    .pd-left {
-      width: 57%;
-      flex-shrink: 0;
-    }
+    /* ── 2-Column Layout ────────────────────────────────── */
+    .pd-layout{padding:36px 0 100px;background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);}
+    .pd-cols{display:flex;gap:60px;/* stretch = sticky 필수 */}
 
-    /* RIGHT col */
-    .pd-right {
-      flex: 1;
-      min-width: 0;
-    }
+    /* LEFT 56% */
+    .pd-left{width:56%;flex-shrink:0;}
 
-    /* ── Gallery Wrapper ── */
-    .pd-gallery-wrap {
-      display: flex;
-      gap: 16px;
-    }
+    /* RIGHT */
+    .pd-right{flex:1;min-width:0;}
 
-    /* Vertical Thumbs (PC only) */
-    .pd-thumbs {
-      width: 76px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .pd-thumb {
-      width: 76px;
-      height: 76px;
-      flex-shrink: 0;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      border: 2px solid rgba(255,255,255,.1);
-      transition: border-color .2s;
-    }
-    .pd-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .5s;
-    }
-    .pd-thumb:hover img { transform: scale(1.06); }
-    .pd-thumb:hover { border-color: rgba(196,162,101,.4); }
-    .pd-thumb.is-active {
-      border-color: #C4A265;
-    }
-    .pd-thumb.is-active::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; bottom: 0;
-      width: 3px;
-      background: #C4A265;
-      z-index: 1;
-    }
+    /* ── Gallery ────────────────────────────────────────── */
+    .pd-gallery-wrap{display:flex;gap:14px;}
 
-    /* Main Image */
-    .pd-main-wrap {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      background: #120e0b;
+    /* Vertical Thumbs */
+    .pd-thumbs{
+      width:72px;flex-shrink:0;
+      display:flex;flex-direction:column;gap:8px;
     }
-    .pd-main-wrap::after {
-      content: '';
-      display: block;
-      padding-top: 100%; /* 1:1 */
+    .pd-thumb{
+      width:72px;height:72px;flex-shrink:0;
+      position:relative;overflow:hidden;cursor:pointer;
+      border:2px solid rgba(255,255,255,.1);
+      transition:border-color .2s;
     }
-    #mainImgWrap {
-      position: absolute;
-      inset: 0;
-    }
-    #mainImg {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      cursor: zoom-in;
-      transition: transform .7s cubic-bezier(.25,.46,.45,.94);
-    }
-    .pd-main-wrap:hover #mainImg { transform: scale(1.04); }
-
-    /* Mobile swiper (hidden on PC) */
-    .pd-swiper-wrap { display: none; }
-
-    /* Mobile brief (hidden on PC) */
-    .pd-mobile-brief { display: none; }
-
-    /* ── Tabs ── */
-    .pd-tabs-wrap { margin-top: 40px; }
-    .pd-tabs {
-      display: flex;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    .pd-tab {
-      padding: 15px 28px;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: .04em;
-      color: rgba(240,235,227,.38);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      cursor: pointer;
-      transition: color .18s, border-color .18s;
-      white-space: nowrap;
-    }
-    .pd-tab:hover { color: rgba(240,235,227,.75); }
-    .pd-tab.is-active {
-      color: #F0EBE3;
-      border-bottom-color: #C4A265;
+    .pd-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+    .pd-thumb:hover img{transform:scale(1.08);}
+    .pd-thumb:hover{border-color:rgba(196,162,101,.35);}
+    .pd-thumb.is-active{border-color:#C4A265;}
+    .pd-thumb.is-active::before{
+      content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:#C4A265;z-index:1;
     }
 
-    /* Detail Content */
-    .pd-detail-wrap {
-      position: relative;
-      overflow: hidden;
-      max-height: 640px;
-      transition: max-height .01s; /* handled by GSAP */
+    /* Main image 1:1 */
+    .pd-main-wrap{
+      flex:1;position:relative;overflow:hidden;background:#200808;
     }
-    .pd-detail-wrap.is-expanded { max-height: none; }
-    .pd-detail-fade {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 180px;
-      background: linear-gradient(to bottom, transparent, #0A0806);
-      pointer-events: none;
-      transition: opacity .3s;
+    .pd-main-wrap::after{content:'';display:block;padding-top:100%;}
+    #mainImgWrap{position:absolute;inset:0;overflow:hidden;}
+    #mainImg{
+      width:100%;height:100%;object-fit:cover;
+      display:block;
+      transition:transform .7s cubic-bezier(.25,.46,.45,.94);
     }
-    .pd-detail-wrap.is-expanded .pd-detail-fade { opacity: 0; pointer-events: none; }
+    .pd-main-wrap:hover #mainImg{transform:scale(1.03);}
 
-    .pd-detail-content {
-      padding: 44px 0;
-    }
-    .pd-detail-content img {
-      max-width: 100%;
-      margin: 0 auto 48px;
-      display: block;
-    }
+    /* Mobile swiper (hidden PC) */
+    .pd-swiper-wrap{display:none;}
+    .pd-mobile-brief{display:none;}
 
-    .pd-detail-more {
-      display: flex;
-      justify-content: center;
-      padding: 32px 0 16px;
+    /* ── Tabs ───────────────────────────────────────────── */
+    .pd-tabs-wrap{margin-top:36px;}
+    .pd-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);}
+    .pd-tab{
+      padding:14px 24px;font-size:15px;font-weight:500;
+      letter-spacing:.03em;color:rgba(240,235,227,.35);
+      border-bottom:2px solid transparent;margin-bottom:-1px;
+      cursor:pointer;transition:color .18s,border-color .18s;white-space:nowrap;
     }
-    .pd-detail-more.is-hidden { display: none; }
-    .pd-more-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      height: 48px;
-      padding: 0 36px;
-      border: 1px solid rgba(255,255,255,.18);
-      color: rgba(240,235,227,.7);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .pd-more-btn:hover {
-      border-color: #C4A265;
-      color: #C4A265;
-    }
+    .pd-tab:hover{color:rgba(240,235,227,.7);}
+    .pd-tab.is-active{color:#F0EBE3;border-bottom-color:#C4A265;}
 
-    /* ── RIGHT: Sticky Panel ── */
-    .pd-sticky {
-      position: sticky;
-      top: 88px; /* 72px header + 16px */
+    /* Detail content */
+    .pd-detail-wrap{position:relative;overflow:hidden;max-height:600px;}
+    .pd-detail-wrap.is-expanded{max-height:none;}
+    .pd-detail-fade{
+      position:absolute;bottom:0;left:0;right:0;height:160px;
+      background:linear-gradient(to bottom,transparent,#160304);
+      pointer-events:none;transition:opacity .3s;
     }
+    .pd-detail-wrap.is-expanded .pd-detail-fade{opacity:0;}
+    .pd-detail-content{padding:40px 0;}
+    .pd-detail-content img{
+      max-width:100%;margin:0 auto 40px;display:block;
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .pd-detail-more{display:flex;justify-content:center;padding:28px 0 12px;}
+    .pd-detail-more.is-hidden{display:none;}
+    .pd-more-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      height:46px;padding:0 32px;
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(240,235,227,.65);font-size:13px;font-weight:600;letter-spacing:.08em;
+      transition:border-color .2s,color .2s;
+    }
+    .pd-more-btn:hover{border-color:#C4A265;color:#C4A265;}
 
-    /* Badge */
-    .pd-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 16px;
+    /* ── RIGHT: Sticky Panel ────────────────────────────── */
+    .pd-sticky{position:sticky;top:84px;}
+
+    /* Badge + Wish/Share row */
+    .pd-top-row{
+      display:flex;align-items:center;gap:12px;
+      margin-bottom:8px;
     }
-    .pd-badge-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      color: #C4A265;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border: 1px solid rgba(196,162,101,.4);
+    .pd-badge-tag{
+      font-size:10px;font-weight:700;letter-spacing:.18em;
+      color:#C4A265;text-transform:uppercase;
+      padding:3px 9px;border:1px solid rgba(196,162,101,.4);
+      flex-shrink:0;
     }
+    .pd-top-actions{
+      margin-left:auto;display:flex;align-items:center;gap:14px;
+    }
+    .pd-action-btn{
+      display:flex;align-items:center;gap:5px;
+      font-size:12px;color:rgba(240,235,227,.4);
+      transition:color .2s;letter-spacing:.04em;
+    }
+    .pd-action-btn:hover{color:rgba(240,235,227,.8);}
+    .pd-action-btn svg{flex-shrink:0;}
+    .pd-action-btn.is-wished{color:#8B1A1A;}
 
     /* Product Name */
-    .pd-name {
-      font-size: clamp(20px, 2vw, 26px);
-      font-weight: 700;
-      letter-spacing: -.02em;
-      line-height: 1.35;
-      color: #F0EBE3;
-      margin-bottom: 14px;
+    .pd-name{
+      font-size:clamp(18px,1.8vw,22px);font-weight:700;
+      letter-spacing:-.025em;line-height:1.3;color:#F0EBE3;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      margin-bottom:5px;
+    }
+    /* Sub description */
+    .pd-subdesc{
+      font-size:13px;font-weight:500;letter-spacing:.02em;
+      color:rgba(180,80,80,.9);
+      margin-bottom:10px;line-height:1.4;
     }
 
-    /* Rating Row */
-    .pd-rating {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .pd-stars { display: flex; gap: 2px; }
-    .pd-star {
-      width: 14px; height: 14px;
-      color: #C4A265;
-    }
-    .pd-rating-count {
-      font-size: 13px;
-      color: rgba(240,235,227,.5);
-    }
-    .pd-rating-count span { color: rgba(240,235,227,.75); }
+    /* Rating */
+    .pd-rating{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+    .pd-stars{display:flex;gap:2px;}
+    .pd-star{width:12px;height:12px;color:#C4A265;}
+    .pd-rating-count{font-size:13px;color:rgba(240,235,227,.45);}
+    .pd-rating-count span{color:rgba(240,235,227,.7);}
 
-    /* Price Row */
-    .pd-price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-    .pd-disc-pct {
-      font-size: 18px;
-      font-weight: 800;
-      color: #8B1A1A;
-      letter-spacing: -.01em;
-    }
-    .pd-price {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -.03em;
-      color: #F0EBE3;
-    }
-    .pd-price small {
-      font-size: .45em;
-      font-weight: 600;
-      margin-left: 2px;
-      letter-spacing: 0;
-    }
-    .pd-price-orig {
-      font-size: 15px;
-      color: rgba(240,235,227,.3);
-      text-decoration: line-through;
-    }
-    .pd-save-note {
-      font-size: 12px;
-      color: rgba(196,162,101,.8);
-      letter-spacing: .04em;
-      margin-bottom: 24px;
-    }
+    /* Price */
+    .pd-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+    .pd-disc-pct{font-size:17px;font-weight:800;color:#8B1A1A;letter-spacing:-.01em;}
+    .pd-price{font-size:30px;font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+    .pd-price small{font-size:.42em;font-weight:600;margin-left:2px;letter-spacing:0;}
+    .pd-price-orig{font-size:14px;color:rgba(240,235,227,.28);text-decoration:line-through;}
 
     /* Divider */
-    .pd-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,.08);
-      margin: 20px 0;
-    }
+    .pd-divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:10px 0;}
 
     /* Meta */
-    .pd-meta { display: flex; flex-direction: column; gap: 10px; }
-    .pd-meta-row {
-      display: flex;
-      align-items: flex-start;
-      font-size: 15px;
-    }
-    .pd-meta-label {
-      flex-shrink: 0;
-      width: 56px;
-      color: rgba(240,235,227,.38);
-      padding-top: 1px;
-    }
-    .pd-meta-value { color: rgba(240,235,227,.75); line-height: 1.5; }
-    .pd-meta-value strong { color: #F0EBE3; font-weight: 600; }
+    .pd-meta{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+    .pd-meta-row{display:flex;align-items:flex-start;font-size:14px;}
+    .pd-meta-label{flex-shrink:0;width:50px;color:rgba(240,235,227,.35);padding-top:1px;}
+    .pd-meta-value{color:rgba(240,235,227,.7);line-height:1.45;}
+    .pd-meta-value strong{color:#F0EBE3;font-weight:600;}
 
-    /* Marketing Badges */
-    .pd-marketing {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px;
+    /* Options */
+    .pd-opt-section{margin-top:2px;}
+    .pd-opt-title{
+      font-size:10px;font-weight:700;letter-spacing:.12em;
+      color:rgba(240,235,227,.38);text-transform:uppercase;margin-bottom:10px;
     }
-    .pd-mkbadge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.07);
+    .pd-option-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+    .pd-option-label{
+      flex-shrink:0;width:40px;padding-top:7px;
+      font-size:12px;color:rgba(240,235,227,.4);letter-spacing:.03em;
     }
-    .pd-mkbadge-icon {
-      width: 28px; height: 28px;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      color: #C4A265;
+    .pd-chips{display:flex;flex-wrap:wrap;gap:6px;}
+    .pd-chip{
+      display:inline-flex;align-items:center;
+      padding:5px 13px;height:32px;
+      border:1px solid rgba(255,255,255,.14);
+      font-size:12px;font-weight:500;
+      color:rgba(240,235,227,.6);cursor:pointer;
+      transition:border-color .15s,color .15s,background .15s;
+      white-space:nowrap;
     }
-    .pd-mkbadge-txt {
-      font-size: 12px;
-      line-height: 1.4;
-      color: rgba(240,235,227,.65);
-    }
-    .pd-mkbadge-txt strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #F0EBE3;
-    }
-
-    /* Option Section */
-    .pd-opt-section { margin-top: 8px; }
-    .pd-opt-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      color: rgba(240,235,227,.4);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .pd-option-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    .pd-option-label {
-      flex-shrink: 0;
-      width: 44px;
-      padding-top: 8px;
-      font-size: 13px;
-      color: rgba(240,235,227,.45);
-      letter-spacing: .03em;
-    }
-    .pd-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-    .pd-chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 16px;
-      height: 36px;
-      border: 1px solid rgba(255,255,255,.15);
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(240,235,227,.65);
-      cursor: pointer;
-      transition: border-color .15s, color .15s, background .15s;
-      white-space: nowrap;
-      letter-spacing: .02em;
-    }
-    .pd-chip:hover {
-      border-color: rgba(196,162,101,.5);
-      color: #C4A265;
-    }
-    .pd-chip.is-active {
-      background: #8B1A1A;
-      border-color: #8B1A1A;
-      color: #F0EBE3;
-      font-weight: 600;
-    }
-    .pd-chip.is-soldout {
-      opacity: .35;
-      text-decoration: line-through;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
+    .pd-chip:hover{border-color:rgba(196,162,101,.45);color:#C4A265;}
+    .pd-chip.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#F0EBE3;font-weight:600;}
+    .pd-chip.is-soldout{opacity:.3;text-decoration:line-through;cursor:not-allowed;pointer-events:none;}
 
     /* Selection Summary */
-    .pd-sel-summary {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: rgba(139,26,26,.12);
-      border: 1px solid rgba(139,26,26,.3);
-      margin-top: 8px;
-      min-height: 44px;
+    .pd-sel-summary{
+      display:flex;align-items:center;gap:8px;
+      padding:9px 14px;
+      background:rgba(139,26,26,.12);border:1px solid rgba(139,26,26,.28);
+      margin-bottom:10px;min-height:38px;
     }
-    .pd-sel-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(240,235,227,.4);
-      flex-shrink: 0;
-    }
-    #selSummaryText {
-      font-size: 13px;
-      color: rgba(240,235,227,.85);
-      letter-spacing: .03em;
-    }
+    .pd-sel-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,227,.35);flex-shrink:0;}
+    #selSummaryText{font-size:12px;color:rgba(240,235,227,.8);letter-spacing:.03em;}
 
-    /* Qty Row */
-    .pd-qty-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: 20px;
+    /* Qty */
+    .pd-qty-row{display:flex;align-items:center;gap:12px;margin-bottom:0;}
+    .pd-qty-label{flex-shrink:0;width:40px;font-size:12px;color:rgba(240,235,227,.4);}
+    .pd-qty{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.15);}
+    .pd-qty__btn{
+      width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+      font-size:18px;color:rgba(240,235,227,.45);transition:background .15s,color .15s;
     }
-    .pd-qty-label {
-      flex-shrink: 0;
-      width: 44px;
-      font-size: 13px;
-      color: rgba(240,235,227,.45);
-    }
-    .pd-qty {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,.15);
-    }
-    .pd-qty__btn {
-      width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      color: rgba(240,235,227,.5);
-      transition: background .15s, color .15s;
-    }
-    .pd-qty__btn:hover { background: rgba(255,255,255,.07); color: #F0EBE3; }
-    .pd-qty__input {
-      width: 52px; height: 40px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      border: none;
-      border-left: 1px solid rgba(255,255,255,.12);
-      border-right: 1px solid rgba(255,255,255,.12);
-      outline: none;
-      background: transparent;
-      color: #F0EBE3;
+    .pd-qty__btn:hover{background:rgba(255,255,255,.07);color:#F0EBE3;}
+    .pd-qty__input{
+      width:48px;height:36px;text-align:center;font-size:14px;font-weight:700;
+      font-family:inherit;border:none;
+      border-left:1px solid rgba(255,255,255,.12);border-right:1px solid rgba(255,255,255,.12);
+      outline:none;background:transparent;color:#F0EBE3;
     }
 
     /* Total */
-    .pd-total {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 18px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-      margin-top: 18px;
+    .pd-total{
+      display:flex;align-items:baseline;justify-content:space-between;
+      padding:12px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:10px;
     }
-    .pd-total-label { font-size: 14px; color: rgba(240,235,227,.5); }
-    .pd-total-price {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -.03em;
-      color: #F0EBE3;
-    }
-    .pd-total-price small {
-      font-size: .42em; font-weight: 600;
-      margin-left: 2px; letter-spacing: 0;
-    }
+    .pd-total-label{font-size:13px;color:rgba(240,235,227,.45);}
+    .pd-total-price{font-size:28px;font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+    .pd-total-price small{font-size:.4em;font-weight:600;margin-left:2px;letter-spacing:0;}
 
     /* Quick Pay */
-    .pd-quickpay {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
+    .pd-quickpay{display:flex;gap:7px;margin-bottom:7px;}
+    .pd-qp-btn{
+      flex:1;height:46px;display:flex;align-items:center;justify-content:center;gap:7px;
+      font-size:13px;font-weight:800;letter-spacing:.03em;cursor:pointer;border:none;
+      transition:filter .2s,transform .1s;
     }
-    .pd-qp-btn {
-      flex: 1;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: .03em;
-      cursor: pointer;
-      border: none;
-      transition: filter .2s, transform .1s;
-    }
-    .pd-qp-btn:hover { filter: brightness(1.08); }
-    .pd-qp-btn:active { transform: scale(.98); }
-    .pd-qp-naver { background: #03C75A; color: #fff; }
-    .pd-qp-kakao { background: #FEE500; color: #191919; }
-    .pd-qp-icon {
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px;
-      font-weight: 900;
-    }
-    .pd-qp-naver .pd-qp-icon { background: #fff; color: #03C75A; }
-    .pd-qp-kakao .pd-qp-icon { background: #191919; color: #FEE500; }
-
-    /* Share Row */
-    .pd-share-row {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-    .pd-share-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: rgba(240,235,227,.4);
-      transition: color .2s;
-      letter-spacing: .04em;
-    }
-    .pd-share-btn:hover { color: rgba(240,235,227,.8); }
+    .pd-qp-btn:hover{filter:brightness(1.08);}
+    .pd-qp-btn:active{transform:scale(.98);}
+    .pd-qp-naver{background:#03C75A;color:#fff;}
+    .pd-qp-kakao{background:#FEE500;color:#191919;}
+    .pd-qp-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;}
+    .pd-qp-naver .pd-qp-icon{background:#fff;color:#03C75A;}
+    .pd-qp-kakao .pd-qp-icon{background:#191919;color:#FEE500;}
 
     /* CTA Buttons */
-    .pd-cta { display: flex; gap: 8px; }
-    .pd-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 54px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      cursor: pointer;
-      border: none;
-      transition: background .2s, color .2s, border-color .2s, transform .1s;
+    .pd-cta{display:flex;gap:7px;}
+    .pd-btn{
+      display:flex;align-items:center;justify-content:center;
+      height:50px;font-size:13px;font-weight:700;
+      letter-spacing:.06em;cursor:pointer;border:none;
+      transition:background .2s,color .2s,border-color .2s,transform .1s;
     }
-    .pd-btn:active { transform: scale(.985); }
-    .pd-btn--wish {
-      flex-shrink: 0;
-      width: 54px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.15);
-      color: rgba(240,235,227,.55);
+    .pd-btn:active{transform:scale(.985);}
+    .pd-btn--wish{
+      flex-shrink:0;width:50px;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);
+      color:rgba(240,235,227,.5);
     }
-    .pd-btn--wish:hover { border-color: #8B1A1A; color: #8B1A1A; }
-    .pd-btn--wish.is-active { background: #8B1A1A; border-color: #8B1A1A; color: #fff; }
+    .pd-btn--wish:hover{border-color:#8B1A1A;color:#8B1A1A;}
+    .pd-btn--wish.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#fff;}
+    .pd-btn--cart{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:#F0EBE3;}
+    .pd-btn--cart:hover{background:rgba(255,255,255,.13);}
+    .pd-btn--buy{flex:1.3;background:#8B1A1A;color:#F0EBE3;}
+    .pd-btn--buy:hover{background:#a52020;}
 
-    .pd-btn--cart {
-      flex: 1;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.2);
-      color: #F0EBE3;
+    /* ── Mobile CTA Bar ─────────────────────────────────── */
+    .mobile-cta-bar{
+      display:none;position:fixed;bottom:0;left:0;right:0;
+      background:rgba(14,11,9,.97);border-top:1px solid rgba(255,255,255,.1);
+      align-items:center;gap:7px;padding:10px 16px;
+      padding-bottom:calc(10px + env(safe-area-inset-bottom));
+      z-index:400;transform:translateY(100%);transition:transform .3s ease;
     }
-    .pd-btn--cart:hover { background: rgba(255,255,255,.13); }
+    .mobile-cta-bar.is-visible{transform:translateY(0);}
+    .mcta-wish{flex-shrink:0;width:48px;height:48px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(240,235,227,.5);transition:all .2s;}
+    .mcta-wish.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#fff;}
+    .mcta-opt{flex:1;height:48px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#F0EBE3;font-size:14px;font-weight:700;letter-spacing:.04em;}
+    .mcta-buy{flex:1;height:48px;background:#8B1A1A;color:#F0EBE3;font-size:14px;font-weight:700;letter-spacing:.04em;border:none;}
 
-    .pd-btn--buy {
-      flex: 1.4;
-      background: #8B1A1A;
-      color: #F0EBE3;
+    /* ── Bottom Sheet ───────────────────────────────────── */
+    .sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:600;}
+    .sheet-overlay.is-open{display:block;}
+    .mobile-sheet{
+      position:fixed;bottom:0;left:0;right:0;
+      background:#1a0a0a;border-radius:20px 20px 0 0;z-index:700;
+      transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);
+      max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
     }
-    .pd-btn--buy:hover { background: #a52020; }
+    .mobile-sheet.is-open{transform:translateY(0);}
+    .ms-top{position:sticky;top:0;background:#1a0a0a;padding:14px 52px 12px 20px;border-bottom:1px solid rgba(255,255,255,.07);z-index:1;}
+    .ms-handle{width:36px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 12px;}
+    .ms-close{position:absolute;top:14px;right:12px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(240,235,227,.5);}
+    .ms-name{font-size:14px;font-weight:600;color:rgba(240,235,227,.75);line-height:1.35;}
+    .ms-inner{padding:18px 20px calc(24px + env(safe-area-inset-bottom));}
+    .ms-sect-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,227,.35);margin-bottom:12px;margin-top:18px;}
+    .ms-sect-title:first-child{margin-top:0;}
 
-    /* ── Mobile CTA Bar ── */
-    .mobile-cta-bar {
-      display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(14,11,9,.97);
-      border-top: 1px solid rgba(255,255,255,.1);
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      padding-bottom: calc(10px + env(safe-area-inset-bottom));
-      z-index: 400;
-      transform: translateY(100%);
-      transition: transform .3s ease;
-    }
-    .mobile-cta-bar.is-visible { transform: translateY(0); }
-    .mcta-wish {
-      flex-shrink: 0;
-      width: 48px; height: 48px;
-      border: 1px solid rgba(255,255,255,.15);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(240,235,227,.5);
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .mcta-wish.is-active { background: #8B1A1A; border-color: #8B1A1A; color: #fff; }
-    .mcta-opt {
-      flex: 1; height: 48px;
-      border: 1px solid rgba(255,255,255,.2);
-      background: rgba(255,255,255,.06);
-      color: #F0EBE3;
-      font-size: 14px; font-weight: 700;
-      letter-spacing: .04em;
-    }
-    .mcta-buy {
-      flex: 1; height: 48px;
-      background: #8B1A1A;
-      color: #F0EBE3;
-      font-size: 14px; font-weight: 700;
-      letter-spacing: .04em;
-      border: none;
-    }
-
-    /* ── Bottom Sheet ── */
-    .sheet-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.6);
-      z-index: 600;
-    }
-    .sheet-overlay.is-open { display: block; }
-    .mobile-sheet {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: #130f0c;
-      border-radius: 20px 20px 0 0;
-      z-index: 700;
-      transform: translateY(100%);
-      transition: transform .32s cubic-bezier(.32,.72,0,1);
-      max-height: 88vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .mobile-sheet.is-open { transform: translateY(0); }
-    .ms-top {
-      position: sticky; top: 0;
-      background: #130f0c;
-      padding: 14px 52px 12px 20px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      z-index: 1;
-    }
-    .ms-handle {
-      width: 36px; height: 4px;
-      background: rgba(255,255,255,.2);
-      border-radius: 2px;
-      margin: 0 auto 12px;
-    }
-    .ms-close {
-      position: absolute;
-      top: 14px; right: 12px;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; color: rgba(240,235,227,.5);
-    }
-    .ms-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(240,235,227,.75);
-      line-height: 1.35;
-    }
-    .ms-inner {
-      padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
-    }
-    .ms-sect-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(240,235,227,.35);
-      margin-bottom: 14px;
-      margin-top: 20px;
-    }
-    .ms-sect-title:first-child { margin-top: 0; }
-
-    /* ── Footer ── */
-    .demo-footer {
-      background: #060403;
-      border-top: 1px solid rgba(255,255,255,.06);
-      text-align: center;
-      padding: 48px 0;
-      font-size: 13px;
-      color: rgba(240,235,227,.25);
-      letter-spacing: .04em;
-    }
-
-    /* ══════════════════════════════════
-       Responsive: Tablet / Mobile
-    ══════════════════════════════════ */
-    @media (max-width: 1023px) {
-      #hd { height: 60px; padding: 0 20px; }
-      .breadcrumb { margin-top: 60px; }
-      .bc-inner { padding: 0 20px; }
-      .pd-outer { padding: 0 20px; }
-      .pd-layout { padding: 20px 0 80px; }
-
-      .pd-cols { flex-direction: column; gap: 0; }
-      .pd-left { width: 100%; }
-      .pd-right { display: none; }
-
-      /* Gallery: hide vertical thumbs, show swiper */
-      .pd-gallery-wrap { display: none; }
-      .pd-swiper-wrap { display: block; }
-      .pd-mobile-brief { display: block; }
-
-      /* Tabs */
-      .pd-tabs-wrap { margin-top: 20px; }
-      .pd-tabs { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; border-bottom-color: rgba(255,255,255,.1); }
-      .pd-tabs::-webkit-scrollbar { display: none; }
-      .pd-tab { padding: 14px 20px; font-size: 13px; }
-
-      /* Detail */
-      .pd-detail-content { padding: 32px 0; }
-      .pd-detail-content img { margin-bottom: 32px; }
-
-      /* Mobile CTA bar */
-      .mobile-cta-bar { display: flex; }
-      body { padding-bottom: 76px; }
-
-      #hd__logo { font-size: 14px; }
-    }
-
-    @media (max-width: 767px) {
-      .pd-opt-title { font-size: 11px; }
+    /* ── Responsive ─────────────────────────────────────── */
+    @media(max-width:1023px){
+      #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;}
+      .hd-left,.hd-right{display:none;}
+      .hd-burger{display:flex;}
+      .hd-icons{display:flex;}
+      .hd-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:auto;}
+      .hd-logo img{height:28px;}
+      .hd-logo-txt{font-size:14px;}
+      .hd-icon[aria-label="고객센터"]{display:none;}
+      .breadcrumb{margin-top:60px;}
+      .bc-inner{padding:0 20px;}
+      .pd-outer{padding:0 20px;}
+      .pd-layout{padding:20px 0 80px;}
+      .pd-cols{flex-direction:column;gap:0;}
+      .pd-left{width:100%;}
+      .pd-right{display:none;}
+      .pd-gallery-wrap{display:none;}
+      .pd-swiper-wrap{display:block;}
+      .pd-mobile-brief{display:block;}
+      .pd-tabs-wrap{margin-top:16px;}
+      .pd-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;}
+      .pd-tabs::-webkit-scrollbar{display:none;}
+      .pd-tab{padding:13px 18px;font-size:14px;}
+      .mobile-cta-bar{display:flex;}
+      body{padding-bottom:76px;}
+      .ft-in{padding:0 20px;}
+      .ft-nl{grid-template-columns:1fr;gap:24px;}
+      .ft-nl-input{width:100%;flex:1;}
+      .ft-grid{grid-template-columns:1fr;gap:0;}
+      .ft-col{border-top:1px solid rgba(240,235,227,.07);margin-top:0;}
+      .ft-col h4{display:flex;align-items:center;justify-content:space-between;padding:15px 0;cursor:pointer;font-size:12px;letter-spacing:.15em;margin-bottom:0;}
+      .ft-col h4::after{content:'+';font-size:16px;font-weight:300;color:rgba(240,235,227,.3);}
+      .ft-col.open h4::after{content:'−';}
+      .ft-col ul{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.46,.45,.94),padding .3s;}
+      .ft-col ul li{margin-bottom:10px;}
+      .ft-col.open ul{max-height:280px;padding-bottom:16px;}
+      .ft-bottom{flex-direction:column;gap:10px;text-align:center;}
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ Header ══════════════════════════════════════════════ -->
-  <header id="hd">
-    <a href="../main/demo.html" id="hd__back">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-      돌아가기
-    </a>
-    <div id="hd__logo">BRAND</div>
-    <div id="hd__icons">
-      <button aria-label="검색">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-      <button aria-label="장바구니">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-      </button>
+<!-- ── Side Menu (mobile) ────────────────────────────── -->
+<div id="sideOv"></div>
+<nav id="sideMenu">
+  <div class="sm-head">
+    <div class="sm-logo">
+      <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv"
+           alt="맛있는제주" style="height:24px;width:auto;">
+      <span>맛있는제주</span>
     </div>
-  </header>
-
-  <!-- ══ Breadcrumb ═══════════════════════════════════════════ -->
-  <div class="breadcrumb">
-    <div class="bc-inner">
-      <a href="#">홈</a>
-      <span class="bc-sep">/</span>
-      <a href="#">돈육</a>
-      <span class="bc-sep">/</span>
-      <a href="#">흑돼지</a>
-      <span class="bc-sep">/</span>
-      <span class="bc-cur">제주 흑돼지 부위별 선택 구매</span>
+    <button class="sm-close" id="sideClose" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="sm-util">
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>로그인
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>장바구니
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>고객센터
+    </a>
+  </div>
+  <div class="sm-nav">
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>선물세트</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">돈육 선물세트</a><a href="#">수산 선물세트</a><a href="#">간편식 선물세트</a>
+      </div>
+    </div>
+    <div class="sm-cat"><a href="#" class="sm-cat-link">제주 흑돼지</a></div>
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>제주 수산물</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">은갈치</a><a href="#">옥돔</a><a href="#">고등어</a><a href="#">삼치</a>
+      </div>
+    </div>
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>간편 가공식품</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub"><a href="#">육가공 간편식</a><a href="#">수산 가공 간편식</a></div>
     </div>
   </div>
+  <div class="sm-promo">
+    <span class="sm-promo-badge">SPECIAL OFFER</span>
+    <p class="sm-promo-txt">신규 회원 첫 주문<strong>10% 할인</strong></p>
+    <a href="#" class="sm-promo-cta">지금 가입하기 →</a>
+  </div>
+</nav>
 
-  <!-- ══ Main Layout ══════════════════════════════════════════ -->
-  <div class="pd-layout">
-    <div class="pd-outer">
-      <div class="pd-cols">
+<!-- ── Header ────────────────────────────────────────── -->
+<header id="hd">
+  <button class="hd-burger" id="hdBurger" aria-label="메뉴">
+    <span class="hd-burger-line"></span>
+  </button>
+  <nav class="hd-left">
+    <a href="#">흑돼지</a>
+    <a href="#">수산</a>
+    <a href="#">간편식</a>
+  </nav>
+  <div class="hd-logo">
+    <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv" alt="맛있는제주">
+    <span class="hd-logo-txt">맛있는제주</span>
+  </div>
+  <div class="hd-right">
+    <a href="#">로그인</a>
+    <a href="../main/demo.html">메인으로</a>
+    <a href="#">장바구니<span class="cart-num">2</span></a>
+  </div>
+  <div class="hd-icons">
+    <a href="#" class="hd-icon" aria-label="로그인">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="#" class="hd-icon" aria-label="장바구니">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="hd-icon-badge">2</span>
+    </a>
+  </div>
+</header>
 
-        <!-- ┌ LEFT ──────────────────────────────────────────── -->
-        <div class="pd-left">
+<!-- ── Breadcrumb ────────────────────────────────────── -->
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="../main/demo.html">홈</a>
+    <span class="bc-sep">/</span>
+    <a href="#">돈육</a>
+    <span class="bc-sep">/</span>
+    <a href="#">흑돼지</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-cur">제주 흑돼지 부위별 선택</span>
+  </div>
+</div>
 
-          <!-- Mobile Brief (name + price, mobile only) -->
-          <div class="pd-mobile-brief" style="padding-bottom:20px;">
-            <div class="pd-badge" style="margin-bottom:12px;">
-              <span class="pd-badge-tag">PREMIUM · JEJU BLACK PIG</span>
+<!-- ── Main 2-Column ─────────────────────────────────── -->
+<div class="pd-layout">
+  <div class="pd-outer">
+    <div class="pd-cols">
+
+      <!-- ┌ LEFT ─────────────────────────────────────── -->
+      <div class="pd-left">
+
+        <!-- Mobile Brief -->
+        <div class="pd-mobile-brief" style="padding-bottom:18px;">
+          <div class="pd-top-row" style="margin-bottom:10px;">
+            <span class="pd-badge-tag">PREMIUM · JEJU BLACK PORK</span>
+          </div>
+          <h1 class="pd-name" style="font-size:20px;white-space:normal;margin-bottom:4px;">
+            제주 흑돼지 오겹살 목살 앞다리살 돈마호크
+          </h1>
+          <p class="pd-subdesc" style="font-size:13px;margin-bottom:10px;">
+            정직하게 과지방 걱정없이 선별한 정스펙 냉장육
+          </p>
+          <div class="pd-price-row">
+            <span class="pd-disc-pct" style="font-size:15px;">10%</span>
+            <span class="pd-price" style="font-size:24px;">27,000<small>원</small></span>
+            <span class="pd-price-orig">30,000원</span>
+          </div>
+        </div>
+
+        <!-- PC Gallery -->
+        <div class="pd-gallery-wrap">
+          <div class="pd-thumbs" id="pcThumbs">
+            <button class="pd-thumb is-active" data-src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900" data-idx="0">
+              <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w160" alt="오겹살1" loading="eager">
+            </button>
+            <button class="pd-thumb" data-src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w900" data-idx="1">
+              <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w160" alt="오겹살2" loading="lazy" decoding="async">
+            </button>
+            <button class="pd-thumb" data-src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w900" data-idx="2">
+              <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w160" alt="목살1" loading="lazy" decoding="async">
+            </button>
+            <button class="pd-thumb" data-src="https://picsum.photos/seed/pork04/900/900" data-idx="3">
+              <img src="https://picsum.photos/seed/pork04/160/160" alt="목살2" loading="lazy" decoding="async">
+            </button>
+            <button class="pd-thumb" data-src="https://picsum.photos/seed/pork05/900/900" data-idx="4">
+              <img src="https://picsum.photos/seed/pork05/160/160" alt="앞다리살" loading="lazy" decoding="async">
+            </button>
+          </div>
+          <div class="pd-main-wrap" id="pdMainWrap">
+            <div id="mainImgWrap">
+              <img id="mainImg"
+                src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900"
+                alt="제주 흑돼지 오겹살"
+                fetchpriority="high">
             </div>
-            <h1 class="pd-name" style="font-size:20px;margin-bottom:10px;">
-              제주 흑돼지 부위별 선택<br>오겹살 · 목살 · 앞다리살 외
-            </h1>
-            <div class="pd-price-row">
-              <span class="pd-disc-pct" style="font-size:16px;">10%</span>
-              <span class="pd-price" style="font-size:26px;">27,000<small>원</small></span>
-              <span class="pd-price-orig" style="font-size:14px;">30,000원</span>
+          </div>
+        </div>
+
+        <!-- Mobile Swiper -->
+        <div class="pd-swiper-wrap">
+          <div class="swiper pdMobileSwiper" id="pdMobileSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900"
+                       alt="오겹살" style="width:100%;height:100%;object-fit:cover;" loading="eager">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w900"
+                       alt="오겹살2" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w900"
+                       alt="목살" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://picsum.photos/seed/pork04/900/900"
+                       alt="추가컷" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="pd-tabs-wrap">
+          <div class="pd-tabs">
+            <button class="pd-tab is-active" data-tab="detail">상세정보</button>
+            <button class="pd-tab" data-tab="review">리뷰 (47)</button>
+            <button class="pd-tab" data-tab="qna">Q&amp;A (8)</button>
+            <button class="pd-tab" data-tab="delivery">배송/반품</button>
+          </div>
+
+          <div id="tabDetail" class="pd-tab-panel">
+            <div class="pd-detail-wrap" id="detailWrap">
+              <div class="pd-detail-content">
+                <!-- 실제 상품 이미지 활용 -->
+                <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w1200"
+                     alt="제주 흑돼지 오겹살" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w1200"
+                     alt="오겹살 상세컷" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w1200"
+                     alt="목살 상세컷" loading="lazy" decoding="async">
+                <img src="https://picsum.photos/seed/farm01/900/520" alt="농장 이야기" loading="lazy" decoding="async">
+                <img src="https://picsum.photos/seed/pack01/900/440" alt="포장 및 배송" loading="lazy" decoding="async">
+                <img src="https://picsum.photos/seed/cook01/900/560" alt="조리 방법" loading="lazy" decoding="async">
+              </div>
+              <div class="pd-detail-fade" id="detailFade"></div>
+            </div>
+            <div class="pd-detail-more" id="detailMoreWrap">
+              <button class="pd-more-btn" id="detailMoreBtn">
+                상세정보 더보기
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
             </div>
           </div>
 
-          <!-- PC Gallery: vertical thumbs + main image -->
-          <div class="pd-gallery-wrap">
-            <div class="pd-thumbs" id="pcThumbs">
-              <button class="pd-thumb is-active" data-src="https://picsum.photos/seed/pork01/900/900" data-idx="0">
-                <img src="https://picsum.photos/seed/pork01/160/160" alt="오겹살">
-              </button>
-              <button class="pd-thumb" data-src="https://picsum.photos/seed/pork02/900/900" data-idx="1">
-                <img src="https://picsum.photos/seed/pork02/160/160" alt="목살">
-              </button>
-              <button class="pd-thumb" data-src="https://picsum.photos/seed/pork03/900/900" data-idx="2">
-                <img src="https://picsum.photos/seed/pork03/160/160" alt="앞다리살">
-              </button>
-              <button class="pd-thumb" data-src="https://picsum.photos/seed/pork04/900/900" data-idx="3">
-                <img src="https://picsum.photos/seed/pork04/160/160" alt="뒷다리살">
-              </button>
-            </div>
-            <div class="pd-main-wrap">
-              <div id="mainImgWrap">
-                <img id="mainImg" src="https://picsum.photos/seed/pork01/900/900" alt="제주 흑돼지">
-              </div>
-            </div>
-          </div>
+          <div id="tabReview" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">리뷰 영역 준비 중</div>
+          <div id="tabQna" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">Q&amp;A 준비 중</div>
+          <div id="tabDelivery" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">배송/반품 안내 준비 중</div>
+        </div>
+      </div><!-- /pd-left -->
 
-          <!-- Mobile Gallery: Swiper -->
-          <div class="pd-swiper-wrap">
-            <div class="swiper pdSwiper" id="pdSwiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div style="aspect-ratio:1/1;overflow:hidden;background:#120e0b;">
-                    <img src="https://picsum.photos/seed/pork01/900/900"
-                         alt="오겹살" style="width:100%;height:100%;object-fit:cover;">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div style="aspect-ratio:1/1;overflow:hidden;background:#120e0b;">
-                    <img src="https://picsum.photos/seed/pork02/900/900"
-                         alt="목살" style="width:100%;height:100%;object-fit:cover;">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div style="aspect-ratio:1/1;overflow:hidden;background:#120e0b;">
-                    <img src="https://picsum.photos/seed/pork03/900/900"
-                         alt="앞다리살" style="width:100%;height:100%;object-fit:cover;">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div style="aspect-ratio:1/1;overflow:hidden;background:#120e0b;">
-                    <img src="https://picsum.photos/seed/pork04/900/900"
-                         alt="뒷다리살" style="width:100%;height:100%;object-fit:cover;">
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
+      <!-- ┌ RIGHT (Sticky) ───────────────────────────── -->
+      <div class="pd-right">
+        <div class="pd-sticky">
 
-          <!-- Tabs -->
-          <div class="pd-tabs-wrap">
-            <div class="pd-tabs">
-              <button class="pd-tab is-active" data-tab="detail">상세정보</button>
-              <button class="pd-tab" data-tab="review">리뷰 (47)</button>
-              <button class="pd-tab" data-tab="qna">Q&amp;A (8)</button>
-              <button class="pd-tab" data-tab="delivery">배송/반품</button>
-            </div>
-
-            <!-- Tab: Detail Content -->
-            <div id="tabDetail" class="pd-tab-panel">
-              <div class="pd-detail-wrap" id="detailWrap">
-                <div class="pd-detail-content">
-                  <img src="https://picsum.photos/seed/d-hero/900/560" alt="상품 설명 이미지"
-                       style="margin-bottom:40px;">
-                  <img src="https://picsum.photos/seed/d-cert/900/480" alt="원산지 인증"
-                       style="margin-bottom:40px;">
-                  <img src="https://picsum.photos/seed/d-farm/900/600" alt="농장 이야기"
-                       style="margin-bottom:40px;">
-                  <img src="https://picsum.photos/seed/d-pack/900/440" alt="포장 및 배송"
-                       style="margin-bottom:40px;">
-                  <img src="https://picsum.photos/seed/d-cook/900/520" alt="조리 방법"
-                       style="margin-bottom:40px;">
-                  <img src="https://picsum.photos/seed/d-review/900/480" alt="고객 리뷰">
-                </div>
-                <!-- 그라데이션 페이드 -->
-                <div class="pd-detail-fade" id="detailFade"></div>
-              </div>
-              <!-- 더보기 버튼 -->
-              <div class="pd-detail-more" id="detailMoreWrap">
-                <button class="pd-more-btn" id="detailMoreBtn">
-                  상세정보 더보기
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Other Tab Panels (hidden by default) -->
-            <div id="tabReview" class="pd-tab-panel" style="display:none;padding:48px 0;color:rgba(240,235,227,.55);font-size:15px;text-align:center;">리뷰 영역 (추후 구현)</div>
-            <div id="tabQna" class="pd-tab-panel" style="display:none;padding:48px 0;color:rgba(240,235,227,.55);font-size:15px;text-align:center;">Q&amp;A 영역 (추후 구현)</div>
-            <div id="tabDelivery" class="pd-tab-panel" style="display:none;padding:48px 0;color:rgba(240,235,227,.55);font-size:15px;text-align:center;">배송/반품 안내 (추후 구현)</div>
-          </div>
-
-        </div><!-- /pd-left -->
-
-        <!-- ┌ RIGHT (sticky panel) ─────────────────────────── -->
-        <div class="pd-right">
-          <div class="pd-sticky">
-
-            <!-- Badge -->
-            <div class="pd-badge">
-              <span class="pd-badge-tag">PREMIUM · JEJU BLACK PIG</span>
-            </div>
-
-            <!-- Product Name -->
-            <h1 class="pd-name">
-              제주 흑돼지 부위별 선택<br>오겹살 · 목살 · 앞다리살 외
-            </h1>
-
-            <!-- Rating -->
-            <div class="pd-rating">
-              <div class="pd-stars">
-                <!-- 5 stars filled -->
-                <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor" style="opacity:.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-              <span class="pd-rating-count"><span>4.2</span> · 리뷰 <span>47</span>개</span>
-            </div>
-
-            <!-- Price -->
-            <div class="pd-price-row">
-              <span class="pd-disc-pct">10%</span>
-              <span class="pd-price">27,000<small>원</small></span>
-              <span class="pd-price-orig">30,000원</span>
-            </div>
-            <p class="pd-save-note">▲ 3,000원 할인 적용 중</p>
-
-            <hr class="pd-divider">
-
-            <!-- Meta -->
-            <div class="pd-meta">
-              <div class="pd-meta-row">
-                <span class="pd-meta-label">배송</span>
-                <span class="pd-meta-value"><strong>무료배송</strong> · 냉장 신선배송</span>
-              </div>
-              <div class="pd-meta-row">
-                <span class="pd-meta-label">도착</span>
-                <span class="pd-meta-value">오전 11시 주문 시 <strong>내일 도착</strong> 보장</span>
-              </div>
-              <div class="pd-meta-row">
-                <span class="pd-meta-label">적립금</span>
-                <span class="pd-meta-value">구매 금액의 <strong>1%</strong> 적립</span>
-              </div>
-            </div>
-
-            <!-- Marketing Badges -->
-            <div class="pd-marketing">
-              <div class="pd-mkbadge">
-                <div class="pd-mkbadge-icon">
-                  <!-- Trophy icon -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 9H3.5a2.5 2.5 0 000 5H6"/><path d="M18 9h2.5a2.5 2.5 0 010 5H18"/>
-                    <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                    <path d="M18 2H6v7a6 6 0 0012 0V2z"/>
-                  </svg>
-                </div>
-                <div class="pd-mkbadge-txt">
-                  <strong>제주 인증</strong>
-                  공식 흑돼지 인증
-                </div>
-              </div>
-              <div class="pd-mkbadge">
-                <div class="pd-mkbadge-icon">
-                  <!-- Snowflake icon -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5l-5 5-5-5"/>
-                    <path d="M17 19l-5-5-5 5"/><path d="M2 12h20"/>
-                    <path d="M5 7l5 5-5 5"/><path d="M19 7l-5 5 5 5"/>
-                  </svg>
-                </div>
-                <div class="pd-mkbadge-txt">
-                  <strong>신선배송</strong>
-                  냉장 직송 보장
-                </div>
-              </div>
-              <div class="pd-mkbadge">
-                <div class="pd-mkbadge-icon">
-                  <!-- Truck icon -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="1" y="3" width="15" height="13"/>
-                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-                    <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-                  </svg>
-                </div>
-                <div class="pd-mkbadge-txt">
-                  <strong>무료배송</strong>
-                  전 상품 무료
-                </div>
-              </div>
-              <div class="pd-mkbadge">
-                <div class="pd-mkbadge-icon">
-                  <!-- Star icon -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                  </svg>
-                </div>
-                <div class="pd-mkbadge-txt">
-                  <strong>만족도 99%</strong>
-                  고객 재구매율
-                </div>
-              </div>
-            </div>
-
-            <hr class="pd-divider">
-
-            <!-- Options -->
-            <div class="pd-opt-section">
-              <p class="pd-opt-title">옵션 선택</p>
-
-              <div class="pd-option-row">
-                <span class="pd-option-label">부위</span>
-                <div class="pd-chips" id="optPart">
-                  <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
-                  <button class="pd-chip" data-part="목살">목살</button>
-                  <button class="pd-chip" data-part="앞다리살">앞다리살</button>
-                  <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
-                  <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크 <small style="font-size:.88em;opacity:.7;">(품절)</small></button>
-                </div>
-              </div>
-
-              <div class="pd-option-row">
-                <span class="pd-option-label">중량</span>
-                <div class="pd-chips" id="optWeight">
-                  <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
-                  <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
-                  <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
-                  <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
-                </div>
-              </div>
-
-              <div class="pd-option-row">
-                <span class="pd-option-label">용도</span>
-                <div class="pd-chips" id="optUse">
-                  <button class="pd-chip is-active" data-use="구이용">구이용</button>
-                  <button class="pd-chip" data-use="캠핑용">캠핑용</button>
-                  <button class="pd-chip" data-use="수육용">수육용</button>
-                  <button class="pd-chip" data-use="찌개용">찌개용</button>
-                </div>
-              </div>
-
-              <!-- Selection Summary -->
-              <div class="pd-sel-summary">
-                <span class="pd-sel-label">선택</span>
-                <span id="selSummaryText">오겹살 · 2팩(1kg) · 구이용</span>
-              </div>
-            </div>
-
-            <!-- Qty -->
-            <div class="pd-qty-row">
-              <span class="pd-qty-label">수량</span>
-              <div class="pd-qty">
-                <button class="pd-qty__btn" id="btnMinus">−</button>
-                <input class="pd-qty__input" type="number" value="1" min="1" id="qtyInput">
-                <button class="pd-qty__btn" id="btnPlus">+</button>
-              </div>
-            </div>
-
-            <!-- Total -->
-            <div class="pd-total">
-              <span class="pd-total-label">총 금액</span>
-              <span class="pd-total-price" id="totalPrice">27,000<small>원</small></span>
-            </div>
-
-            <!-- Quick Pay -->
-            <div class="pd-quickpay">
-              <button class="pd-qp-btn pd-qp-naver">
-                <span class="pd-qp-icon">N</span>
-                네이버페이 결제
-              </button>
-              <button class="pd-qp-btn pd-qp-kakao">
-                <span class="pd-qp-icon">K</span>
-                카카오페이 결제
-              </button>
-            </div>
-
-            <!-- Share Row -->
-            <div class="pd-share-row">
-              <button class="pd-share-btn" id="btnWishPC" aria-label="찜하기">
+          <!-- Badge + Wish/Share -->
+          <div class="pd-top-row">
+            <span class="pd-badge-tag">PREMIUM · JEJU BLACK PORK</span>
+            <div class="pd-top-actions">
+              <button class="pd-action-btn" id="btnWishTop" aria-label="찜하기">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>
-                찜하기
+                </svg>찜
               </button>
-              <button class="pd-share-btn" id="btnShare" aria-label="공유하기">
+              <button class="pd-action-btn" id="btnShare" aria-label="공유하기">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                </svg>
-                공유하기
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>공유
               </button>
             </div>
+          </div>
 
-            <!-- CTA Buttons -->
-            <div class="pd-cta">
-              <button class="pd-btn pd-btn--wish" id="btnWish" aria-label="찜하기">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>
-              </button>
-              <button class="pd-btn pd-btn--cart">장바구니 담기</button>
-              <button class="pd-btn pd-btn--buy">바로 구매</button>
+          <!-- Product Name (1줄) -->
+          <h1 class="pd-name">제주 흑돼지 오겹살 목살 앞다리살 돈마호크</h1>
+          <!-- Sub Description (다크레드) -->
+          <p class="pd-subdesc">정직하게 과지방 걱정없이 선별한 정스펙 냉장육</p>
+
+          <!-- Rating -->
+          <div class="pd-rating">
+            <div class="pd-stars">
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor" style="opacity:.35"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
+            <span class="pd-rating-count"><span>4.2</span> · 리뷰 <span>47</span>개</span>
+          </div>
 
-          </div><!-- /pd-sticky -->
-        </div><!-- /pd-right -->
+          <!-- Price -->
+          <div class="pd-price-row">
+            <span class="pd-disc-pct">10%</span>
+            <span class="pd-price">27,000<small>원</small></span>
+            <span class="pd-price-orig">30,000원</span>
+          </div>
 
-      </div><!-- /pd-cols -->
+          <hr class="pd-divider">
+
+          <!-- Meta -->
+          <div class="pd-meta">
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">배송</span>
+              <span class="pd-meta-value"><strong>무료배송</strong> · 냉장 신선배송</span>
+            </div>
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">도착</span>
+              <span class="pd-meta-value">오전 11시 주문 시 <strong>내일 도착</strong> 보장</span>
+            </div>
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">적립금</span>
+              <span class="pd-meta-value">구매금액의 <strong>1%</strong> 적립</span>
+            </div>
+          </div>
+
+          <hr class="pd-divider">
+
+          <!-- Options -->
+          <div class="pd-opt-section">
+            <p class="pd-opt-title">옵션 선택</p>
+            <div class="pd-option-row">
+              <span class="pd-option-label">부위</span>
+              <div class="pd-chips" id="optPart">
+                <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
+                <button class="pd-chip" data-part="목살">목살</button>
+                <button class="pd-chip" data-part="앞다리살">앞다리살</button>
+                <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
+                <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크<small style="font-size:.85em;margin-left:3px;opacity:.7;">(품절)</small></button>
+              </div>
+            </div>
+            <div class="pd-option-row">
+              <span class="pd-option-label">중량</span>
+              <div class="pd-chips" id="optWeight">
+                <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
+                <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
+                <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
+                <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
+              </div>
+            </div>
+            <div class="pd-option-row">
+              <span class="pd-option-label">용도</span>
+              <div class="pd-chips" id="optUse">
+                <button class="pd-chip is-active" data-use="구이용">구이용</button>
+                <button class="pd-chip" data-use="캠핑용">캠핑용</button>
+                <button class="pd-chip" data-use="수육용">수육용</button>
+                <button class="pd-chip" data-use="찌개용">찌개용</button>
+              </div>
+            </div>
+            <div class="pd-sel-summary">
+              <span class="pd-sel-label">선택</span>
+              <span id="selSummaryText">오겹살 · 2팩(1kg) · 구이용</span>
+            </div>
+          </div>
+
+          <!-- Qty -->
+          <div class="pd-qty-row" style="margin-top:10px;">
+            <span class="pd-qty-label">수량</span>
+            <div class="pd-qty">
+              <button class="pd-qty__btn" id="btnMinus">−</button>
+              <input class="pd-qty__input" type="number" value="1" min="1" id="qtyInput">
+              <button class="pd-qty__btn" id="btnPlus">+</button>
+            </div>
+          </div>
+
+          <!-- Total -->
+          <div class="pd-total">
+            <span class="pd-total-label">총 금액</span>
+            <span class="pd-total-price" id="totalPrice">27,000<small>원</small></span>
+          </div>
+
+          <!-- Quick Pay -->
+          <div class="pd-quickpay">
+            <button class="pd-qp-btn pd-qp-naver">
+              <span class="pd-qp-icon">N</span>네이버페이 결제
+            </button>
+            <button class="pd-qp-btn pd-qp-kakao">
+              <span class="pd-qp-icon">K</span>카카오페이 결제
+            </button>
+          </div>
+
+          <!-- CTA -->
+          <div class="pd-cta">
+            <button class="pd-btn pd-btn--wish" id="btnWish" aria-label="찜하기">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+            <button class="pd-btn pd-btn--cart">장바구니 담기</button>
+            <button class="pd-btn pd-btn--buy">바로 구매</button>
+          </div>
+
+        </div><!-- /pd-sticky -->
+      </div><!-- /pd-right -->
+
+    </div><!-- /pd-cols -->
+  </div>
+</div>
+
+<!-- ── Mobile CTA Bar ────────────────────────────────── -->
+<div class="mobile-cta-bar" id="mobileCtaBar">
+  <button class="mcta-wish" id="mobileWishBtn" aria-label="찜하기">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </button>
+  <button class="mcta-opt" id="btnOpenSheet">옵션 선택</button>
+  <button class="mcta-buy" id="btnSheetBuy">바로 구매</button>
+</div>
+
+<!-- ── Bottom Sheet ──────────────────────────────────── -->
+<div class="sheet-overlay" id="sheetOverlay"></div>
+<div class="mobile-sheet" id="mobileSheet">
+  <div class="ms-top">
+    <div class="ms-handle"></div>
+    <p class="ms-name">제주 흑돼지 부위별 선택</p>
+    <button class="ms-close" id="msCloseBtn" aria-label="닫기">✕</button>
+  </div>
+  <div class="ms-inner">
+    <p class="ms-sect-title">부위</p>
+    <div class="pd-chips" id="sheetOptPart" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
+      <button class="pd-chip" data-part="목살">목살</button>
+      <button class="pd-chip" data-part="앞다리살">앞다리살</button>
+      <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
+      <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크(품절)</button>
+    </div>
+    <p class="ms-sect-title">중량</p>
+    <div class="pd-chips" id="sheetOptWeight" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
+      <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
+      <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
+      <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
+    </div>
+    <p class="ms-sect-title">용도</p>
+    <div class="pd-chips" id="sheetOptUse" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip is-active" data-use="구이용">구이용</button>
+      <button class="pd-chip" data-use="캠핑용">캠핑용</button>
+      <button class="pd-chip" data-use="수육용">수육용</button>
+      <button class="pd-chip" data-use="찌개용">찌개용</button>
+    </div>
+    <p class="ms-sect-title">수량</p>
+    <div class="pd-qty">
+      <button class="pd-qty__btn" id="sheetMinus">−</button>
+      <input class="pd-qty__input" type="number" value="1" min="1" id="sheetQtyInput">
+      <button class="pd-qty__btn" id="sheetPlus">+</button>
+    </div>
+    <div class="pd-total" style="margin-top:14px;">
+      <span class="pd-total-label">총 금액</span>
+      <span class="pd-total-price" id="sheetTotal">27,000<small>원</small></span>
+    </div>
+    <div class="pd-cta" style="margin-top:10px;">
+      <button class="pd-btn pd-btn--cart" style="font-size:13px;">장바구니 담기</button>
+      <button class="pd-btn pd-btn--buy">바로 구매</button>
+    </div>
+    <div class="pd-quickpay" style="margin-top:8px;">
+      <button class="pd-qp-btn pd-qp-naver" style="font-size:13px;height:44px;">
+        <span class="pd-qp-icon">N</span>네이버페이
+      </button>
+      <button class="pd-qp-btn pd-qp-kakao" style="font-size:13px;height:44px;">
+        <span class="pd-qp-icon">K</span>카카오페이
+      </button>
     </div>
   </div>
+</div>
 
-  <!-- ══ Mobile CTA Bar ══════════════════════════════════════ -->
-  <div class="mobile-cta-bar" id="mobileCtaBar">
-    <button class="mcta-wish" id="mobileWishBtn" aria-label="찜하기">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
-    </button>
-    <button class="mcta-opt" id="btnOpenSheet">옵션 선택</button>
-    <button class="mcta-buy" id="btnSheetBuy">바로 구매</button>
-  </div>
-
-  <!-- ══ Sheet Overlay ════════════════════════════════════════ -->
-  <div class="sheet-overlay" id="sheetOverlay"></div>
-
-  <!-- ══ Bottom Sheet ═════════════════════════════════════════ -->
-  <div class="mobile-sheet" id="mobileSheet">
-    <div class="ms-top" id="msTop">
-      <div class="ms-handle"></div>
-      <p class="ms-name">제주 흑돼지 부위별 선택</p>
-      <button class="ms-close" id="msCloseBtn" aria-label="닫기">✕</button>
+<!-- ── Footer (메인데모 동일) ──────────────────────────── -->
+<footer class="ft">
+  <div class="ft-in">
+    <div class="ft-nl">
+      <div>
+        <h3 class="ft-nl-h">제주의 소식을 먼저 받아보세요</h3>
+        <p class="ft-nl-p">신상품 출시 · 제철 특가 · 구독자 전용 5% 쿠폰 즉시 발급</p>
+      </div>
+      <div class="ft-nl-form">
+        <input class="ft-nl-input" type="email" placeholder="이메일 주소 입력">
+        <button class="ft-nl-btn">구독하기</button>
+      </div>
     </div>
-    <div class="ms-inner">
-
-      <p class="ms-sect-title">부위 선택</p>
-      <div class="pd-chips" id="sheetOptPart" style="gap:8px;margin-bottom:4px;">
-        <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
-        <button class="pd-chip" data-part="목살">목살</button>
-        <button class="pd-chip" data-part="앞다리살">앞다리살</button>
-        <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
-        <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크 <small style="font-size:.88em;opacity:.7;">(품절)</small></button>
+    <div class="ft-grid">
+      <div>
+        <p class="ft-logo">맛있는 제주</p>
+        <p class="ft-brand-desc">대한민국 유일 제주 직영 이원 가공 시스템.<br>육가공·수산가공 전 과정 제주 직영 운영.<br>1994년 창립 · 30년 전통.</p>
+        <div class="ft-social"><a href="#">IG</a><a href="#">YT</a><a href="#">KK</a></div>
       </div>
-
-      <p class="ms-sect-title">중량 선택</p>
-      <div class="pd-chips" id="sheetOptWeight" style="gap:8px;margin-bottom:4px;">
-        <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
-        <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
-        <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
-        <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
+      <div class="ft-col">
+        <h4>고객서비스</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li><li><a href="#">1:1 문의</a></li>
+          <li><a href="#">배송안내</a></li><li><a href="#">교환/반품</a></li><li><a href="#">FAQ</a></li>
+        </ul>
       </div>
-
-      <p class="ms-sect-title">용도 선택</p>
-      <div class="pd-chips" id="sheetOptUse" style="gap:8px;margin-bottom:4px;">
-        <button class="pd-chip is-active" data-use="구이용">구이용</button>
-        <button class="pd-chip" data-use="캠핑용">캠핑용</button>
-        <button class="pd-chip" data-use="수육용">수육용</button>
-        <button class="pd-chip" data-use="찌개용">찌개용</button>
+      <div class="ft-col">
+        <h4>브랜드</h4>
+        <ul>
+          <li><a href="#">브랜드 스토리</a></li><li><a href="#">품질 보증</a></li>
+          <li><a href="#">제주 직영 농장</a></li><li><a href="#">수산가공 센터</a></li>
+          <li><a href="#">입점 문의</a></li>
+        </ul>
       </div>
-
-      <!-- Qty -->
-      <p class="ms-sect-title">수량</p>
-      <div class="pd-qty-row" style="margin-top:0;">
-        <div class="pd-qty">
-          <button class="pd-qty__btn" id="sheetMinus">−</button>
-          <input class="pd-qty__input" type="number" value="1" min="1" id="sheetQtyInput">
-          <button class="pd-qty__btn" id="sheetPlus">+</button>
-        </div>
-      </div>
-
-      <!-- Total -->
-      <div class="pd-total" style="margin-top:16px;">
-        <span class="pd-total-label">총 금액</span>
-        <span class="pd-total-price" id="sheetTotal">27,000<small>원</small></span>
-      </div>
-
-      <!-- CTA -->
-      <div class="pd-cta" style="margin-top:12px;">
-        <button class="pd-btn pd-btn--cart" style="font-size:13px;">장바구니 담기</button>
-        <button class="pd-btn pd-btn--buy">바로 구매</button>
-      </div>
-
-      <!-- Quick Pay in sheet -->
-      <div class="pd-quickpay" style="margin-top:10px;">
-        <button class="pd-qp-btn pd-qp-naver" style="font-size:13px;height:46px;">
-          <span class="pd-qp-icon">N</span>네이버페이
-        </button>
-        <button class="pd-qp-btn pd-qp-kakao" style="font-size:13px;height:46px;">
-          <span class="pd-qp-icon">K</span>카카오페이
-        </button>
-      </div>
-
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2026 맛있는제주. All rights reserved.</p>
+      <nav class="ft-links">
+        <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">사업자정보</a>
+      </nav>
+      <div class="ft-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
     </div>
   </div>
+</footer>
 
-  <!-- ══ Footer ═══════════════════════════════════════════════ -->
-  <footer class="demo-footer">
-    <div>© 2025 Brand — Product Detail v0.11 Demo</div>
-  </footer>
+<!-- ── Scripts ────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+/* ── Swiper dot style ── */
+(function(){
+  var s = document.createElement('style');
+  s.textContent = '.swiper-pagination-bullet{background:#F0EBE3!important;opacity:.3!important;width:6px!important;height:6px!important;} .swiper-pagination-bullet-active{background:#C4A265!important;opacity:1!important;width:18px!important;border-radius:3px!important;}';
+  document.head.appendChild(s);
+})();
 
-  <!-- ══ Scripts ══════════════════════════════════════════════ -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script>
-    /* ── Mobile Swiper ── */
-    var pdSwiper = null;
-    if (window.innerWidth < 1024) {
-      pdSwiper = new Swiper('#pdSwiper', {
-        loop: true,
-        speed: 500,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-          renderBullet: function(i, cls) {
-            return '<span class="' + cls + '" style="background:#C4A265;opacity:.5;"></span>';
-          }
-        }
+/* ── Mobile Swiper ── */
+if (window.innerWidth < 1024) {
+  new Swiper('#pdMobileSwiper', {
+    loop: true, speed: 480,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+
+/* ── PC Gallery: GSAP fly-from-thumb animation ─────── */
+var mainImg = document.getElementById('mainImg');
+var pdMainWrap = document.getElementById('pdMainWrap');
+
+function flyToMain(thumbEl, newSrc) {
+  var thumbRect = thumbEl.getBoundingClientRect();
+  var mainRect  = pdMainWrap.getBoundingClientRect();
+
+  /* Clone: starts at thumb position, full-size coords hidden */
+  var clone = document.createElement('img');
+  clone.src = thumbEl.querySelector('img').src;
+  clone.setAttribute('aria-hidden', 'true');
+  clone.style.cssText = [
+    'position:fixed',
+    'top:' + thumbRect.top + 'px',
+    'left:' + thumbRect.left + 'px',
+    'width:' + thumbRect.width + 'px',
+    'height:' + thumbRect.height + 'px',
+    'object-fit:cover',
+    'z-index:9000',
+    'pointer-events:none',
+    'will-change:transform'
+  ].join(';');
+  document.body.appendChild(clone);
+
+  /* Fade out current main image */
+  gsap.to(mainImg, { opacity: 0, duration: 0.14, ease: 'power2.in' });
+
+  /* Fly clone: thumb pos → main image pos */
+  gsap.to(clone, {
+    top:    mainRect.top,
+    left:   mainRect.left,
+    width:  mainRect.width,
+    height: mainRect.height,
+    duration: 0.52,
+    ease: 'power3.inOut',
+    onComplete: function() {
+      mainImg.src = newSrc;
+      gsap.to(mainImg, { opacity: 1, duration: 0.22, ease: 'power2.out' });
+      gsap.to(clone, {
+        opacity: 0, duration: 0.18,
+        onComplete: function() { clone.remove(); }
       });
     }
+  });
+}
 
-    /* ── PC Gallery: vertical thumb click → GSAP crossfade ── */
-    var mainImg = document.getElementById('mainImg');
-    document.querySelectorAll('#pcThumbs .pd-thumb').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('#pcThumbs .pd-thumb').forEach(function(b) {
-          b.classList.remove('is-active');
-        });
-        btn.classList.add('is-active');
-        gsap.to(mainImg, {
-          opacity: 0, y: 8, duration: .18, ease: 'power2.in',
-          onComplete: function() {
-            mainImg.src = btn.dataset.src;
-            gsap.fromTo(mainImg,
-              { opacity: 0, y: -8 },
-              { opacity: 1, y: 0, duration: .28, ease: 'power2.out' }
-            );
-          }
-        });
-      });
+document.querySelectorAll('#pcThumbs .pd-thumb').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#pcThumbs .pd-thumb').forEach(function(b) {
+      b.classList.remove('is-active');
     });
+    btn.classList.add('is-active');
+    flyToMain(btn, btn.dataset.src);
+  });
+});
 
-    /* ── Option Chips (PC) ── */
-    var selPart   = '오겹살';
-    var selWeight = '2팩(1kg)';
-    var selUse    = '구이용';
+/* ── Option Chips (PC) ── */
+var selPart   = '오겹살';
+var selWeight = '2팩(1kg)';
+var selUse    = '구이용';
 
-    function updateSummary() {
-      var el = document.getElementById('selSummaryText');
-      if (el) el.textContent = selPart + ' · ' + selWeight + ' · ' + selUse;
-    }
-
-    function bindChips(containerId, onSelect) {
-      var wrap = document.getElementById(containerId);
-      if (!wrap) return;
-      wrap.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(chip) {
-        chip.addEventListener('click', function() {
-          wrap.querySelectorAll('.pd-chip').forEach(function(c) { c.classList.remove('is-active'); });
-          chip.classList.add('is-active');
-          onSelect(chip);
-        });
-      });
-    }
-
-    bindChips('optPart', function(c) { selPart = c.dataset.part; updateSummary(); });
-    bindChips('optWeight', function(c) { selWeight = c.dataset.weight; updateSummary(); });
-    bindChips('optUse', function(c) { selUse = c.dataset.use; updateSummary(); });
-
-    /* ── Qty + Total (PC) ── */
-    var UNIT_PRICE = 27000;
-    var qtyInput   = document.getElementById('qtyInput');
-    var totalEl    = document.getElementById('totalPrice');
-
-    function wonHtml(n) {
-      return n.toLocaleString('ko-KR') + '<small>원</small>';
-    }
-    function updateTotal() {
-      var qty = Math.max(1, parseInt(qtyInput.value) || 1);
-      qtyInput.value = qty;
-      if (totalEl) totalEl.innerHTML = wonHtml(UNIT_PRICE * qty);
-    }
-    document.getElementById('btnMinus').addEventListener('click', function() {
-      var v = parseInt(qtyInput.value) || 1;
-      if (v > 1) { qtyInput.value = v - 1; updateTotal(); }
+function updateSummary() {
+  var el = document.getElementById('selSummaryText');
+  if (el) el.textContent = selPart + ' · ' + selWeight + ' · ' + selUse;
+}
+function bindChips(id, onSelect) {
+  var w = document.getElementById(id);
+  if (!w) return;
+  w.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(c) {
+    c.addEventListener('click', function() {
+      w.querySelectorAll('.pd-chip').forEach(function(x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+      onSelect(c);
     });
-    document.getElementById('btnPlus').addEventListener('click', function() {
-      qtyInput.value = (parseInt(qtyInput.value) || 1) + 1; updateTotal();
+  });
+}
+bindChips('optPart',   function(c) { selPart   = c.dataset.part;   updateSummary(); });
+bindChips('optWeight', function(c) { selWeight = c.dataset.weight; updateSummary(); });
+bindChips('optUse',    function(c) { selUse    = c.dataset.use;    updateSummary(); });
+
+/* ── Qty + Total (PC) ── */
+var UNIT = 27000;
+var qtyEl  = document.getElementById('qtyInput');
+var totEl  = document.getElementById('totalPrice');
+function wonHtml(n) { return n.toLocaleString('ko-KR') + '<small>원</small>'; }
+function updateTotal() {
+  var q = Math.max(1, parseInt(qtyEl.value) || 1);
+  qtyEl.value = q;
+  if (totEl) totEl.innerHTML = wonHtml(UNIT * q);
+}
+document.getElementById('btnMinus').addEventListener('click', function() {
+  var v = parseInt(qtyEl.value) || 1; if (v > 1) { qtyEl.value = v - 1; updateTotal(); }
+});
+document.getElementById('btnPlus').addEventListener('click', function() {
+  qtyEl.value = (parseInt(qtyEl.value) || 1) + 1; updateTotal();
+});
+qtyEl.addEventListener('change', updateTotal);
+
+/* ── Wish Toggle ── */
+var isWished = false;
+function setWish(v) {
+  isWished = v;
+  ['btnWish','btnWishTop','mobileWishBtn'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('is-active', v);
+    if (el) el.classList.toggle('is-wished', v);
+  });
+}
+['btnWish','btnWishTop','mobileWishBtn'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('click', function() { setWish(!isWished); });
+});
+
+/* ── Share ── */
+var shareBtn = document.getElementById('btnShare');
+if (shareBtn) shareBtn.addEventListener('click', function() {
+  if (navigator.share) {
+    navigator.share({ title: '제주 흑돼지 오겹살', url: location.href });
+  } else {
+    navigator.clipboard && navigator.clipboard.writeText(location.href);
+    alert('링크가 복사되었습니다.');
+  }
+});
+
+/* ── Tabs ── */
+var PANELS = { detail:'tabDetail', review:'tabReview', qna:'tabQna', delivery:'tabDelivery' };
+document.querySelectorAll('.pd-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.pd-tab').forEach(function(t) { t.classList.remove('is-active'); });
+    tab.classList.add('is-active');
+    var k = tab.dataset.tab;
+    Object.keys(PANELS).forEach(function(pk) {
+      var p = document.getElementById(PANELS[pk]);
+      if (p) p.style.display = pk === k ? '' : 'none';
     });
-    if (qtyInput) qtyInput.addEventListener('change', updateTotal);
+  });
+});
 
-    /* ── Wish Toggle ── */
-    var isWished = false;
-    function setWish(state) {
-      isWished = state;
-      ['btnWish', 'mobileWishBtn'].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) el.classList.toggle('is-active', state);
-      });
-    }
-    ['btnWish', 'mobileWishBtn'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.addEventListener('click', function() { setWish(!isWished); });
+/* ── Detail More (GSAP) ── */
+var detailWrap = document.getElementById('detailWrap');
+var moreWrap   = document.getElementById('detailMoreWrap');
+var expanded   = false;
+document.getElementById('detailMoreBtn').addEventListener('click', function() {
+  if (expanded) return; expanded = true;
+  gsap.to(detailWrap, {
+    maxHeight: detailWrap.scrollHeight, duration: .65, ease: 'power2.inOut',
+    onComplete: function() { detailWrap.classList.add('is-expanded'); }
+  });
+  gsap.to('#detailFade', { opacity: 0, duration: .35 });
+  moreWrap.classList.add('is-hidden');
+});
+
+/* ── Mobile: scroll → CTA bar ── */
+var ctaBar = document.getElementById('mobileCtaBar');
+window.addEventListener('scroll', function() {
+  if (ctaBar) ctaBar.classList.toggle('is-visible', window.pageYOffset > 200);
+}, { passive: true });
+
+/* ── Bottom Sheet ── */
+var sheet   = document.getElementById('mobileSheet');
+var overlay = document.getElementById('sheetOverlay');
+function openSheet()  { sheet.classList.add('is-open'); overlay.classList.add('is-open'); document.body.style.overflow='hidden'; }
+function closeSheet() { sheet.classList.remove('is-open'); overlay.classList.remove('is-open'); document.body.style.overflow=''; }
+document.getElementById('btnOpenSheet').addEventListener('click', openSheet);
+document.getElementById('btnSheetBuy').addEventListener('click', openSheet);
+overlay.addEventListener('click', closeSheet);
+document.getElementById('msCloseBtn').addEventListener('click', closeSheet);
+
+/* ── Sheet chips ── */
+['sheetOptPart','sheetOptWeight','sheetOptUse'].forEach(function(id) {
+  var w = document.getElementById(id);
+  if (!w) return;
+  w.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(c) {
+    c.addEventListener('click', function() {
+      w.querySelectorAll('.pd-chip').forEach(function(x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
     });
+  });
+});
 
-    /* ── Share Button ── */
-    var shareBtn = document.getElementById('btnShare');
-    if (shareBtn) {
-      shareBtn.addEventListener('click', function() {
-        if (navigator.share) {
-          navigator.share({ title: '제주 흑돼지 부위별 선택', url: location.href });
-        } else {
-          navigator.clipboard && navigator.clipboard.writeText(location.href);
-          alert('링크가 복사되었습니다.');
-        }
-      });
-    }
+/* ── Sheet qty + total ── */
+var sheetQty = document.getElementById('sheetQtyInput');
+var sheetTot = document.getElementById('sheetTotal');
+function updateSheetTotal() {
+  var q = Math.max(1, parseInt(sheetQty.value) || 1);
+  sheetQty.value = q;
+  if (sheetTot) sheetTot.innerHTML = wonHtml(UNIT * q);
+}
+document.getElementById('sheetMinus').addEventListener('click', function() {
+  var v = parseInt(sheetQty.value) || 1; if (v > 1) { sheetQty.value = v - 1; updateSheetTotal(); }
+});
+document.getElementById('sheetPlus').addEventListener('click', function() {
+  sheetQty.value = (parseInt(sheetQty.value) || 1) + 1; updateSheetTotal();
+});
 
-    /* ── Tabs ── */
-    var tabPanels = {
-      detail: 'tabDetail',
-      review: 'tabReview',
-      qna:    'tabQna',
-      delivery: 'tabDelivery'
-    };
-    document.querySelectorAll('.pd-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.pd-tab').forEach(function(t) { t.classList.remove('is-active'); });
-        tab.classList.add('is-active');
-        var key = tab.dataset.tab;
-        Object.keys(tabPanels).forEach(function(k) {
-          var panel = document.getElementById(tabPanels[k]);
-          if (panel) panel.style.display = k === key ? '' : 'none';
-        });
-      });
-    });
+/* ── Side menu (mobile) ── */
+var sideMenu = document.getElementById('sideMenu');
+var sideOv   = document.getElementById('sideOv');
+document.getElementById('hdBurger').addEventListener('click', function() {
+  sideMenu.classList.add('on'); sideOv.classList.add('on'); document.body.classList.add('menu-open');
+});
+function closeSide() { sideMenu.classList.remove('on'); sideOv.classList.remove('on'); document.body.classList.remove('menu-open'); }
+document.getElementById('sideClose').addEventListener('click', closeSide);
+sideOv.addEventListener('click', closeSide);
+document.querySelectorAll('.sm-cat-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var cat = btn.closest('.sm-cat');
+    cat.classList.toggle('open');
+  });
+});
 
-    /* ── Detail Show More (GSAP) ── */
-    var detailWrap = document.getElementById('detailWrap');
-    var detailMoreWrap = document.getElementById('detailMoreWrap');
-    var isExpanded = false;
-
-    document.getElementById('detailMoreBtn').addEventListener('click', function() {
-      if (isExpanded) return;
-      isExpanded = true;
-      var fullH = detailWrap.scrollHeight;
-      gsap.to(detailWrap, {
-        maxHeight: fullH,
-        duration: .7,
-        ease: 'power2.inOut',
-        onComplete: function() {
-          detailWrap.classList.add('is-expanded');
-        }
-      });
-      gsap.to('#detailFade', { opacity: 0, duration: .4, ease: 'power2.out' });
-      detailMoreWrap.classList.add('is-hidden');
-    });
-
-    /* ── Mobile CTA Bar: show after scroll 200px ── */
-    var ctaBar = document.getElementById('mobileCtaBar');
-    window.addEventListener('scroll', function() {
-      if (ctaBar) ctaBar.classList.toggle('is-visible', window.pageYOffset > 200);
-    }, { passive: true });
-
-    /* ── Bottom Sheet open/close ── */
-    var sheet   = document.getElementById('mobileSheet');
-    var overlay = document.getElementById('sheetOverlay');
-
-    function openSheet() {
-      sheet.classList.add('is-open');
-      overlay.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeSheet() {
-      sheet.classList.remove('is-open');
-      overlay.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('btnOpenSheet').addEventListener('click', openSheet);
-    document.getElementById('btnSheetBuy').addEventListener('click', openSheet);
-    overlay.addEventListener('click', closeSheet);
-    document.getElementById('msCloseBtn').addEventListener('click', closeSheet);
-
-    /* ── Sheet Options ── */
-    var sheetSelPart   = '오겹살';
-    var sheetSelWeight = '2팩(1kg)';
-    var sheetSelUse    = '구이용';
-    var sheetQtyInput  = document.getElementById('sheetQtyInput');
-    var sheetTotalEl   = document.getElementById('sheetTotal');
-
-    function updateSheetTotal() {
-      var qty = Math.max(1, parseInt(sheetQtyInput.value) || 1);
-      sheetQtyInput.value = qty;
-      if (sheetTotalEl) sheetTotalEl.innerHTML = wonHtml(UNIT_PRICE * qty);
-    }
-
-    function bindSheetChips(containerId, onSelect) {
-      var wrap = document.getElementById(containerId);
-      if (!wrap) return;
-      wrap.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(chip) {
-        chip.addEventListener('click', function() {
-          wrap.querySelectorAll('.pd-chip').forEach(function(c) { c.classList.remove('is-active'); });
-          chip.classList.add('is-active');
-          onSelect(chip);
-        });
-      });
-    }
-
-    bindSheetChips('sheetOptPart', function(c) { sheetSelPart = c.dataset.part; });
-    bindSheetChips('sheetOptWeight', function(c) { sheetSelWeight = c.dataset.weight; });
-    bindSheetChips('sheetOptUse', function(c) { sheetSelUse = c.dataset.use; });
-
-    document.getElementById('sheetMinus').addEventListener('click', function() {
-      var v = parseInt(sheetQtyInput.value) || 1;
-      if (v > 1) { sheetQtyInput.value = v - 1; updateSheetTotal(); }
-    });
-    document.getElementById('sheetPlus').addEventListener('click', function() {
-      sheetQtyInput.value = (parseInt(sheetQtyInput.value) || 1) + 1; updateSheetTotal();
-    });
-
-    /* ── Swiper pagination style override ── */
-    var style = document.createElement('style');
-    style.textContent = '.swiper-pagination-bullet{background:#F0EBE3!important;opacity:.35!important;width:6px!important;height:6px!important;} .swiper-pagination-bullet-active{background:#C4A265!important;opacity:1!important;width:18px!important;border-radius:3px!important;}';
-    document.head.appendChild(style);
-  </script>
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.ft-col h4').forEach(function(h) {
+  h.addEventListener('click', function() {
+    h.closest('.ft-col').classList.toggle('open');
+  });
+});
+</script>
 
 </body>
 </html>
