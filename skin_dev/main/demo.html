@@ -99,6 +99,8 @@ body.menu-open{overflow:hidden;}
 
 /* ── HERO (180vh pin) ──────────────────────────────────── */
 #heroPin{height:180vh;position:relative;}
+/* Close any sub-pixel gap between heroPin and the next section */
+#mainContent{margin-top:-2px;background:#0A0806;}
 #heroSticky{position:relative;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;z-index:1;}
 /* Title lock: overrides GSAP inline styles */
 #heroBigTitle.title-locked{opacity:0!important;}
@@ -267,12 +269,8 @@ body.menu-open{overflow:hidden;}
 .brand-pg.swiper-pagination{position:absolute;bottom:24px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
 .brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
 .brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
-/* Mobile: peek right edge of next slide */
+/* Mobile: Swiper handles peek via slidesPerView:1.12 */
 @media(max-width:1023px){
-  .brand-par{overflow:visible;}
-  .brand-swiper{overflow:visible;}
-  #brandPar{overflow:hidden;} /* clip at parent */
-  .brand-slide{min-width:calc(100vw - 48px);}
   .brand-par-body{padding:0 24px 68px;}
   .brand-pg.swiper-pagination{left:24px!important;bottom:20px;}
 }
@@ -1476,20 +1474,20 @@ var heroTl = gsap.timeline({
     pin: '#heroSticky',
     onUpdate: function(self){
       if(!titleLocked){
-        // Apply lock only when GSAP has actually rendered title to opacity 0
+        // Lock only after GSAP has ACTUALLY faded the title — not just scroll progress.
+        // Timeline ends at 0.68s (extended by dummy tween) so at auto-idle 74% scroll,
+        // GSAP is at 0.503s, title fade (0.40~0.48) is complete → opacity is 0.
         var op = gsap.getProperty(heroTitle, 'opacity');
         if(op <= 0.02 && self.progress > 0.44){
           titleLocked = true;
           heroTitle.classList.add('title-locked');
           hd.classList.add('visible','solid');
-          // Independent fade-in: not scroll-scrubbed, always completes to opacity:1
+          // Standalone fade-in (not scroll-scrubbed) — always reaches opacity:1
           gsap.to(heroMainCopy, {opacity:1, duration:1.4, ease:'power2.out', onComplete:function(){
             heroMainCopy.classList.add('copy-locked');
           }});
-        } else {
-          hd.classList.toggle('visible', self.progress > 0.44);
-          hd.classList.toggle('solid',   self.progress > 0.44);
         }
+        // NO hd toggle in else — header only appears via titleLocked (prevents dual-visible glitch)
       }
       heroBottom.classList.toggle('visible', self.progress > 0.72);
     }
@@ -1503,8 +1501,12 @@ heroTl
     y: function(){ return -(window.innerHeight/2 - 36); },
     duration: .45, ease: 'power2.inOut'
   }, 0)
-  // Title fade-out (0.40~0.48) — mainCopy is triggered independently after this
-  .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40);
+  // Title fade-out (0.40~0.48)
+  .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40)
+  // Dummy tween: extends totalDuration back to ~0.68 (same as old timeline with mainCopy).
+  // Critical: at auto-idle scroll 74%, GSAP reaches time 0.74×0.68=0.503s > 0.48s,
+  // so title fade IS complete and titleLocked fires correctly.
+  .to({}, {duration:.20}, .48);
 
 document.querySelector('.hb-cta').addEventListener('click', function(e){
   var t = document.getElementById('mainContent');
@@ -1608,44 +1610,61 @@ fpEls.forEach(function(el){
 });
 
 /* ── Brand Heritage Swiper ─────────────────────────────── */
+var isPC = window.innerWidth >= 1024;
 var brandSwiper = new Swiper('#brandSwiper', {
-  loop: true,
-  speed: 900,
+  loop: false,
+  speed: 700,
   effect: 'slide',
-  grabCursor: true,
-  autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+  grabCursor: !isPC,
+  allowTouchMove: !isPC,           // PC: scroll controls, mobile: touch
+  slidesPerView: isPC ? 1 : 1.12,  // mobile 12% peek
+  spaceBetween: isPC ? 0 : 14,
+  autoplay: isPC ? false : { delay: 3800, disableOnInteraction: false },
   pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
   on: {
     slideChangeTransitionStart: function(){
       var bodyEl = this.slides[this.activeIndex].querySelector('.brand-par-body');
-      gsap.fromTo(Array.from(bodyEl.children),
+      if(bodyEl) gsap.fromTo(Array.from(bodyEl.children),
         {y:28, opacity:0},
         {y:0, opacity:1, duration:.72, stagger:.1, ease:'power3.out'}
       );
     }
   }
 });
-// PC: wheel over brand section → advance slide horizontally (no page scroll intercept outside section)
-var brandWheelThrottle = false;
-document.getElementById('brandPar').addEventListener('wheel', function(e){
-  // Only intercept if not at edge (edges let page scroll through)
-  if(brandSwiper.isEnd && e.deltaY > 0) return;
-  if(brandSwiper.isBeginning && e.deltaY < 0) return;
-  e.preventDefault();
-  if(brandWheelThrottle) return;
-  brandWheelThrottle = true;
-  setTimeout(function(){ brandWheelThrottle = false; }, 900);
-  if(e.deltaY > 0) brandSwiper.slideNext();
-  else brandSwiper.slidePrev();
-}, {passive: false});
-// Initial reveal on scroll
-ScrollTrigger.create({
-  trigger: '.brand-par', start: 'top 75%', once: true,
-  onEnter: function(){
-    var bodyEl = brandSwiper.slides[brandSwiper.activeIndex].querySelector('.brand-par-body');
-    gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
-  }
-});
+
+// PC: GSAP ScrollTrigger pins brand section — scroll advances slides, then releases
+if(isPC){
+  var brandSlideCount = brandSwiper.slides.length; // 3
+  var lastBrandIdx = 0;
+  ScrollTrigger.create({
+    trigger: '#brandPar',
+    start: 'top top',
+    end: '+=' + (brandSlideCount - 1) * 110 + '%', // ~220vh for 3 slides
+    pin: true,
+    anticipatePin: 1,
+    onUpdate: function(self){
+      var idx = Math.min(Math.floor(self.progress * brandSlideCount), brandSlideCount - 1);
+      if(idx !== lastBrandIdx){
+        lastBrandIdx = idx;
+        brandSwiper.slideTo(idx, 700);
+      }
+    },
+    onEnter: function(){
+      // First slide text reveal
+      var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
+      if(bodyEl) gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
+    }
+  });
+} else {
+  // Mobile: reveal on scroll-into-view
+  ScrollTrigger.create({
+    trigger: '#brandPar', start: 'top 75%', once: true,
+    onEnter: function(){
+      var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
+      if(bodyEl) gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
+    }
+  });
+}
 
 /* ── Scroll reveals ────────────────────────────────────── */
 gsap.from('.ie', {
