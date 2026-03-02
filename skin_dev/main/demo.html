@@ -1476,7 +1476,7 @@ var heroTl = gsap.timeline({
         // Timeline ends at 0.68s (extended by dummy tween) so at auto-idle 74% scroll,
         // GSAP is at 0.503s, title fade (0.40~0.48) is complete → opacity is 0.
         var op = gsap.getProperty(heroTitle, 'opacity');
-        if(op <= 0.12 && self.progress > 0.44){  // 0.12: fires while title nearly invisible → no gap before header
+        if(op <= 0.5 && self.progress > 0.44){  // 0.5: fires at half-fade → header appears with no visible gap
           titleLocked = true;
           heroTitle.classList.add('title-locked');
           hd.classList.add('visible','solid');
@@ -1680,7 +1680,7 @@ var idleTimer = setTimeout(function(){
     if(p < 1) requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
-}, 4000);
+}, 3000);
 ['mousemove','wheel','touchstart','keydown','click'].forEach(function(ev){
   window.addEventListener(ev, cancelIdle, {once:true, passive:true});
 });
