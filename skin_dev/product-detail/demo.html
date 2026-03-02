@@ -1124,8 +1124,6 @@ function startAuto() {
   stopAuto();
   autoTimer = setTimeout(function() {
     var next = (currentThumbIdx + 1) % thumbBtns.length;
-    /* Skip video thumb in auto-rotation */
-    if (thumbBtns[next].dataset.type === 'video') next = (next + 1) % thumbBtns.length;
     switchMedia(thumbBtns[next], true);
     startAuto();
   }, 4000);
