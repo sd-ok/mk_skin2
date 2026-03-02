@@ -255,22 +255,22 @@ body.menu-open{overflow:hidden;}
 .fish-end-pad{height:60px;background:linear-gradient(0deg,#030810,#060F20);}
 
 /* ── BRAND PARALLAX ─────────────────────────────────────── */
-.brand-par{position:relative;height:620px;overflow:hidden;}
+#brandPin{position:relative;height:250vh;}
+.brand-par{position:sticky;top:0;height:100vh;overflow:hidden;}
 .brand-swiper{width:100%;height:100%;}
-.brand-slide{position:relative;display:flex;align-items:center;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;}
+.brand-slide{position:relative;display:flex;align-items:flex-start;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;}
 .brand-slide-bg{position:absolute;inset:0;}
 .brand-slide-bg img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease-out;}
 .swiper-slide-active .brand-slide-bg img{transform:scale(1.04);}
 .brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.55) 100%);}
-/* start:'top 72px' in ScrollTrigger handles header offset — no padding-top needed */
-.brand-par-body{position:relative;z-index:2;padding:0 52px 72px;max-width:780px;}
+.brand-par-body{position:relative;z-index:2;padding:120px 52px 72px;max-width:780px;}
 /* Brand swiper pagination — left-aligned above bottom edge */
 .brand-pg.swiper-pagination{position:absolute;bottom:24px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
 .brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
 .brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
 /* Mobile: Swiper handles peek via slidesPerView:1.12 */
 @media(max-width:1023px){
-  .brand-par-body{padding:0 24px 68px;}
+  .brand-par-body{padding:88px 24px 68px;}
   .brand-pg.swiper-pagination{left:24px!important;bottom:20px;}
 }
 .bp-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
@@ -505,7 +505,8 @@ body.menu-open{overflow:hidden;}
   .fp-label{opacity:0;}
   .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
   .fish-panel+.fish-panel::after{display:none;}
-  .brand-par{height:520px;}
+  #brandPin{height:auto;}
+  .brand-par{position:relative;top:auto;height:520px;}
   .reviews-hd{padding:0 20px 32px;}
   .insta-hd{padding:0 20px 28px;flex-direction:column;align-items:flex-start;gap:16px;}
   .insta-grid{padding:0 20px;grid-template-columns:repeat(6,1fr);grid-template-rows:200px 200px;}
@@ -1043,6 +1044,7 @@ body.menu-open{overflow:hidden;}
   </section>
 
   <!-- ── BRAND HERITAGE SWIPER ──────────────────── -->
+  <div id="brandPin">
   <div class="brand-par" id="brandPar">
     <div class="swiper brand-swiper" id="brandSwiper">
       <div class="swiper-wrapper">
@@ -1091,6 +1093,7 @@ body.menu-open{overflow:hidden;}
       <div class="brand-pg swiper-pagination"></div>
     </div>
   </div>
+  </div><!-- /brandPin -->
 
   <!-- ── REVIEWS ────────────────────────────────────── -->
   <section class="reviews-sec">
@@ -1608,13 +1611,13 @@ fpEls.forEach(function(el){
 var isPC = window.innerWidth >= 1024;
 var brandSwiper = new Swiper('#brandSwiper', {
   loop: false,
-  speed: 700,
+  speed: 650,
   effect: 'slide',
-  grabCursor: true,
-  allowTouchMove: true,
-  slidesPerView: isPC ? 1 : 1.12,  // mobile 12% peek
+  grabCursor: !isPC,
+  allowTouchMove: !isPC,   // PC: scroll-driven only / mobile: touch swipe
+  slidesPerView: 1,
   spaceBetween: 0,
-  autoplay: { delay: 4000, disableOnInteraction: false }, // PC + mobile both autoplay
+  autoplay: isPC ? false : { delay: 4000, disableOnInteraction: false },
   pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
   on: {
     slideChangeTransitionStart: function(){
@@ -1627,9 +1630,26 @@ var brandSwiper = new Swiper('#brandSwiper', {
   }
 });
 
-// All devices: reveal first slide text on scroll-into-view
+// PC: vertical scroll drives horizontal slide change
+if(isPC){
+  var brandIdx = 0;
+  ScrollTrigger.create({
+    trigger: '#brandPin',
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate: function(self){
+      var idx = Math.min(Math.floor(self.progress * 3), 2);
+      if(idx !== brandIdx){
+        brandIdx = idx;
+        brandSwiper.slideTo(idx, 650);
+      }
+    }
+  });
+}
+
+// First slide text reveal on enter
 ScrollTrigger.create({
-  trigger: '#brandPar', start: 'top 75%', once: true,
+  trigger: '#brandPin', start: 'top 75%', once: true,
   onEnter: function(){
     var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
     if(bodyEl) gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
