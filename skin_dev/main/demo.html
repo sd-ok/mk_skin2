@@ -25,7 +25,7 @@ img{display:block;max-width:100%;}
   display:grid;grid-template-columns:1fr auto 1fr;
   align-items:center;padding:0 48px;z-index:500;
   opacity:0;pointer-events:none;
-  transition:opacity .15s,background .5s,border-color .5s;
+  transition:opacity .3s,background .5s,border-color .5s;
   border-bottom:1px solid transparent;
 }
 #hd.visible{opacity:1;pointer-events:auto;}
@@ -1464,6 +1464,16 @@ var hd             = document.getElementById('hd');
 gsap.set(heroTitle, {xPercent:-50, yPercent:-50});
 
 var titleLocked = false;
+// Single entry point — safe to call multiple times (guards internally)
+function doTitleLock(){
+  if(titleLocked) return;
+  titleLocked = true;
+  heroTitle.classList.add('title-locked');
+  hd.classList.add('visible','solid');
+  gsap.to(heroMainCopy, {opacity:1, duration:1.4, ease:'power2.out', onComplete:function(){
+    heroMainCopy.classList.add('copy-locked');
+  }});
+}
 var heroTl = gsap.timeline({
   scrollTrigger:{
     trigger: '#heroPin',
@@ -1471,22 +1481,9 @@ var heroTl = gsap.timeline({
     end: 'bottom bottom',
     scrub: 1.5,
     onUpdate: function(self){
-      if(!titleLocked){
-        // Lock only after GSAP has ACTUALLY faded the title — not just scroll progress.
-        // Timeline ends at 0.68s (extended by dummy tween) so at auto-idle 74% scroll,
-        // GSAP is at 0.503s, title fade (0.40~0.48) is complete → opacity is 0.
-        var op = gsap.getProperty(heroTitle, 'opacity');
-        if(op <= 0.5 && self.progress > 0.44){  // 0.5: fires at half-fade → header appears with no visible gap
-          titleLocked = true;
-          heroTitle.classList.add('title-locked');
-          hd.classList.add('visible','solid');
-          // Standalone fade-in (not scroll-scrubbed) — always reaches opacity:1
-          gsap.to(heroMainCopy, {opacity:1, duration:1.4, ease:'power2.out', onComplete:function(){
-            heroMainCopy.classList.add('copy-locked');
-          }});
-        }
-        // NO hd toggle in else — header only appears via titleLocked (prevents dual-visible glitch)
-      }
+      // onUpdate fires during active scroll only — not during GSAP scrub catch-up.
+      // rAF-based polling below handles the catch-up phase.
+      if(!titleLocked && heroTl.time() >= 0.3) doTitleLock();
       heroBottom.classList.toggle('visible', self.progress > 0.72);
     }
   }
@@ -1677,7 +1674,18 @@ var idleTimer = setTimeout(function(){
     if(!t0) t0 = ts;
     var p = Math.min((ts - t0) / dur, 1);
     window.scrollTo(0, startPos + (target - startPos) * easeInOut(p));
-    if(p < 1) requestAnimationFrame(raf);
+    // Check every frame — onUpdate alone misses the GSAP scrub catch-up phase
+    if(!titleLocked && heroTl.time() >= 0.3) doTitleLock();
+    if(p < 1){
+      requestAnimationFrame(raf);
+    } else {
+      // Scroll ended but GSAP still catching up: keep polling until header fires
+      (function pollPost(){
+        if(titleLocked) return;
+        if(heroTl.time() >= 0.3) doTitleLock();
+        else requestAnimationFrame(pollPost);
+      })();
+    }
   }
   requestAnimationFrame(raf);
 }, 3000);
