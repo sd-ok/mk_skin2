@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>맛있는 제주</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+/* ── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:auto;}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:#0A0806;color:#F0EBE3;overflow-x:hidden;cursor:none;font-size:16px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+button{background:none;border:none;cursor:pointer;font:inherit;color:inherit;}
+img{display:block;max-width:100%;}
+
+/* ── CURSOR ─────────────────────────────────────────────── */
+#cur{position:fixed;width:10px;height:10px;border-radius:50%;background:#F0EBE3;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+#curRing{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(240,235,227,.3);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+
+/* ── HEADER — 3-part grid: left nav | center logo | right nav ── */
+#hd{
+  position:fixed;top:0;left:0;right:0;height:72px;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;padding:0 48px;z-index:500;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s,background .5s,border-color .5s;
+  border-bottom:1px solid transparent;
+}
+#hd.visible{opacity:1;pointer-events:auto;}
+#hd.solid{
+  background:rgba(14,11,9,.9);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-bottom-color:rgba(255,255,255,.07);
+}
+.hd-left{display:flex;align-items:center;gap:36px;}
+.hd-left a{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;}
+.hd-left a:hover{color:#F0EBE3;}
+.hd-logo{display:flex;align-items:center;justify-content:center;}
+.hd-logo img{height:34px;width:auto;display:block;}
+.hd-right{display:flex;align-items:center;gap:28px;justify-content:flex-end;}
+.hd-right a{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;display:flex;align-items:center;}
+.hd-right a:hover{color:#F0EBE3;}
+.cart-num{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:9px;font-weight:700;margin-left:3px;}
+/* Mobile header — hidden on desktop */
+.hd-burger{display:none;align-items:center;justify-content:flex-start;width:44px;height:44px;cursor:pointer;flex-shrink:0;}
+.hd-burger-line{display:block;width:22px;height:1.5px;background:#F0EBE3;position:relative;}
+.hd-burger-line::before,.hd-burger-line::after{content:'';position:absolute;left:0;width:22px;height:1.5px;background:#F0EBE3;}
+.hd-burger-line::before{top:-7px;}
+.hd-burger-line::after{top:7px;}
+.hd-icons{display:none;align-items:center;gap:14px;justify-content:flex-end;}
+.hd-icon{position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+.hd-icon svg{width:20px;height:20px;stroke:rgba(240,235,227,.65);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.hd-icon:hover svg{stroke:#F0EBE3;}
+.hd-icon-badge{position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+/* ── SIDE MENU (mobile) ────────────────────────────────── */
+#sideOv{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:599;opacity:0;pointer-events:none;transition:opacity .35s;}
+#sideOv.on{opacity:1;pointer-events:auto;}
+#sideMenu{position:fixed;top:0;left:0;bottom:0;width:300px;background:#110E0C;z-index:600;transform:translateX(-100%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;box-shadow:6px 0 32px rgba(0,0,0,.7);border-right:1px solid rgba(240,235,227,.08);scrollbar-width:none;-ms-overflow-style:none;}
+#sideMenu::-webkit-scrollbar{display:none;}
+#sideMenu.on{transform:translateX(0);}
+body.menu-open{overflow:hidden;}
+/* SM — Header */
+.sm-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+.sm-logo{display:flex;align-items:center;gap:9px;}
+.sm-logo span{font-size:14px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;}
+.sm-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.sm-close svg{width:18px;height:18px;stroke:rgba(240,235,227,.4);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s;}
+.sm-close:hover svg{stroke:#F0EBE3;}
+/* SM — Nav categories */
+.sm-nav{flex:1;padding:4px 0;}
+.sm-cat{border-bottom:1px solid rgba(240,235,227,.05);}
+.sm-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;cursor:pointer;transition:color .2s;text-align:left;}
+.sm-cat-btn:hover{color:#C4A265;}
+.sm-cat-link{display:flex;align-items:center;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s,padding-left .2s;}
+.sm-cat-link:hover{color:#C4A265;padding-left:28px;}
+.sm-arr{width:15px;height:15px;stroke:rgba(240,235,227,.3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;transition:transform .3s,stroke .2s;}
+.sm-cat-btn:hover .sm-arr{stroke:rgba(240,235,227,.6);}
+.sm-cat.open .sm-arr{transform:rotate(180deg);}
+.sm-sub{max-height:0;overflow:hidden;transition:max-height .36s cubic-bezier(.25,.46,.45,.94);background:rgba(0,0,0,.18);}
+.sm-cat.open .sm-sub{max-height:400px;}
+.sm-sub a{display:flex;align-items:center;gap:10px;padding:10px 22px 10px 38px;font-size:14px;font-weight:500;color:rgba(240,235,227,.48);transition:color .2s,padding-left .2s;position:relative;}
+.sm-sub a::before{content:'';position:absolute;left:24px;top:50%;transform:translateY(-50%);width:3px;height:3px;border-radius:50%;background:rgba(240,235,227,.22);}
+.sm-sub a:hover{color:#C4A265;padding-left:42px;}
+/* SM — Util links */
+.sm-util{display:flex;flex-direction:row;padding:4px 0 2px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+.sm-util-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:1;padding:12px 4px;font-size:11px;font-weight:600;color:rgba(240,235,227,.38);transition:color .2s;letter-spacing:.03em;}
+.sm-util-link:hover{color:#F0EBE3;}
+.sm-util-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+/* SM — Promo Banner */
+.sm-promo{margin:0;padding:22px;background:linear-gradient(135deg,#5F4541 0%,#3a2825 100%);flex-shrink:0;}
+.sm-promo-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;color:rgba(240,235,227,.55);margin-bottom:10px;text-transform:uppercase;}
+.sm-promo-txt{font-size:13px;color:rgba(240,235,227,.7);line-height:1.6;margin-bottom:14px;}
+.sm-promo-txt strong{font-size:22px;font-weight:900;color:#F0EBE3;letter-spacing:-.03em;display:block;margin-top:2px;}
+.sm-promo-cta{display:inline-flex;align-items:center;height:38px;padding:0 18px;background:#F0EBE3;color:#3a2825;font-size:11px;font-weight:800;letter-spacing:.08em;transition:background .2s;}
+.sm-promo-cta:hover{background:#fff;}
+
+/* ── HERO (180vh sticky — CSS sticky 방식, fixed 전환 없음) ── */
+#heroPin{height:180vh;position:relative;background:#0A0806;}
+#mainContent{margin-top:-2px;background:#0A0806;}
+#heroSticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#0A0806;display:flex;align-items:center;justify-content:center;}
+/* Title lock: overrides GSAP inline styles */
+#heroBigTitle.title-locked{opacity:0!important;}
+#heroMainCopy.copy-locked{opacity:1!important;}
+/* Solid bottom edge — z-index:50 clears above all slide stacking contexts */
+/* heroSticky::after 제거 — CSS sticky로 틈 구조적 해결, 오버레이 불필요 */
+#heroSwiper{position:absolute;inset:0;z-index:0;overflow:hidden;}
+#heroSwiper .swiper-slide{height:100vh;background:#0A0806;}
+#heroSwiper .swiper-slide img,#heroSwiper .swiper-slide video{width:100%;height:100%;object-fit:cover;display:block;vertical-align:bottom;}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.45) 0%,rgba(10,8,6,.85) 100%);pointer-events:none;}
+.hero-pag{position:absolute;bottom:36px;right:52px;z-index:55;display:flex;align-items:center;gap:8px;}
+.hero-pag-dot{width:28px;height:2px;background:rgba(240,235,227,.22);cursor:pointer;transition:background .3s,width .3s;}
+.hero-pag-dot.on{background:#F0EBE3;width:44px;}
+/* Big title — GSAP handles centering via xPercent/yPercent */
+#heroBigTitle{position:absolute;left:50%;top:50%;text-align:center;z-index:10;pointer-events:none;white-space:nowrap;}
+.hbt-pre{font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:rgba(240,235,227,.38);margin-bottom:18px;display:block;}
+#heroBigTitle h1{font-size:clamp(80px,12vw,160px);font-weight:900;letter-spacing:-.04em;line-height:.95;color:#F0EBE3;}
+/* Hero bottom */
+#heroBottom{position:absolute;bottom:0;left:0;right:0;padding:0 52px 72px;display:flex;align-items:flex-end;justify-content:space-between;z-index:55;opacity:0;transition:opacity .5s;}
+#heroBottom.visible{opacity:1;}
+.hb-tagline{font-size:clamp(15px,1.8vw,20px);font-weight:400;color:rgba(240,235,227,.68);max-width:440px;line-height:1.75;}
+.hb-cta{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;flex-shrink:0;background:#F0EBE3;color:#0A0806;font-size:13px;font-weight:700;letter-spacing:.08em;transition:background .2s,color .2s;}
+.hb-cta:hover{background:#8B1A1A;color:#fff;}
+#heroScrollHint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,227,.28);}
+.hsh-line{width:1px;height:44px;background:rgba(240,235,227,.2);animation:sc 2.2s ease infinite;}
+@keyframes sc{0%,100%{transform:scaleY(1);opacity:.8}50%{transform:scaleY(.2);opacity:.1}}
+
+/* ── JEJU STORY (300vh) ────────────────────────────────── */
+#jejuStoryPin{height:300vh;position:relative;}
+#jejuStorySticky{position:sticky;top:0;height:100vh;overflow:hidden;}
+.js-bg{position:absolute;inset:0;opacity:0;}
+.js-bg img{width:100%;height:100%;object-fit:cover;}
+.js-bg-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,6,.5) 0%,rgba(10,8,6,.8) 100%);}
+.js-content{position:absolute;inset:0;display:flex;align-items:center;}
+.js-panel{position:absolute;left:52px;right:52%;opacity:0;transform:translateY(32px);transition:opacity .6s,transform .6s;pointer-events:none;}
+.js-panel.on{opacity:1;transform:translateY(0);pointer-events:auto;}
+.js-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.js-kw::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
+.js-title{font-size:clamp(36px,5.5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1.12;color:#F0EBE3;margin-bottom:24px;}
+.js-desc{font-size:17px;line-height:1.85;color:rgba(240,235,227,.6);max-width:440px;}
+.js-dots{position:absolute;right:52px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:3;}
+.js-dot{width:6px;height:6px;border-radius:50%;background:rgba(240,235,227,.2);transition:background .3s,transform .3s;}
+.js-dot.on{background:#F0EBE3;transform:scale(1.5);}
+.js-img-right{position:absolute;right:0;top:0;bottom:0;width:48%;overflow:hidden;}
+.js-right-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s;}
+.js-right-img.on{opacity:1;}
+.js-right-ov{position:absolute;inset:0;background:linear-gradient(90deg,#0A0806 0%,transparent 35%);}
+
+/* ── BEST PRODUCTS (thumbnail rows, no numbers) ─────────── */
+.best-sec{padding:120px 0;background:#0A0806;}
+.best-hd{max-width:1560px;margin:0 auto;padding:0 52px 64px;display:flex;align-items:flex-end;justify-content:space-between;}
+.best-label{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C4A265;margin-bottom:14px;}
+.best-sec-title{font-size:clamp(36px,4.5vw,64px);font-weight:800;letter-spacing:-.04em;color:#F0EBE3;line-height:1.1;}
+.best-more{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(240,235,227,.32);border-bottom:1px solid rgba(240,235,227,.1);padding-bottom:2px;transition:color .2s,border-color .2s;flex-shrink:0;margin-bottom:6px;}
+.best-more:hover{color:#F0EBE3;border-color:rgba(240,235,227,.4);}
+.best-rows{max-width:1560px;margin:0 auto;}
+.best-row{
+  display:grid;grid-template-columns:84px 1fr auto 36px;
+  align-items:center;gap:24px;padding:22px 52px;
+  border-top:1px solid rgba(240,235,227,.06);
+  position:relative;overflow:hidden;cursor:pointer;
+}
+.best-row:last-child{border-bottom:1px solid rgba(240,235,227,.06);}
+.best-row::before{content:'';position:absolute;inset:0;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.25,.46,.45,.94);}
+.best-row--pork::before{background:rgba(139,26,26,.2);}
+.best-row--sea::before{background:rgba(10,30,85,.28);}
+.best-row:hover::before{transform:scaleX(1);}
+.row-thumb{width:84px;height:84px;border-radius:8px;overflow:hidden;border:1px solid rgba(240,235,227,.08);position:relative;z-index:1;}
+.row-thumb img{width:100%;height:100%;object-fit:cover;}
+.row-info{position:relative;z-index:1;min-width:0;overflow:hidden;}
+.row-name{font-size:clamp(16px,1.9vw,22px);font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.best-row:hover .row-name{color:#fff;}
+.row-sub{font-size:13px;color:rgba(240,235,227,.28);letter-spacing:.04em;margin-top:5px;}
+.row-price{font-size:clamp(14px,1.7vw,20px);font-weight:700;letter-spacing:-.02em;color:#F0EBE3;position:relative;z-index:1;text-align:right;white-space:nowrap;}
+.row-orig{font-size:11px;font-weight:400;color:rgba(240,235,227,.26);text-decoration:line-through;display:block;margin-top:3px;}
+.row-arrow{font-size:18px;color:rgba(240,235,227,.18);position:relative;z-index:1;transition:color .2s,transform .3s;}
+.best-row:hover .row-arrow{color:#F0EBE3;transform:translateX(6px);}
+
+/* ── CATEGORY (2-split, click to expand) ───────────────── */
+.cat{display:grid;grid-template-columns:1fr 1fr;}
+.cat-card{position:relative;height:640px;overflow:hidden;display:block;cursor:pointer;}
+.cat-bg{position:absolute;inset:0;}
+.cat-bg img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.cat-card:hover .cat-bg img{transform:scale(1.05);}
+.cat-card--pork .cat-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(55,5,5,.92) 0%,rgba(55,5,5,.08) 55%);}
+.cat-card--sea .cat-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,15,55,.92) 0%,rgba(5,15,55,.08) 55%);}
+.cat-body{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:52px;}
+.cat-en{font-size:10px;font-weight:700;letter-spacing:.24em;opacity:.4;margin-bottom:14px;}
+.cat-title{font-size:52px;font-weight:900;letter-spacing:-.04em;margin-bottom:14px;}
+.cat-desc{font-size:16px;line-height:1.75;opacity:.62;margin-bottom:32px;}
+.cat-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 28px;border:1px solid rgba(240,235,227,.35);font-size:13px;font-weight:600;letter-spacing:.06em;transition:background .2s,border-color .2s;}
+.cat-card:hover .cat-btn{background:rgba(240,235,227,.1);border-color:#F0EBE3;}
+
+/* Pork expand */
+#porkInner{background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);padding:80px 0 0;}
+.pork-feat{max-width:1560px;margin:0 auto;padding:0 52px;display:grid;grid-template-columns:52% 48%;gap:60px;align-items:center;margin-bottom:64px;}
+.pork-feat-img{position:relative;overflow:hidden;aspect-ratio:4/5;cursor:pointer;}
+.pork-feat-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s;}
+.pork-feat-img:hover img{transform:scale(1.04);}
+.pork-feat-tag{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.pork-feat-tag::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
+.pork-feat-title{font-size:clamp(32px,4vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#F0EBE3;margin-bottom:20px;}
+.pork-feat-desc{font-size:17px;line-height:1.85;color:rgba(240,235,227,.52);margin-bottom:14px;}
+.pork-feat-origin{font-size:13px;color:rgba(240,235,227,.28);margin-bottom:36px;letter-spacing:.04em;}
+.pork-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:40px;}
+.pork-disc{font-size:15px;font-weight:700;color:#C4A265;}
+.pork-price{font-size:36px;font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+.pork-orig{font-size:15px;color:rgba(240,235,227,.26);text-decoration:line-through;}
+.pork-cta{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;background:#F0EBE3;color:#0A0806;font-size:13px;font-weight:700;letter-spacing:.06em;transition:background .2s,color .2s;}
+.pork-cta:hover{background:#8B1A1A;color:#fff;}
+.pork-more{max-width:1560px;margin:0 auto;padding:0 52px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.pork-card{position:relative;overflow:hidden;background:rgba(255,255,255,.02);cursor:pointer;transition:background .25s;}
+.pork-card:hover{background:rgba(139,26,26,.14);}
+.pork-card-img{aspect-ratio:4/3;overflow:hidden;}
+.pork-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+.pork-card:hover .pork-card-img img{transform:scale(1.05);}
+.pork-card-body{padding:22px 26px 28px;}
+.pork-card-name{font-size:18px;font-weight:700;color:#F0EBE3;margin-bottom:5px;letter-spacing:-.02em;}
+.pork-card-sub{font-size:12px;color:rgba(240,235,227,.3);}
+.pork-card-price{font-size:16px;font-weight:700;color:#F0EBE3;margin-top:12px;}
+.pork-card-orig{font-size:12px;color:rgba(240,235,227,.28);text-decoration:line-through;margin-left:6px;}
+
+/* Fish expand */
+#fishInner{background:linear-gradient(160deg,#030810 0%,#060F20 50%,#030810 100%);}
+.fish-hd{max-width:1560px;margin:0 auto;padding:64px 52px 48px;text-align:center;}
+.fish-hd-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:16px;}
+.fish-hd-title{font-size:clamp(32px,4vw,56px);font-weight:800;letter-spacing:-.04em;color:#F0EBE3;margin-bottom:14px;}
+.fish-hd-desc{font-size:17px;color:rgba(240,235,227,.45);max-width:480px;margin:0 auto;}
+/* Fish flex-expand panels */
+.fish-panels{display:flex;height:720px;}
+.fish-panel{flex:1;min-width:0;position:relative;overflow:hidden;cursor:pointer;transition:flex .72s cubic-bezier(.25,.46,.45,.94);}
+.fish-panel:hover{flex:2.8;}
+.fp-bg{position:absolute;inset:0;}
+.fp-bg img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.fish-panel:hover .fp-bg img{transform:scale(1.05);}
+.fp-ov{position:absolute;inset:0;}
+.fish-panel:nth-child(1) .fp-ov{background:linear-gradient(0deg,rgba(5,15,55,.95) 0%,rgba(5,12,40,.35) 45%,transparent 75%);}
+.fish-panel:nth-child(2) .fp-ov{background:linear-gradient(0deg,rgba(5,20,50,.95) 0%,rgba(5,15,40,.35) 45%,transparent 75%);}
+.fish-panel:nth-child(3) .fp-ov{background:linear-gradient(0deg,rgba(5,18,45,.95) 0%,rgba(5,12,35,.35) 45%,transparent 75%);}
+.fish-panel+.fish-panel::after{content:'';position:absolute;left:0;top:10%;bottom:10%;width:1px;background:rgba(240,235,227,.07);z-index:2;}
+/* Collapsed label */
+.fp-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;font-weight:700;letter-spacing:.2em;color:rgba(240,235,227,.42);white-space:nowrap;transition:opacity .3s;z-index:3;}
+.fish-panel:hover .fp-label{opacity:0;}
+/* Info slides up on hover */
+.fp-info{position:absolute;bottom:0;left:0;right:0;padding:44px 36px;transform:translateY(20px);opacity:0;transition:transform .45s .08s,opacity .45s .08s;z-index:4;}
+.fish-panel:hover .fp-info{transform:translateY(0);opacity:1;}
+.fp-fish-en{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:10px;}
+.fp-fish-ko{font-size:clamp(26px,3.5vw,46px);font-weight:900;letter-spacing:-.04em;color:#F0EBE3;margin-bottom:10px;line-height:1.05;}
+.fp-fish-sub{font-size:14px;color:rgba(240,235,227,.48);margin-bottom:20px;line-height:1.6;}
+.fp-fish-price{font-size:22px;font-weight:800;color:#F0EBE3;margin-bottom:22px;}
+.fp-btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 22px;border:1px solid rgba(240,235,227,.4);font-size:12px;font-weight:600;letter-spacing:.06em;color:#F0EBE3;transition:background .2s,border-color .2s;}
+.fp-btn:hover{background:rgba(240,235,227,.1);border-color:#F0EBE3;}
+.fish-end-pad{height:60px;background:linear-gradient(0deg,#030810,#060F20);}
+
+/* ── BRAND PARALLAX ─────────────────────────────────────── */
+#brandPin{position:relative;height:190vh;background:#0A0806;overflow:clip;}
+.brand-par{position:sticky;top:15vh;height:70vh;overflow:hidden;margin-bottom:-2px;}
+.brand-swiper{width:100%;height:100%;}
+.brand-slide{position:relative;display:flex;align-items:stretch;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;}
+.brand-slide-bg{position:absolute;inset:0;}
+.brand-slide-bg img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease-out;}
+.swiper-slide-active .brand-slide-bg img{transform:scale(1.04);}
+.brand-slide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,6,.92) 32%,rgba(10,8,6,.6) 62%,rgba(10,8,6,.55) 100%);}
+.brand-par-body{position:relative;z-index:2;padding:72px 52px 60px;max-width:780px;display:flex;flex-direction:column;}
+/* Brand swiper pagination — left-aligned above bottom edge */
+.brand-pg.swiper-pagination{position:absolute;bottom:24px;left:52px!important;right:auto!important;text-align:left;width:auto!important;z-index:10;}
+.brand-pg .swiper-pagination-bullet{background:rgba(240,235,227,.35);width:8px;height:8px;opacity:1;border-radius:4px;margin:0 5px!important;transition:width .3s,background .3s;}
+.brand-pg .swiper-pagination-bullet-active{background:#C4A265;width:28px;border-radius:2px;}
+/* Mobile: Swiper handles peek via slidesPerView:1.12 */
+@media(max-width:1023px){
+  .brand-par-body{padding:60px 24px 60px;}
+  .brand-pg.swiper-pagination{left:24px!important;bottom:20px;}
+}
+.bp-kw{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.bp-kw::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
+.bp-title{font-size:clamp(30px,4.5vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1.15;color:#F0EBE3;margin-bottom:22px;}
+.bp-desc{font-size:17px;line-height:1.85;color:rgba(240,235,227,.52);max-width:500px;margin-bottom:38px;}
+.bp-cta{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 30px;border:1px solid rgba(240,235,227,.3);font-size:13px;font-weight:600;color:#F0EBE3;transition:background .2s,border-color .2s;}
+.bp-cta:hover{background:rgba(240,235,227,.08);border-color:rgba(240,235,227,.6);}
+.bp-certs{margin-top:auto;padding-top:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.bp-cert{height:44px;width:auto;opacity:.5;transition:opacity .2s;filter:brightness(0) invert(1);}
+.bp-cert:hover{opacity:.85;}
+
+/* ── REVIEWS ────────────────────────────────────────────── */
+.reviews-sec{padding:100px 0;background:#0A0806;overflow:hidden;}
+.reviews-hd{max-width:1560px;margin:0 auto;padding:0 52px 48px;}
+.rv-label{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C4A265;margin-bottom:14px;}
+.rv-title{font-size:clamp(30px,4.5vw,56px);font-weight:800;letter-spacing:-.04em;color:#F0EBE3;margin-bottom:10px;}
+.rv-subtitle{font-size:17px;color:rgba(240,235,227,.42);margin-bottom:22px;line-height:1.7;max-width:520px;}
+.rv-score{display:flex;align-items:center;gap:12px;}
+.rv-stars{font-size:20px;color:#C4A265;letter-spacing:3px;}
+.rv-avg{font-size:24px;font-weight:800;letter-spacing:-.02em;color:#F0EBE3;}
+.rv-cnt{font-size:14px;color:rgba(240,235,227,.3);}
+.rv-marquee{position:relative;overflow:hidden;margin-bottom:14px;}
+.rv-marquee::before,.rv-marquee::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;}
+.rv-marquee::before{left:0;background:linear-gradient(90deg,#0A0806,transparent);}
+.rv-marquee::after{right:0;background:linear-gradient(-90deg,#0A0806,transparent);}
+.rv-track{display:flex;width:max-content;gap:14px;animation:mrq 38s linear infinite;padding:8px 0;}
+.rv-track:hover{animation-play-state:paused;}
+.rv-track-2{animation:mrq-rev 44s linear infinite;}
+@keyframes mrq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mrq-rev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.rv-card{flex-shrink:0;width:340px;border:1px solid rgba(240,235,227,.07);background:rgba(255,255,255,.02);}
+.rv-photo{width:100%;height:160px;overflow:hidden;}
+.rv-photo img{width:100%;height:100%;object-fit:cover;}
+.rv-body{padding:22px 26px 26px;}
+.rv-card-stars{font-size:14px;color:#C4A265;letter-spacing:2px;margin-bottom:12px;}
+.rv-card-text{font-size:15px;line-height:1.75;color:rgba(240,235,227,.68);margin-bottom:16px;}
+.rv-card-by{font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(240,235,227,.3);}
+.rv-card-prd{font-size:11px;color:rgba(240,235,227,.17);margin-top:3px;}
+
+/* ── INSTAGRAM EDITORIAL GRID ───────────────────────────── */
+.insta-sec{background:#0A0806;padding:100px 0;}
+.insta-hd{max-width:1560px;margin:0 auto;padding:0 52px 38px;display:flex;align-items:flex-end;justify-content:space-between;}
+.insta-label{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C4A265;margin-bottom:14px;}
+.insta-handle{font-size:clamp(26px,3.5vw,46px);font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+.insta-handle span{color:#C4A265;}
+.insta-follow{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 22px;border:1px solid rgba(240,235,227,.14);font-size:13px;font-weight:600;color:rgba(240,235,227,.45);transition:border-color .2s,color .2s;flex-shrink:0;margin-bottom:4px;}
+.insta-follow:hover{border-color:rgba(240,235,227,.45);color:#F0EBE3;}
+/* Asymmetric editorial grid — 12 col × 2 rows */
+.insta-grid{
+  max-width:1560px;margin:0 auto;padding:0 52px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:360px 240px;
+  gap:4px;
+}
+.ie{position:relative;overflow:hidden;background:#111009;cursor:pointer;}
+.ie:nth-child(1){grid-column:1/5;grid-row:1/3;}
+.ie:nth-child(2){grid-column:5/9;grid-row:1/2;}
+.ie:nth-child(3){grid-column:9/13;grid-row:1/2;}
+.ie:nth-child(4){grid-column:5/8;grid-row:2/3;}
+.ie:nth-child(5){grid-column:8/11;grid-row:2/3;}
+.ie:nth-child(6){grid-column:11/13;grid-row:2/3;}
+.ie img{width:100%;height:100%;object-fit:cover;transition:transform .6s,opacity .3s;}
+.ie:hover img{transform:scale(1.06);opacity:.42;}
+.ie-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;opacity:0;transition:opacity .3s;}
+.ie:hover .ie-ov{opacity:1;}
+.ie-heart{font-size:22px;color:#F0EBE3;}
+.ie-likes{font-size:13px;font-weight:600;color:rgba(240,235,227,.7);}
+.ie:nth-child(1)::before{content:'Featured';position:absolute;top:14px;left:14px;background:#C4A265;color:#0A0806;font-size:9px;font-weight:800;letter-spacing:.12em;padding:5px 10px;text-transform:uppercase;z-index:2;}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+.ft{background:#100E0C;padding:80px 0 0;border-top:1px solid rgba(240,235,227,.055);}
+.ft-in{max-width:1560px;margin:0 auto;padding:0 52px;}
+
+/* ── FOOTER KAKAO PROMO ────────────────────────────────── */
+.ft-kakao{
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;align-items:stretch;
+  margin-bottom:52px;border-radius:2px;
+  border:1px solid rgba(254,229,0,.1);
+  background:linear-gradient(135deg,#141210 0%,#0F0D0B 100%);
+}
+.ft-kakao-left{padding:52px 56px;border-right:1px solid rgba(254,229,0,.08);}
+.ft-kakao-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(254,229,0,.1);border:1px solid rgba(254,229,0,.22);
+  padding:5px 13px;border-radius:2px;
+  font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:#FEE500;margin-bottom:20px;
+}
+.ft-kakao-badge svg{width:12px;height:12px;fill:#FEE500;flex-shrink:0;}
+.ft-kakao-title{font-size:clamp(20px,2.6vw,30px);font-weight:800;letter-spacing:-.03em;color:#F0EBE3;line-height:1.22;margin-bottom:10px;}
+.ft-kakao-sub{font-size:14px;color:rgba(240,235,227,.42);line-height:1.7;margin-bottom:28px;}
+.ft-kakao-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.ft-kakao-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;color:rgba(240,235,227,.65);line-height:1.5;
+}
+.ft-kakao-list li::before{
+  content:'';flex-shrink:0;width:18px;height:18px;margin-top:1px;border-radius:50%;
+  background:#FEE500 url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9.5l3.2 3.2 6.8-6.8' stroke='%231C0505' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.ft-kakao-list li strong{color:#F0EBE3;font-weight:700;}
+.ft-kakao-right{
+  padding:52px 56px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.ft-kakao-icon{
+  width:76px;height:76px;border-radius:50%;background:#FEE500;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;box-shadow:0 0 40px rgba(254,229,0,.2);
+}
+.ft-kakao-icon svg{width:44px;height:44px;fill:#1C0505;}
+.ft-kakao-count{font-size:12px;color:rgba(240,235,227,.3);margin-bottom:4px;letter-spacing:.02em;line-height:1.6;}
+.ft-kakao-count strong{display:block;font-size:26px;font-weight:800;color:#FEE500;letter-spacing:-.02em;margin-bottom:2px;}
+.ft-kakao-cta{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:264px;height:56px;
+  background:#FEE500;color:#1C0505;
+  font-size:15px;font-weight:800;letter-spacing:-.01em;border-radius:2px;
+  margin-top:22px;
+  box-shadow:0 4px 22px rgba(254,229,0,.28);
+  transition:background .18s,transform .18s,box-shadow .18s;
+}
+.ft-kakao-cta:hover{background:#ffe100;transform:translateY(-2px);box-shadow:0 8px 30px rgba(254,229,0,.38);}
+.ft-kakao-cta svg{width:20px;height:20px;fill:#1C0505;flex-shrink:0;}
+.ft-kakao-note{font-size:11px;color:rgba(240,235,227,.2);margin-top:12px;line-height:1.6;}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:52px;padding-bottom:52px;border-bottom:1px solid rgba(240,235,227,.06);}
+.ft-logo{font-size:17px;font-weight:800;letter-spacing:.05em;color:#F0EBE3;margin-bottom:14px;}
+.ft-brand-desc{font-size:14px;line-height:1.85;color:rgba(240,235,227,.26);margin-bottom:26px;}
+.ft-social{display:flex;gap:9px;}
+.ft-social a{width:35px;height:35px;border:1px solid rgba(240,235,227,.09);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(240,235,227,.3);transition:border-color .2s,color .2s;}
+.ft-social a:hover{border-color:rgba(240,235,227,.32);color:#F0EBE3;}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.28);margin-bottom:20px;}
+.ft-col ul{list-style:none;}
+.ft-col ul li{margin-bottom:12px;}
+.ft-col ul li a{font-size:14px;color:rgba(240,235,227,.36);transition:color .15s;}
+.ft-col ul li a:hover{color:#F0EBE3;}
+.ft-bottom{border-top:1px solid rgba(240,235,227,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-size:12px;color:rgba(240,235,227,.17);}
+.ft-links{display:flex;gap:20px;}
+.ft-links a{font-size:12px;color:rgba(240,235,227,.17);transition:color .15s;}
+.ft-links a:hover{color:rgba(240,235,227,.52);}
+.ft-top{width:38px;height:38px;border:1px solid rgba(240,235,227,.1);display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(240,235,227,.28);cursor:pointer;transition:border-color .2s,color .2s;}
+.ft-top:hover{border-color:rgba(240,235,227,.35);color:#F0EBE3;}
+
+/* ── HERO MAIN COPY (공간분리: 화면 하단 고정, 타이틀과 겹침 없음) ── */
+#heroMainCopy{
+  position:absolute;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;z-index:9;pointer-events:none;opacity:0;
+  width:100%;padding:0 40px;
+}
+.hmc-label{display:block;font-size:11px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:rgba(240,235,227,.35);margin-bottom:16px;}
+.hmc-main{display:block;font-size:clamp(44px,6.3vw,86px);font-weight:800;letter-spacing:-.04em;line-height:1.15;color:#F0EBE3;margin-bottom:16px;}
+.hmc-divider{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:0;}
+.hmc-divider span{font-size:clamp(12px,1.4vw,15px);font-weight:600;letter-spacing:.04em;color:rgba(240,235,227,.55);}
+.hmc-divider span::before,.hmc-divider span::after{content:'·';margin:0 6px;color:rgba(240,235,227,.25);}
+
+/* ── HERO VIDEO CONTROLS ────────────────────────────────── */
+.hero-vid-ctrl{position:absolute;bottom:36px;left:52px;z-index:55;display:flex;align-items:center;gap:10px;}
+.hvc-btn{width:36px;height:36px;border:1px solid rgba(240,235,227,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(10,8,6,.35);backdrop-filter:blur(8px);touch-action:manipulation;}
+.hvc-btn:hover{border-color:rgba(240,235,227,.6);background:rgba(10,8,6,.6);}
+.hvc-btn svg{width:14px;height:14px;fill:#F0EBE3;stroke:none;}
+.hvc-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,227,.3);}
+
+/* ── HERO PAG BARS (progress fill) ─────────────────────── */
+.hero-pag{position:absolute;bottom:36px;right:52px;z-index:55;display:flex;align-items:center;gap:8px;}
+.hero-pag-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 4px;}
+.hero-pag-bar{width:36px;height:6px;background:rgba(240,235,227,.18);border-radius:3px;overflow:hidden;position:relative;}
+.hero-pag-fill{position:absolute;left:0;top:0;width:0%;height:100%;background:#F0EBE3;border-radius:3px;}
+@keyframes barFill{from{width:0%}to{width:100%}}
+.hero-pag-lbl{display:none;}
+
+/* ── KEN BURNS — 1.04 시작으로 슬라이드 전환 시 끊김 제거 ── */
+@keyframes kbIn{from{transform:scale(1.04)}to{transform:scale(1.12)}}
+/* 비활성 슬라이드: 1.04 고정 + 2s 부드러운 리셋 (crossFade 동안 snap 방지) */
+.slide-nature img,.slide-pork img,.slide-sea img{
+  transform:scale(1.04);transition:transform 2s ease;}
+/* 활성 슬라이드: CSS animation 우선, transition 비활성화 */
+.swiper-slide-active.slide-nature img,
+.swiper-slide-active.slide-pork img,
+.swiper-slide-active.slide-sea img{animation:kbIn 8s ease-out forwards;transition:none;}
+
+/* ── BEST: hidden rows + 더보기 button ──────────────────── */
+.best-row-hidden{display:none;}
+.best-more-btn{max-width:1560px;margin:0 auto;padding:32px 52px 0;text-align:center;}
+.bm-btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 40px;border:1px solid rgba(240,235,227,.15);font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(240,235,227,.45);transition:border-color .2s,color .2s;}
+.bm-btn:hover{border-color:rgba(240,235,227,.4);color:#F0EBE3;}
+
+/* ── PORK COLLECTION (always visible) ───────────────────── */
+#porkCollection{background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);padding:80px 0 0;}
+#porkCollection .pork-more-header{max-width:1560px;margin:0 auto;padding:0 52px 28px;display:flex;align-items:center;justify-content:space-between;}
+#porkCollection .pork-more-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#C04040;}
+#porkCollection .pork-more-header a{font-size:13px;font-weight:600;color:rgba(240,235,227,.3);border-bottom:1px solid rgba(240,235,227,.12);padding-bottom:2px;transition:color .2s,border-color .2s;}
+#porkCollection .pork-more-header a:hover{color:#F0EBE3;border-color:rgba(240,235,227,.45);}
+.pork-card-name{font-size:20px;font-weight:700;color:#F0EBE3;margin-bottom:5px;letter-spacing:-.02em;}
+.pork-card-sub{font-size:14px;color:rgba(240,235,227,.3);}
+.pork-card-price{font-size:18px;font-weight:700;color:#F0EBE3;margin-top:12px;}
+.pork-card-orig{font-size:13px;color:rgba(240,235,227,.28);text-decoration:line-through;margin-left:6px;}
+.pork-end-pad{height:60px;}
+
+/* ── FISH COLLECTION (always visible) ───────────────────── */
+#fishCollection{background:linear-gradient(160deg,#030810 0%,#060F20 50%,#030810 100%);padding:80px 0 0;}
+/* Fish featured (은갈치) */
+.fish-feat{max-width:1560px;margin:0 auto;padding:0 52px;display:grid;grid-template-columns:52% 48%;gap:60px;align-items:center;margin-bottom:64px;}
+.fish-feat-img{position:relative;overflow:hidden;aspect-ratio:4/5;cursor:pointer;}
+.fish-feat-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s;}
+.fish-feat-img:hover img{transform:scale(1.04);}
+.fish-feat-tag{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C4A265;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.fish-feat-tag::before{content:'';display:block;width:28px;height:1px;background:#C4A265;}
+.fish-feat-title{font-size:clamp(32px,4vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#F0EBE3;margin-bottom:20px;}
+.fish-feat-desc{font-size:17px;line-height:1.85;color:rgba(240,235,227,.52);margin-bottom:14px;}
+.fish-feat-origin{font-size:13px;color:rgba(240,235,227,.28);margin-bottom:36px;letter-spacing:.04em;}
+.fish-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:40px;}
+.fish-disc{font-size:15px;font-weight:700;color:#C4A265;}
+.fish-price{font-size:36px;font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+.fish-orig{font-size:15px;color:rgba(240,235,227,.26);text-decoration:line-through;}
+.fish-cta{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;background:#F0EBE3;color:#03080F;font-size:13px;font-weight:700;letter-spacing:.06em;transition:background .25s,color .25s,transform .2s;border:2px solid transparent;}
+.fish-cta:hover{background:transparent;color:#F0EBE3;border-color:#F0EBE3;transform:translateX(4px);}
+/* Fish panels (3-panel flex-expand, auto-hover capable) */
+.fish-panels-header{max-width:1560px;margin:0 auto;padding:0 52px 28px;display:flex;align-items:center;justify-content:space-between;}
+.fish-panels-header h3{font-size:clamp(24px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;color:#4A7EC0;}
+.fish-panels-header a{font-size:13px;font-weight:600;color:rgba(240,235,227,.3);border-bottom:1px solid rgba(240,235,227,.12);padding-bottom:2px;transition:color .2s,border-color .2s;}
+.fish-panels-header a:hover{color:#F0EBE3;border-color:rgba(240,235,227,.45);}
+/* Auto-hover class mirrors :hover */
+.fish-panel.auto-hover{flex:2.8;}
+.fish-panel.auto-hover .fp-bg img{transform:scale(1.05);}
+.fish-panel.auto-hover .fp-label{opacity:0;}
+.fish-panel.auto-hover .fp-info{transform:translateY(0);opacity:1;}
+
+/* ── JEJU GALLERY SWIPER ────────────────────────────────── */
+.gallery-sec{background:#0A0806;padding:100px 0;}
+.gallery-hd{max-width:1560px;margin:0 auto;padding:0 52px 40px;}
+.gallery-label{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C4A265;margin-bottom:14px;}
+.gallery-title{font-size:clamp(28px,3.5vw,48px);font-weight:800;letter-spacing:-.04em;color:#F0EBE3;margin-bottom:10px;}
+.gallery-sub{font-size:16px;color:rgba(240,235,227,.38);line-height:1.7;}
+.gallery-swiper{overflow:hidden;padding:0 52px;}
+.gallery-swiper .swiper-slide{
+  width:380px;
+  opacity:.38;
+  transform:scale(0.87);
+  transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1);
+}
+.gallery-swiper .swiper-slide-active{opacity:1;transform:scale(1);}
+.gallery-swiper .swiper-slide-prev,.gallery-swiper .swiper-slide-next{opacity:.65;transform:scale(0.94);}
+.gallery-swiper .swiper-slide img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+.gallery-swiper .swiper-slide:nth-child(even) img{aspect-ratio:4/3;}
+
+/* ── MOBILE ─────────────────────────────────────────────── */
+@media(max-width:1023px){
+  body{cursor:auto;}
+  #cur,#curRing{display:none;}
+  #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;}
+  .hd-left,.hd-right{display:none;}
+  .hd-burger{display:flex;}
+  .hd-icons{display:flex;}
+  .hd-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:auto;}
+  .hd-logo img{height:28px;}
+  .hd-icon[aria-label="고객센터"]{display:none;}
+  #heroBottom{padding:0 20px 80px;flex-direction:column;gap:20px;}
+  #heroScrollHint{left:50%;transform:translateX(-50%);}
+  .hero-pag{right:20px;}
+  #heroBigTitle h1{font-size:clamp(56px,16vw,96px);}
+  #jejuStoryPin{height:240vh;}
+  .js-panel{left:20px;right:20px;}
+  .js-img-right{display:none;}
+  .js-dots{right:20px;}
+  .best-hd{padding:0 20px 40px;}
+  .best-row{padding:18px 20px;grid-template-columns:64px 1fr auto;gap:14px;}
+  .row-thumb{width:64px;height:64px;}
+  .row-name{font-size:13px;}
+  .row-arrow{display:none;}
+  .cat{grid-template-columns:1fr;}
+  .cat-card{height:360px;}
+  .pork-feat{grid-template-columns:1fr;gap:32px;padding:0 20px;}
+  .pork-more{grid-template-columns:1fr;padding:0 20px;gap:4px;}
+  .fish-hd{padding:44px 20px 32px;}
+  .fish-panels{flex-direction:column;height:auto;}
+  .fish-panel{flex:none;height:360px;}
+  .fish-panel:hover,.fish-panel.auto-hover{flex:none;}
+  .fp-label{opacity:0;}
+  .fp-info{transform:translateY(0);opacity:1;padding:40px 24px 28px;}
+  .fish-panel+.fish-panel::after{display:none;}
+  .brand-par-body{padding:48px 20px 60px;}
+  .bp-title{margin-bottom:8px;}
+  .bp-desc{font-size:13px;line-height:1.6;margin-bottom:14px;}
+  .bp-certs{padding-top:16px;}
+  .bp-cert{height:28px;}
+  .reviews-hd{padding:0 20px 32px;}
+  .insta-hd{padding:0 20px 28px;flex-direction:column;align-items:flex-start;gap:16px;}
+  .insta-grid{padding:0 20px;grid-template-columns:repeat(6,1fr);grid-template-rows:200px 200px;}
+  .ie:nth-child(1){grid-column:1/4;grid-row:1/3;}
+  .ie:nth-child(2){grid-column:4/7;grid-row:1/2;}
+  .ie:nth-child(3){grid-column:4/7;grid-row:2/3;}
+  .ie:nth-child(4),.ie:nth-child(5),.ie:nth-child(6){display:none;}
+  .ft-kakao{grid-template-columns:1fr;}
+  .ft-kakao-left{padding:36px 20px 28px;border-right:none;border-bottom:1px solid rgba(254,229,0,.08);}
+  .ft-kakao-right{padding:28px 20px 36px;}
+  .ft-grid{grid-template-columns:1fr;gap:0;}
+  /* 아코디언: ft-col */
+  .ft-col{border-top:1px solid rgba(240,235,227,.07);margin-top:0;}
+  .ft-col h4{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:14px 0;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,235,227,.38);}
+  .ft-col h4::after{content:'+';font-size:16px;font-weight:300;color:rgba(240,235,227,.3);}
+  .ft-col.open h4::after{content:'−';}
+  .ft-col ul{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.46,.45,.94),padding .3s;}
+  .ft-col ul li{margin-bottom:10px;}
+  .ft-col.open ul{max-height:280px;padding-bottom:16px;}
+  .ft-in{padding:0 20px;}
+  .ft-bottom{flex-direction:column;gap:10px;text-align:center;}
+  .hero-vid-ctrl{left:20px;}
+  .fish-feat{grid-template-columns:1fr;gap:32px;padding:0 20px;}
+  .fish-panels-header{padding:0 20px 20px;}
+  #fishCollection{padding:60px 0 0;}
+  #porkCollection{padding:60px 0 0;}
+  #porkCollection .pork-more-header{padding:0 20px 20px;}
+  .gallery-swiper{padding:0 20px;}
+  .gallery-hd{padding:0 20px 32px;}
+  .gallery-swiper .swiper-slide{width:240px;}
+}
+@media(max-width:480px){
+  .ft-bottom{flex-direction:column;gap:8px;text-align:center;}
+}
+
+/* ── FLOATING WIDGET ────────────────────────────────────── */
+#floatWidget{
+  position:fixed;right:22px;bottom:80px;z-index:800;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.fw-btn{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s;
+  font-size:0;position:relative;opacity:0.62;
+}
+.fw-btn:hover{transform:scale(1.1);box-shadow:0 6px 22px rgba(0,0,0,.4);opacity:1;}
+.fw-btn svg{width:22px;height:22px;}
+/* 카카오 상담 */
+.fw-kakao{background:#FEE500;}
+.fw-kakao svg{fill:#3B1D1D;}
+/* 네이버 */
+.fw-naver{background:#03C75A;}
+.fw-naver svg{fill:#fff;}
+/* 스크롤 UP */
+.fw-top{background:rgba(14,11,9,.85);border:1px solid rgba(240,235,227,.14);backdrop-filter:blur(8px);}
+.fw-top svg{fill:none;stroke:#F0EBE3;stroke-width:2;stroke-linecap:round;}
+/* 상담 라벨 툴팁 */
+.fw-btn::after{
+  content:attr(data-tip);
+  position:absolute;right:56px;top:50%;transform:translateY(-50%);
+  background:rgba(14,11,9,.9);color:#F0EBE3;
+  font-size:11px;font-weight:600;letter-spacing:.03em;
+  padding:5px 10px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .2s;border-radius:4px;
+}
+.fw-btn:hover::after{opacity:1;}
+
+/* ── 소셜 로그인 STRIP (footer 상단) ────────────────────── */
+.social-login-strip{
+  background:#111009;padding:40px 0;
+  border-top:1px solid rgba(240,235,227,.05);
+  border-bottom:1px solid rgba(240,235,227,.05);
+}
+.sl-inner{max-width:520px;margin:0 auto;padding:0 20px;text-align:center;}
+.sl-title{font-size:13px;font-weight:600;letter-spacing:.06em;color:rgba(240,235,227,.3);margin-bottom:18px;}
+.sl-btns{display:flex;gap:10px;justify-content:center;}
+.sl-btn{display:flex;align-items:center;gap:9px;height:46px;padding:0 22px;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:.02em;transition:filter .2s,transform .15s;}
+.sl-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.sl-kakao{background:#FEE500;color:#3B1D1D;}
+.sl-naver{background:#03C75A;color:#fff;}
+.sl-btn svg{width:18px;height:18px;flex-shrink:0;}
+@media(max-width:1023px){
+  #floatWidget{right:14px;bottom:70px;}
+  .fw-btn{width:44px;height:44px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cur"></div>
+<div id="curRing"></div>
+
+<!-- Side Menu (mobile) -->
+<div id="sideOv"></div>
+<nav id="sideMenu">
+  <!-- Header -->
+  <div class="sm-head">
+    <div class="sm-logo">
+      <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv" alt="맛있는제주" style="height:24px;width:auto;">
+      <span>맛있는제주</span>
+    </div>
+    <button class="sm-close" id="sideClose" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <!-- Quick links (상단 배치) -->
+  <div class="sm-util sm-util--top">
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>로그인
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>장바구니
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>고객센터
+    </a>
+  </div>
+  <!-- Navigation -->
+  <div class="sm-nav">
+    <!-- 선물세트 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>선물세트</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">돈육 선물세트</a>
+        <a href="#">수산 선물세트</a>
+        <a href="#">간편식 선물세트</a>
+      </div>
+    </div>
+    <!-- 제주 흑돼지 (중분류 없음) -->
+    <div class="sm-cat">
+      <a href="#" class="sm-cat-link">제주 흑돼지</a>
+    </div>
+    <!-- 제주 수산물 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>제주 수산물</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">은갈치</a>
+        <a href="#">옥돔</a>
+        <a href="#">고등어</a>
+        <a href="#">삼치</a>
+        <a href="#">참조기</a>
+      </div>
+    </div>
+    <!-- 간편 가공식품 -->
+    <div class="sm-cat">
+      <button class="sm-cat-btn">
+        <span>간편 가공식품</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">육가공 간편식</a>
+        <a href="#">수산 가공 간편식</a>
+      </div>
+    </div>
+  </div>
+  <!-- Promo Banner -->
+  <div class="sm-promo">
+    <span class="sm-promo-badge">SPECIAL OFFER</span>
+    <p class="sm-promo-txt">신규 회원 첫 주문<strong>10% 할인</strong></p>
+    <a href="#" class="sm-promo-cta">지금 가입하기 →</a>
+  </div>
+</nav>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header id="hd">
+  <button class="hd-burger" id="hdBurger" aria-label="메뉴">
+    <span class="hd-burger-line"></span>
+  </button>
+  <nav class="hd-left">
+    <a href="#">흑돼지</a>
+    <a href="#">수산</a>
+    <a href="#">간편식</a>
+  </nav>
+  <div class="hd-logo">
+    <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv" alt="맛있는제주" style="height:32px;width:auto;margin-right:8px;vertical-align:middle;">
+    <span style="font-size:15px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;vertical-align:middle;">맛있는제주</span>
+  </div>
+  <div class="hd-right">
+    <a href="#">로그인</a>
+    <a href="#">장바구니<span class="cart-num">2</span></a>
+    <a href="#">고객센터</a>
+  </div>
+  <div class="hd-icons">
+    <a href="#" class="hd-icon" aria-label="로그인">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="#" class="hd-icon" aria-label="장바구니">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="hd-icon-badge">2</span>
+    </a>
+    <a href="#" class="hd-icon" aria-label="고객센터">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ── HERO (180vh pinned) ───────────────────────────── -->
+<div id="heroPin">
+  <div id="heroSticky">
+    <div class="swiper" id="heroSwiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1: Video (first) -->
+        <div class="swiper-slide slide-video">
+          <video id="heroVid" autoplay muted playsinline
+            poster="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO"
+            src="./hero.mp4">
+          </video>
+          <div class="hero-ov"></div>
+        </div>
+        <!-- Slide 2: BG_NATURE with ken-burns zoom -->
+        <div class="swiper-slide slide-nature">
+          <img src="https://lh3.googleusercontent.com/d/1ui7YSh6bRKB0w32RrRSitc8lfbRkQjXA" alt="제주 자연">
+          <div class="hero-ov"></div>
+        </div>
+        <!-- Slide 3: Pork (ken-burns) -->
+        <div class="swiper-slide slide-pork">
+          <img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="제주 흑돼지">
+          <div class="hero-ov"></div>
+        </div>
+        <!-- Slide 4: Seafood (ken-burns) -->
+        <div class="swiper-slide slide-sea">
+          <img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="제주 수산">
+          <div class="hero-ov"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Labeled pagination bars -->
+    <div class="hero-pag" id="heroPag">
+      <div class="hero-pag-item on" data-idx="0"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="1"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="2"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+      <div class="hero-pag-item" data-idx="3"><div class="hero-pag-bar"><div class="hero-pag-fill"></div></div></div>
+    </div>
+    <!-- Video controls (visible on video slide) -->
+    <div class="hero-vid-ctrl" id="heroVidCtrl">
+      <button class="hvc-btn" id="vidMuteBtn" title="소리 켜기">
+        <svg viewBox="0 0 24 24" fill="#F0EBE3"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/></svg>
+      </button>
+      <button class="hvc-btn" id="vidPlayBtn" title="재생/정지">
+        <svg id="vidPlayIco" viewBox="0 0 24 24" fill="#F0EBE3"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <span class="hvc-label">영상</span>
+    </div>
+    <div id="heroBigTitle">
+      <span class="hbt-pre">Premium Jeju Food</span>
+      <h1>맛있는<br>제주</h1>
+    </div>
+    <!-- Brand copy — appears AFTER title gone, fixed at bottom (no overlap) -->
+    <div id="heroMainCopy">
+      <span class="hmc-label">Premium Food Brand</span>
+      <span class="hmc-main">신선함의<br>기준이 되다</span>
+      <div class="hmc-divider">
+        <span>당일 도축</span>
+        <span>당일 출고</span>
+        <span>신선 보장</span>
+      </div>
+    </div>
+    <div id="heroBottom">
+      <p class="hb-tagline">30년을 이어온 제주의 맛,<br>지금 당신의 식탁으로 전합니다</p>
+      <a href="#mainContent" class="hb-cta">컬렉션 보기 →</a>
+    </div>
+    <div id="heroScrollHint">
+      <span>Scroll</span>
+      <span class="hsh-line"></span>
+    </div>
+  </div>
+</div>
+
+<main id="mainContent">
+
+  <!-- ── JEJU STORY (300vh) ────────────────────────── -->
+  <div id="jejuStoryPin">
+    <div id="jejuStorySticky">
+      <div class="js-bg" id="jsBg0">
+        <img src="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO" alt="">
+        <div class="js-bg-ov"></div>
+      </div>
+      <div class="js-bg" id="jsBg1">
+        <img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt="">
+        <div class="js-bg-ov"></div>
+      </div>
+      <div class="js-bg" id="jsBg2">
+        <img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="">
+        <div class="js-bg-ov"></div>
+      </div>
+      <div class="js-img-right">
+        <div style="position:relative;width:100%;height:100%;">
+          <img class="js-right-img" id="jsRI0" src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="">
+          <img class="js-right-img" id="jsRI1" src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="">
+          <img class="js-right-img" id="jsRI2" src="https://lh3.googleusercontent.com/d/15kjyXzxrh6PcJt2TDLqCVlp9iUmAwEDx" alt="">
+          <div class="js-right-ov"></div>
+        </div>
+      </div>
+      <div class="js-content">
+        <div class="js-panel on" id="jsP0">
+          <p class="js-kw">매일 새벽 5시 · 법인 중도매인 직접 수매</p>
+          <h2 class="js-title">중간 유통 없이,<br>경매장에서<br>바로 옵니다</h2>
+          <p class="js-desc">맛있는제주는 법인 중도매인 자격을 보유한 직영 브랜드입니다. 매일 새벽 5시, 제주 경매장에서 직접 수매한 수산물이 당일 가공센터로 직행합니다. 중간 유통마진 0, 신선도는 최고.</p>
+        </div>
+        <div class="js-panel" id="jsP1">
+          <p class="js-kw">당일 도축 후 1~2일 냉장숙성 · 맛의 과학</p>
+          <h2 class="js-title">도축 직후가<br>최고가 아닙니다</h2>
+          <p class="js-desc">대부분 모르는 사실 — 돼지고기는 도축 직후보다 정밀 온도 관리된 냉장 숙성 과정을 거쳐야 진짜 맛이 완성됩니다. 근육의 산도가 안정되고 육질이 부드러워지는 이 1~2일이 중요합니다.</p>
+        </div>
+        <div class="js-panel" id="jsP2">
+          <p class="js-kw">전국 주요 대형마트 동일 납품처 · 임가공 1위</p>
+          <h2 class="js-title">마트에서 파는<br>그 고기,<br>우리가 만듭니다</h2>
+          <p class="js-desc">전국 주요 대형마트에 납품하는 바로 그 직영 육가공·수산가공 공장에서 생산합니다. 타 업체들이 가공을 맡기는 수준의 시설과 기술력. 이제 중간 유통 마진 없이 만나보세요.</p>
+        </div>
+      </div>
+      <div class="js-dots">
+        <div class="js-dot on"></div>
+        <div class="js-dot"></div>
+        <div class="js-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BEST PRODUCTS ─────────────────────────────── -->
+  <section class="best-sec" id="bestSec">
+    <div class="best-hd">
+      <div>
+        <p class="best-label">Best Sellers</p>
+        <h2 class="best-sec-title">베스트<br>상품</h2>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(196,162,101,.1);border:1px solid rgba(196,162,101,.35);font-size:11px;font-weight:700;color:#C4A265;letter-spacing:.05em;">✓ 전 제품 무료배송</span>
+        </div>
+      </div>
+      <a href="#" class="best-more">전체보기 →</a>
+    </div>
+    <div class="best-rows">
+      <a href="detail_demo_v0.1.html" class="best-row best-row--pork">
+        <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt=""></div>
+        <div class="row-info">
+          <div class="row-name">제주 흑돼지 오겹살 · 목살 특선 세트</div>
+          <div class="row-sub">제주 직영농장 · 당일 도축 당일 출고</div>
+        </div>
+        <div class="row-price">25,500원<small class="row-orig">30,000원</small></div>
+        <span class="row-arrow">→</span>
+      </a>
+      <a href="detail_demo_v0.1.html" class="best-row best-row--sea">
+        <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/128GSO11cJcEDmgnFnDOjgR47ekTYfuMa" alt=""></div>
+        <div class="row-info">
+          <div class="row-name">제주 프리미엄 은갈치 · 주낙 500~750g</div>
+          <div class="row-sub">1m~120cm 대물 · 당일 가공</div>
+        </div>
+        <div class="row-price">38,000원<small class="row-orig">42,000원</small></div>
+        <span class="row-arrow">→</span>
+      </a>
+      <a href="detail_demo_v0.1.html" class="best-row best-row--pork">
+        <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt=""></div>
+        <div class="row-info">
+          <div class="row-name">흑돼지 삼겹살 숙성 1kg 제주 직송</div>
+          <div class="row-sub">제주 직영농장 · 28일 저온 숙성</div>
+        </div>
+        <div class="row-price">36,000원</div>
+        <span class="row-arrow">→</span>
+      </a>
+      <a href="detail_demo_v0.1.html" class="best-row best-row--sea best-row-hidden">
+        <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt=""></div>
+        <div class="row-info">
+          <div class="row-name">제주 옥돔 구이용 선물세트</div>
+          <div class="row-sub">제주 청정 바다 · HACCP 인증 가공</div>
+        </div>
+        <div class="row-price">52,000원<small class="row-orig">58,000원</small></div>
+        <span class="row-arrow">→</span>
+      </a>
+      <a href="detail_demo_v0.1.html" class="best-row best-row--pork best-row-hidden">
+        <div class="row-thumb"><img src="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO" alt=""></div>
+        <div class="row-info">
+          <div class="row-name">흑돼지 목살 구이용 500g · 제주 직배</div>
+          <div class="row-sub">제주 직영농장 · 당일 도축</div>
+        </div>
+        <div class="row-price">18,000원</div>
+        <span class="row-arrow">→</span>
+      </a>
+    </div>
+    <div class="best-more-btn">
+      <button class="bm-btn" id="bestMoreBtn">더보기 ↓</button>
+    </div>
+  </section>
+
+  <!-- ── CATEGORY (2-split, links to external pages) ─── -->
+  <section id="catSec">
+    <div class="cat">
+      <a href="#porkCollection" class="cat-card cat-card--pork">
+        <div class="cat-bg">
+          <img src="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO" alt="돈육">
+        </div>
+        <div class="cat-body">
+          <p class="cat-en">PORK — 돈육</p>
+          <h2 class="cat-title">흑돼지</h2>
+          <p class="cat-desc">30년 제주 흑돼지 직영 농장<br>당일 도축 당일 출고 보장</p>
+          <span class="cat-btn">컬렉션 보기 →</span>
+        </div>
+      </a>
+      <a href="#fishCollection" class="cat-card cat-card--sea">
+        <div class="cat-bg">
+          <img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="수산">
+        </div>
+        <div class="cat-body">
+          <p class="cat-en">SEAFOOD — 수산</p>
+          <h2 class="cat-title">제주 수산</h2>
+          <p class="cat-desc">제주 청정 바다 산지직송<br>은갈치 · 옥돔 · 고등어 · 참조기</p>
+          <span class="cat-btn">컬렉션 보기 →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── PORK COLLECTION (always visible) ─────────────── -->
+  <section id="porkCollection">
+    <div class="pork-feat">
+      <a href="detail_demo_v0.1.html" class="pork-feat-img">
+        <img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt="흑돼지 드라이에이징">
+      </a>
+      <div>
+        <p class="pork-feat-tag">New 2024 · 국내 최초</p>
+        <h2 class="pork-feat-title">흑돼지<br>드라이에이징<br>갈빗살</h2>
+        <p class="pork-feat-desc">제주 청정 환경에서 자란 흑돼지를 21일 건식 숙성. 깊어진 풍미와 부드러운 식감. 제주 직영 숙성실에서만 가능한 맛입니다.</p>
+        <p class="pork-feat-origin">산지 : 제주 직영농장 · 숙성 : 제주 냉장숙성실 21일</p>
+        <div class="pork-price-row">
+          <span class="pork-disc">10%</span>
+          <span class="pork-price">54,000원</span>
+          <span class="pork-orig">60,000원</span>
+        </div>
+        <a href="detail_demo_v0.1.html" class="pork-cta">지금 구매하기 →</a>
+      </div>
+    </div>
+    <div class="pork-more-header" style="padding-top:0;">
+      <h3>흑돼지 컬렉션</h3>
+      <a href="#">더보기 →</a>
+    </div>
+    <div class="pork-more">
+      <a href="detail_demo_v0.1.html" class="pork-card">
+        <div class="pork-card-img"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="오겹살"></div>
+        <div class="pork-card-body">
+          <div class="pork-card-name">흑돼지 오겹살 특선</div>
+          <div class="pork-card-sub">500g · 직영농장 당일 도축</div>
+          <div class="pork-card-price">25,500원 <span class="pork-card-orig">30,000원</span></div>
+        </div>
+      </a>
+      <a href="detail_demo_v0.1.html" class="pork-card">
+        <div class="pork-card-img"><img src="https://lh3.googleusercontent.com/d/19FT_MYS_642cpWamM1dYbEGm2PVgRyHy" alt="선물세트"></div>
+        <div class="pork-card-body">
+          <div class="pork-card-name">흑돼지 명품 선물세트</div>
+          <div class="pork-card-sub">1.5kg · 특선 혼합 구성</div>
+          <div class="pork-card-price">89,000원</div>
+        </div>
+      </a>
+      <a href="detail_demo_v0.1.html" class="pork-card">
+        <div class="pork-card-img"><img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="삼겹살"></div>
+        <div class="pork-card-body">
+          <div class="pork-card-name">흑돼지 삼겹살 숙성</div>
+          <div class="pork-card-sub">1kg · 28일 저온숙성</div>
+          <div class="pork-card-price">36,000원</div>
+        </div>
+      </a>
+    </div>
+    <div class="pork-end-pad"></div>
+  </section>
+
+  <!-- ── FISH COLLECTION (always visible) ─────────────── -->
+  <section id="fishCollection">
+    <!-- Fish featured: 프리미엄 은갈치 -->
+    <div class="fish-feat">
+      <a href="detail_demo_v0.1.html" class="fish-feat-img">
+        <img src="https://lh3.googleusercontent.com/d/1sNmfroOh4NN6reNC7y9KZg7R1AWtdXQI" alt="제주 프리미엄 은갈치">
+      </a>
+      <div>
+        <p class="fish-feat-tag">법인 중도매인 새벽 경매 직납 · 주낙 어획</p>
+        <h2 class="fish-feat-title">제주<br>프리미엄<br>은갈치</h2>
+        <p class="fish-feat-desc">타 업체의 300~400g 특대 은갈치와 다릅니다. 주낙(낚시)으로만 잡은 1m~120cm, 500~750g 대물 은갈치. 그물에 눌리지 않아 은빛 비늘이 온전히 살아있습니다. 새벽 5시 법인 중도매인 자격으로 직접 경매 후 당일 가공 직송.</p>
+        <p class="fish-feat-origin">어획 : 제주 연근해 주낙 조업 · 규격 : 500~750g(마리) · 출하 : 당일 경매→가공→직송</p>
+        <div class="fish-price-row">
+          <span class="fish-disc">10%</span>
+          <span class="fish-price">38,000원</span>
+          <span class="fish-orig">42,000원</span>
+        </div>
+        <a href="detail_demo_v0.1.html" class="fish-cta">지금 구매하기 →</a>
+      </div>
+    </div>
+    <!-- Fish 3-panels (flex-expand, auto-hover) -->
+    <div class="fish-panels-header">
+      <h3>수산 컬렉션</h3>
+      <a href="#">더보기 →</a>
+    </div>
+    <div class="fish-panels">
+      <div class="fish-panel">
+        <div class="fp-bg"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="은갈치"></div>
+        <div class="fp-ov"></div>
+        <div class="fp-label">제주 은갈치</div>
+        <div class="fp-info">
+          <p class="fp-fish-en">Silver Hairtail</p>
+          <h3 class="fp-fish-ko">제주<br>은갈치</h3>
+          <p class="fp-fish-sub">제주 연근해 조업 · 특대 70cm↑<br>은빛 비늘이 살아있는 신선함</p>
+          <p class="fp-fish-price">38,000원~</p>
+          <a href="detail_demo_v0.1.html" class="fp-btn">구매하기 →</a>
+        </div>
+      </div>
+      <div class="fish-panel">
+        <div class="fp-bg"><img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt="옥돔"></div>
+        <div class="fp-ov"></div>
+        <div class="fp-label">제주 옥돔</div>
+        <div class="fp-info">
+          <p class="fp-fish-en">Jeju Tilefish</p>
+          <h3 class="fp-fish-ko">제주<br>옥돔</h3>
+          <p class="fp-fish-sub">제주 특산 진미 · HACCP 인증 가공<br>구이 · 조림 모두 최상급</p>
+          <p class="fp-fish-price">52,000원~</p>
+          <a href="detail_demo_v0.1.html" class="fp-btn">구매하기 →</a>
+        </div>
+      </div>
+      <div class="fish-panel">
+        <div class="fp-bg"><img src="https://lh3.googleusercontent.com/d/15kjyXzxrh6PcJt2TDLqCVlp9iUmAwEDx" alt="고등어"></div>
+        <div class="fp-ov"></div>
+        <div class="fp-label">제주 고등어</div>
+        <div class="fp-info">
+          <p class="fp-fish-en">Jeju Mackerel</p>
+          <h3 class="fp-fish-ko">제주<br>고등어</h3>
+          <p class="fp-fish-sub">제주 참고등어 · 등푸른 생선의 정수<br>두툼한 살 · 풍부한 지방</p>
+          <p class="fp-fish-price">24,000원~</p>
+          <a href="detail_demo_v0.1.html" class="fp-btn">구매하기 →</a>
+        </div>
+      </div>
+    </div>
+    <div class="fish-end-pad"></div>
+  </section>
+
+  <!-- ── BRAND HERITAGE SWIPER ──────────────────── -->
+  <div id="brandPin">
+  <div class="brand-par" id="brandPar">
+    <div class="swiper brand-swiper" id="brandSwiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1: Heritage System -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="제주 가공센터"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Heritage</p>
+            <h2 class="bp-title">전국 유일,<br>제주 직영<br>이원 가공 시스템</h2>
+            <p class="bp-desc">육가공 센터와 수산가공 센터를 동시에 직영하는 대한민국 유일의 기업. 흑돼지도, 갈치도, 제주에서 직접 키우고 잡고 가공합니다. 전국 어디서도 없는 단 하나의 시스템.</p>
+            <a href="#" class="bp-cta">브랜드 스토리 보기 →</a>
+            <div class="bp-certs">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1zssAKx_KAaazjUV0RtAviQXD3qKJnLUt" alt="보험인증">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1M6uQR3APJEXDLYOlCfPIyyme1aAHC4Ax" alt="이력추적">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/13YiHrM8V4imM6A3z-SP9G8aCy-OR3PNn" alt="HACCP">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1GiMjbg6Lrko8RXRhiVWw9wFHAWVgwDf0" alt="JQ인증">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1AiUkngk_j25omUZrQl72m9FLheVEgqda" alt="MASSIM">
+              <img class="bp-cert" src="https://lh3.googleusercontent.com/d/1njPXH_XCU-xr-QrxmCoxuKbT0Gf7RB04" alt="제주지리적표시">
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2: Ocean -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="제주 청정 바다"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Ocean</p>
+            <h2 class="bp-title">제주 청정 바다,<br>새벽 경매의<br>신선함</h2>
+            <p class="bp-desc">법인 중도매인 자격으로 제주 어항 새벽 경매에 직접 참가합니다. 중간 유통 없이 경매 당일 가공·포장·출고. 은갈치, 옥돔, 고등어가 그날 식탁 위에 오릅니다.</p>
+            <a href="#" class="bp-cta">수산 컬렉션 보기 →</a>
+          </div>
+        </div>
+        <!-- Slide 3: Farm -->
+        <div class="swiper-slide brand-slide">
+          <div class="brand-slide-bg"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="제주 직영 농장"></div>
+          <div class="brand-slide-ov"></div>
+          <div class="brand-par-body">
+            <p class="bp-kw">Our Farm</p>
+            <h2 class="bp-title">직영 농장 직납,<br>당일 도축의<br>차이</h2>
+            <p class="bp-desc">제주 직영 흑돼지 농장에서 사육부터 출하까지 직접 관리합니다. 주문 다음 날 오전 도축, 오후 출고. 냉동 없이 냉장 상태로 전국에 도착하는 신선함.</p>
+            <a href="#" class="bp-cta">흑돼지 컬렉션 보기 →</a>
+          </div>
+        </div>
+      </div>
+      <div class="brand-pg swiper-pagination"></div>
+    </div>
+  </div>
+  </div><!-- /brandPin -->
+
+  <!-- ── REVIEWS ────────────────────────────────────── -->
+  <section class="reviews-sec">
+    <div class="reviews-hd">
+      <p class="rv-label">Customer Reviews</p>
+      <h2 class="rv-title">고객 후기</h2>
+      <p class="rv-subtitle">제주에서 직접 받아 든 신선함,<br>이분들이 먼저 경험했습니다.</p>
+      <div class="rv-score">
+        <span class="rv-stars">★★★★★</span>
+        <span class="rv-avg">4.9</span>
+        <span class="rv-cnt">/ 1,240개 리뷰 (포토후기 847건)</span>
+      </div>
+    </div>
+    <!-- Row 1: Photo reviews -->
+    <div class="rv-marquee">
+      <div class="rv-track">
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"진짜 신선해요. 당일 도축이라 그런지 냄새도 없고 색깔도 예뻐요. 제주에서 먹던 그 맛 그대로."</p><p class="rv-card-by">김*영 · 서울</p><p class="rv-card-prd">제주 흑돼지 오겹살</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"갈치가 크기도 하고 은빛이 너무 예뻐요. 구웠더니 비린내 하나 없이 고소했어요. 또 주문합니다."</p><p class="rv-card-by">이*준 · 부산</p><p class="rv-card-prd">제주 은갈치 특대</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"포장이 너무 꼼꼼해서 감동. 진공에 얼음팩까지. 고기 퀄리티는 두 말 할 것 없이 최고입니다."</p><p class="rv-card-by">박*수 · 대전</p><p class="rv-card-prd">흑돼지 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"옥돔 선물세트 보내드렸더니 부모님이 너무 좋아하셨어요. 제주 갔다 온 것 같다고요."</p><p class="rv-card-by">정*호 · 인천</p><p class="rv-card-prd">제주 옥돔 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"육가공과 수산 직영이라더니 역시 달라요. 손질부터 포장까지 장인의 솜씨가 느껴집니다. 30년 역사가 맛에서 느껴져요."</p><p class="rv-card-by">오*진 · 광주</p><p class="rv-card-prd">흑돼지 드라이에이징</p></div></div>
+        <!-- duplicate set -->
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"진짜 신선해요. 당일 도축이라 그런지 냄새도 없고 색깔도 예뻐요. 제주에서 먹던 그 맛 그대로."</p><p class="rv-card-by">김*영 · 서울</p><p class="rv-card-prd">제주 흑돼지 오겹살</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"갈치가 크기도 하고 은빛이 너무 예뻐요. 구웠더니 비린내 하나 없이 고소했어요. 또 주문합니다."</p><p class="rv-card-by">이*준 · 부산</p><p class="rv-card-prd">제주 은갈치 특대</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"포장이 너무 꼼꼼해서 감동. 진공에 얼음팩까지. 고기 퀄리티는 두 말 할 것 없이 최고입니다."</p><p class="rv-card-by">박*수 · 대전</p><p class="rv-card-prd">흑돼지 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-photo"><img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt=""></div><div class="rv-body"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"옥돔 선물세트 보내드렸더니 부모님이 너무 좋아하셨어요. 제주 갔다 온 것 같다고요."</p><p class="rv-card-by">정*호 · 인천</p><p class="rv-card-prd">제주 옥돔 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"육가공과 수산 직영이라더니 역시 달라요. 손질부터 포장까지 장인의 솜씨가 느껴집니다. 30년 역사가 맛에서 느껴져요."</p><p class="rv-card-by">오*진 · 광주</p><p class="rv-card-prd">흑돼지 드라이에이징</p></div></div>
+      </div>
+    </div>
+    <!-- Row 2: Text reviews (reverse direction) -->
+    <div class="rv-marquee">
+      <div class="rv-track rv-track-2">
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"이 가격에 이 퀄리티? 마트 고기와는 비교 자체가 안 돼요. 아이들이 너무 잘 먹어서 감사합니다."</p><p class="rv-card-by">최*미 · 수원</p><p class="rv-card-prd">흑돼지 목살</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"고등어 구이가 이렇게 맛있을 수 있다니. 제주 특산이라 그런지 정말 달라요. 살이 탱탱하고 두꺼워요."</p><p class="rv-card-by">윤*철 · 대구</p><p class="rv-card-prd">제주 고등어</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"회사 명절 선물로 주문했는데 직원들이 너무 좋아했어요. 포장도 고급스럽고 맛도 최고."</p><p class="rv-card-by">김*사 · 서울</p><p class="rv-card-prd">흑돼지+수산 혼합 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"당일 도축 당일 배송이 진짜로 되는 곳! 다른 곳은 홍보만 하고 실제론 아닌데 여긴 진짜네요."</p><p class="rv-card-by">박*연 · 용인</p><p class="rv-card-prd">흑돼지 삼겹살</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"옥돔 구이 처음 먹어봤는데 이게 진짜 제주 맛이군요. 생선 비린내가 전혀 없고 고소한 풍미가 일품입니다."</p><p class="rv-card-by">이*서 · 청주</p><p class="rv-card-prd">제주 옥돔 구이용</p></div></div>
+        <!-- duplicate -->
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"이 가격에 이 퀄리티? 마트 고기와는 비교 자체가 안 돼요. 아이들이 너무 잘 먹어서 감사합니다."</p><p class="rv-card-by">최*미 · 수원</p><p class="rv-card-prd">흑돼지 목살</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"고등어 구이가 이렇게 맛있을 수 있다니. 제주 특산이라 그런지 정말 달라요. 살이 탱탱하고 두꺼워요."</p><p class="rv-card-by">윤*철 · 대구</p><p class="rv-card-prd">제주 고등어</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"회사 명절 선물로 주문했는데 직원들이 너무 좋아했어요. 포장도 고급스럽고 맛도 최고."</p><p class="rv-card-by">김*사 · 서울</p><p class="rv-card-prd">흑돼지+수산 혼합 선물세트</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"당일 도축 당일 배송이 진짜로 되는 곳! 다른 곳은 홍보만 하고 실제론 아닌데 여긴 진짜네요."</p><p class="rv-card-by">박*연 · 용인</p><p class="rv-card-prd">흑돼지 삼겹살</p></div></div>
+        <div class="rv-card"><div class="rv-body" style="padding-top:26px;"><div class="rv-card-stars">★★★★★</div><p class="rv-card-text">"옥돔 구이 처음 먹어봤는데 이게 진짜 제주 맛이군요. 생선 비린내가 전혀 없고 고소한 풍미가 일품입니다."</p><p class="rv-card-by">이*서 · 청주</p><p class="rv-card-prd">제주 옥돔 구이용</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSTAGRAM EDITORIAL ───────────────────────── -->
+  <section class="insta-sec">
+    <div class="insta-hd">
+      <div>
+        <p class="insta-label">Instagram</p>
+        <p class="insta-handle"><span>@</span>jeju_matisseo</p>
+        <p class="insta-sub" style="font-size:15px;color:rgba(240,235,227,.38);line-height:1.75;max-width:460px;margin-top:12px;">제주 직영 농장의 아침, 청정 바다의 은빛 갈치,<br>오늘 우리 가족 식탁의 이야기를 인스타그램에서 먼저 만나보세요.</p>
+      </div>
+      <a href="#" class="insta-follow">팔로우 →</a>
+    </div>
+    <div class="insta-grid">
+      <div class="ie" data-post="true" data-id="1">
+        <img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">2,847</span></div>
+      </div>
+      <div class="ie" data-post="true" data-id="2">
+        <img src="https://lh3.googleusercontent.com/d/128GSO11cJcEDmgnFnDOjgR47ekTYfuMa" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">1,423</span></div>
+      </div>
+      <div class="ie" data-post="true" data-id="3">
+        <img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">986</span></div>
+      </div>
+      <div class="ie" data-post="true" data-id="4">
+        <img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">3,241</span></div>
+      </div>
+      <div class="ie" data-post="true" data-id="5">
+        <img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">1,782</span></div>
+      </div>
+      <div class="ie" data-post="true" data-id="6">
+        <img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="">
+        <div class="ie-ov"><span class="ie-heart">♡</span><span class="ie-likes">2,109</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JEJU GALLERY SWIPER ─────────────────────────── -->
+  <section class="gallery-sec">
+    <div class="gallery-hd">
+      <p class="gallery-label">Jeju Gallery</p>
+      <h2 class="gallery-title">제주의 풍경,<br>그 맛의 근원</h2>
+      <p class="gallery-sub">직영 농장의 새벽, 청정 바다의 아침, 가공센터의 정성—<br>모든 것이 제주에서 시작됩니다.</p>
+    </div>
+    <div class="swiper gallery-swiper" id="gallerySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1ui7YSh6bRKB0w32RrRSitc8lfbRkQjXA" alt="제주 자연"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO" alt="제주 농장"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/19Tmqb-q5l5wSajyi9g3AQh3PQShOlNEK" alt="흑돼지"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1H8PdbIkjZz4iGcS0WWfKzw2wX586jpEn" alt="제주 바다"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/128GSO11cJcEDmgnFnDOjgR47ekTYfuMa" alt="은갈치"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt="제주 가공"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1feuFKZMsrSwz3Z7bhFNXmYLjwLy0aIVb" alt="옥돔"></div>
+        <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1FIa3m19henUqkWVSOxnhQsfyME62cz0x" alt="흑돼지 숙성"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── 소셜 로그인 STRIP ──────────────────────────────── -->
+<div class="social-login-strip">
+  <div class="sl-inner">
+    <p class="sl-title">간편 가입하고 첫 주문 5% 쿠폰 받기</p>
+    <div class="sl-btns">
+      <a href="#" class="sl-btn sl-kakao">
+        <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z" fill="#3B1D1D"/></svg>
+        카카오로 시작하기
+      </a>
+      <a href="#" class="sl-btn sl-naver">
+        <svg viewBox="0 0 24 24"><path d="M16.27 12.75L7.2 3H4v18h3.73l9.07-9.75L21 21h3V3h-7.73z" fill="#fff"/></svg>
+        네이버로 시작하기
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer class="ft">
+  <div class="ft-in">
+    <!-- Kakao Channel Promo -->
+    <div class="ft-kakao">
+      <div class="ft-kakao-left">
+        <span class="ft-kakao-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+          카카오 채널 친구추가
+        </span>
+        <h3 class="ft-kakao-title">친구 추가 한 번으로<br>매달 혜택 받으세요</h3>
+        <p class="ft-kakao-sub">신상품 출시·제철특가·이벤트 알림을<br>카톡으로 가장 먼저 받아보세요</p>
+        <ul class="ft-kakao-list">
+          <li>친구 추가 즉시 <strong>5,000원 할인쿠폰</strong> 지급</li>
+          <li>월 1회 <strong>회원 전용 특가</strong> 선공개 알림</li>
+          <li>제철 맞춤 <strong>선착순 50% 특가</strong> 알림</li>
+          <li>생일 축하 <strong>무료배송 쿠폰</strong> 자동 발송</li>
+        </ul>
+      </div>
+      <div class="ft-kakao-right">
+        <div class="ft-kakao-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+        </div>
+        <p class="ft-kakao-count"><strong>3,847명</strong>이 이미 혜택 받는 중</p>
+        <a href="#" class="ft-kakao-cta">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+          카카오 채널 친구추가
+        </a>
+        <p class="ft-kakao-note">광고성 수신 동의 시 추가 쿠폰 즉시 지급<br>언제든지 알림 수신 해제 가능</p>
+      </div>
+    </div>
+    <div class="ft-grid">
+      <div>
+        <p class="ft-logo">맛있는 제주</p>
+        <p class="ft-brand-desc">대한민국 유일 제주 직영 이원 가공 시스템.<br>육가공·수산가공 전 과정 제주 직영 운영.<br>1994년 창립 · 30년 전통.</p>
+        <div class="ft-social">
+          <a href="#">IG</a><a href="#">YT</a><a href="#">KK</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>고객서비스</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">1:1 문의</a></li>
+          <li><a href="#">배송안내</a></li>
+          <li><a href="#">교환/반품</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>브랜드</h4>
+        <ul>
+          <li><a href="#">브랜드 스토리</a></li>
+          <li><a href="#">품질 보증</a></li>
+          <li><a href="#">제주 직영 농장</a></li>
+          <li><a href="#">수산가공 센터</a></li>
+          <li><a href="#">입점 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2026 맛있는제주. All rights reserved.</p>
+      <nav class="ft-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">사업자정보</a>
+      </nav>
+      <div class="ft-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── FLOATING WIDGET ──────────────────────────────── -->
+<div id="floatWidget">
+  <!-- 카카오 1:1 상담 -->
+  <a href="#" class="fw-btn fw-kakao" data-tip="카카오 1:1 상담" aria-label="카카오 상담">
+    <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+  </a>
+  <!-- 네이버 간편상담 -->
+  <a href="#" class="fw-btn fw-naver" data-tip="네이버 간편문의" aria-label="네이버 문의">
+    <svg viewBox="0 0 24 24"><path d="M16.27 12.75L7.2 3H4v18h3.73l9.07-9.75L21 21h3V3h-7.73z"/></svg>
+  </a>
+  <!-- 스크롤 TOP -->
+  <button class="fw-btn fw-top" data-tip="맨 위로" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Custom cursor ─────────────────────────────────────── */
+var cur = document.getElementById('cur');
+var ring = document.getElementById('curRing');
+document.addEventListener('mousemove', function(e){
+  gsap.to(cur,  {x:e.clientX, y:e.clientY, duration:.08, ease:'none'});
+  gsap.to(ring, {x:e.clientX, y:e.clientY, duration:.22, ease:'power2.out'});
+});
+document.querySelectorAll('a,button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){gsap.to(ring,{width:54,height:54,duration:.2});});
+  el.addEventListener('mouseleave',function(){gsap.to(ring,{width:36,height:36,duration:.2});});
+});
+
+/* ── Mobile side menu ──────────────────────────────────── */
+var sideMenu = document.getElementById('sideMenu');
+var sideOv   = document.getElementById('sideOv');
+function openMenu(){sideMenu.classList.add('on');sideOv.classList.add('on');document.body.classList.add('menu-open');}
+function closeMenu(){sideMenu.classList.remove('on');sideOv.classList.remove('on');document.body.classList.remove('menu-open');}
+document.getElementById('hdBurger').addEventListener('click', openMenu);
+document.getElementById('sideClose').addEventListener('click', closeMenu);
+sideOv.addEventListener('click', closeMenu);
+
+/* ── Side menu accordion ──────────────────────────────── */
+document.querySelectorAll('.sm-cat-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var cat = this.closest('.sm-cat');
+    var isOpen = cat.classList.contains('open');
+    document.querySelectorAll('.sm-cat.open').forEach(function(c){ c.classList.remove('open'); });
+    if(!isOpen) cat.classList.add('open');
+  });
+});
+
+/* ── Hero Swiper — manual advance, progress bars ──────── */
+var heroPagItems = document.querySelectorAll('.hero-pag-item');
+var heroVid      = document.getElementById('heroVid');
+var heroVidCtrl  = document.getElementById('heroVidCtrl');
+var IMG_DUR      = 5500; // image slide duration (ms)
+var slideTimer   = null;
+var curRealIdx   = 0;
+var vidPaused    = false;
+var vidMuted     = true;
+
+function getHeroFill(idx){ return heroPagItems[idx].querySelector('.hero-pag-fill'); }
+
+function startBar(idx, ms){
+  heroPagItems.forEach(function(el,i){
+    el.classList.toggle('on', i===idx);
+    var f = el.querySelector('.hero-pag-fill');
+    f.style.animation = 'none';
+    f.offsetWidth; // force reflow to restart animation
+  });
+  var f = getHeroFill(idx);
+  f.style.animation = 'barFill '+(ms/1000).toFixed(2)+'s linear forwards';
+}
+
+function stopSlide(){ clearTimeout(slideTimer); slideTimer=null; }
+
+function schedNext(ms){
+  stopSlide();
+  slideTimer = setTimeout(function(){ heroSwiper.slideNext(); }, ms);
+}
+
+function onVidEnded(){
+  heroVid.removeEventListener('ended', onVidEnded);
+  heroSwiper.slideNext();
+}
+
+function onSlideChange(swiper){
+  var idx = swiper.realIndex;
+  curRealIdx = idx;
+  var isVid = (idx===0);
+  heroVidCtrl.style.opacity = isVid ? '1' : '0';
+  heroVidCtrl.style.pointerEvents = isVid ? 'auto' : 'none';
+
+  if(isVid){
+    stopSlide();
+    heroVid.removeEventListener('ended', onVidEnded);
+    heroVid.currentTime = 0;
+    heroVid.play();
+    heroVid.addEventListener('ended', onVidEnded);
+    function startVidBar(){
+      var dur = (heroVid.duration && heroVid.duration > 0) ? heroVid.duration * 1000 : 30000;
+      startBar(0, dur);
+    }
+    if(heroVid.readyState >= 1){ startVidBar(); }
+    else { heroVid.addEventListener('loadedmetadata', startVidBar, {once:true}); }
+  } else {
+    heroVid.removeEventListener('ended', onVidEnded);
+    startBar(idx, IMG_DUR);
+    if(!vidPaused){ schedNext(IMG_DUR); }
+  }
+}
+
+var heroSwiper = new Swiper('#heroSwiper',{
+  loop: true,
+  speed: 2000,
+  effect: 'fade',
+  fadeEffect: {crossFade:true},
+  on: { slideChange: function(){ onSlideChange(this); } }
+});
+
+// Init: start from video slide
+onSlideChange(heroSwiper);
+
+// Pagination click
+heroPagItems.forEach(function(item){
+  item.addEventListener('click', function(){
+    var idx = parseInt(this.dataset.idx);
+    stopSlide();
+    heroVid.removeEventListener('ended', onVidEnded);
+    heroSwiper.slideToLoop(idx);
+  });
+});
+
+/* ── Video controls — heroVid 상태 직접 제어 ──────────── */
+var vidMuteBtn = document.getElementById('vidMuteBtn');
+var vidPlayBtn = document.getElementById('vidPlayBtn');
+var vidPlayIco = document.getElementById('vidPlayIco');
+
+function updateMuteIcon(){
+  var m = heroVid.muted;
+  vidMuteBtn.title = m ? '소리 켜기' : '음소거';
+  vidMuteBtn.querySelector('svg').innerHTML = m
+    ? '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><line x1="23" y1="9" x2="17" y2="15" stroke="#F0EBE3" stroke-width="1.5"/><line x1="17" y1="9" x2="23" y2="15" stroke="#F0EBE3" stroke-width="1.5"/>'
+    : '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#F0EBE3"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="#F0EBE3" stroke-width="1.5" fill="none"/><path d="M19.07 4.93a10 10 0 010 14.14" stroke="#F0EBE3" stroke-width="1.5" fill="none"/>';
+}
+
+vidMuteBtn.addEventListener('click', function(){
+  heroVid.muted = !heroVid.muted;
+  updateMuteIcon();
+});
+
+vidPlayBtn.addEventListener('click', function(){
+  if(!heroVid.paused){
+    heroVid.pause();
+    stopSlide();
+    // Freeze progress bar
+    var f = getHeroFill(curRealIdx);
+    var w = parseFloat(window.getComputedStyle(f).width);
+    var bw = parseFloat(window.getComputedStyle(f.parentElement).width);
+    f.style.animation = 'none';
+    f.style.width = (bw > 0 ? (w/bw*100).toFixed(1) : '0') + '%';
+  } else {
+    if(curRealIdx === 0){
+      heroVid.play().catch(function(){});
+      heroVid.addEventListener('ended', onVidEnded);
+      var rem = (heroVid.duration && heroVid.currentTime)
+        ? (heroVid.duration - heroVid.currentTime) * 1000 : IMG_DUR;
+      startBar(0, rem);
+    } else {
+      schedNext(IMG_DUR);
+      startBar(curRealIdx, IMG_DUR);
+    }
+  }
+  // Update icon after state change
+  setTimeout(function(){
+    vidPlayIco.innerHTML = heroVid.paused
+      ? '<polygon points="5,3 19,12 5,21" fill="#F0EBE3"/>'
+      : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  }, 50);
+});
+
+/* ── HERO — Title morphs center → center-top ──────────── */
+var heroTitle      = document.getElementById('heroBigTitle');
+var heroMainCopy   = document.getElementById('heroMainCopy');
+var heroBottom     = document.getElementById('heroBottom');
+var heroScrollHint = document.getElementById('heroScrollHint');
+var hd             = document.getElementById('hd');
+
+// GSAP centers title only (heroMainCopy uses CSS transform for centering)
+gsap.set(heroTitle, {xPercent:-50, yPercent:-50});
+
+var titleLocked = false;
+function doTitleLock(){
+  if(titleLocked) return;
+  titleLocked = true;
+  heroTitle.classList.add('title-locked');
+  gsap.set(heroTitle, {opacity:0});
+  hd.classList.add('visible','solid');
+  gsap.set(heroMainCopy, {opacity:1});
+}
+var heroTl = gsap.timeline({
+  scrollTrigger:{
+    trigger: '#heroPin',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1.5,
+    onUpdate: function(self){
+      if(self.progress > 0.44 && !titleLocked){
+        titleLocked = true;
+        heroTitle.classList.add('title-locked'); // CSS !important wins over scrub
+        gsap.set(heroTitle, {opacity:0});
+      }
+      if(titleLocked){
+        hd.classList.add('visible','solid');
+        gsap.set(heroMainCopy, {opacity:1});
+      } else {
+        hd.classList.toggle('visible', self.progress > 0.44);
+        hd.classList.toggle('solid',   self.progress > 0.44);
+      }
+      heroBottom.classList.toggle('visible', self.progress > 0.72);
+    }
+  }
+});
+heroTl
+  .to(heroScrollHint, {opacity:0, duration:.15, ease:'none'}, 0)
+  // Phase 1: title shrinks upward to header position (0~0.45)
+  .to(heroTitle, {
+    scale: 0.08,
+    y: function(){ return -(window.innerHeight/2 - 36); },
+    duration: .45, ease: 'power2.inOut'
+  }, 0)
+  // Title fade-out (0.40~0.48)
+  .to(heroTitle, {opacity:0, duration:.08, ease:'none'}, .40)
+  // Dummy tween: extends totalDuration back to ~0.68 (same as old timeline with mainCopy).
+  // Critical: at auto-idle scroll 74%, GSAP reaches time 0.74×0.68=0.503s > 0.48s,
+  // so title fade IS complete and titleLocked fires correctly.
+  .to({}, {duration:.20}, .48);
+
+document.querySelector('.hb-cta').addEventListener('click', function(e){
+  var t = document.getElementById('mainContent');
+  if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+});
+
+/* ── Jeju Story scrollytelling + auto-advance ──────────── */
+var jsBgs    = [document.getElementById('jsBg0'), document.getElementById('jsBg1'), document.getElementById('jsBg2')];
+var jsPanels = [document.getElementById('jsP0'),  document.getElementById('jsP1'),  document.getElementById('jsP2')];
+var jsRI     = [document.getElementById('jsRI0'), document.getElementById('jsRI1'), document.getElementById('jsRI2')];
+var jsDots   = document.querySelectorAll('.js-dot');
+var jessCurrentPanel = 0;
+var jessAutoTimer, jessScrollTimer;
+
+function setJejuPanel(i){
+  jessCurrentPanel = i;
+  jsBgs.forEach(function(el,idx){ el.style.opacity=idx===i?'1':'0'; el.style.transition='opacity .9s'; });
+  jsPanels.forEach(function(el,idx){ el.classList.toggle('on', idx===i); });
+  jsRI.forEach(function(el,idx){ el.classList.toggle('on', idx===i); });
+  jsDots.forEach(function(el,idx){ el.classList.toggle('on', idx===i); });
+}
+function startJejuAuto(){
+  clearInterval(jessAutoTimer);
+  jessAutoTimer = setInterval(function(){
+    setJejuPanel((jessCurrentPanel + 1) % 3);
+  }, 3200);
+}
+setJejuPanel(0);
+
+ScrollTrigger.create({
+  trigger:'#jejuStoryPin', start:'top top', end:'bottom bottom',
+  pin:'#jejuStorySticky',
+  onEnter: function(){ jessScrollTimer = setTimeout(startJejuAuto, 2200); },
+  onLeave: function(){ clearTimeout(jessScrollTimer); clearInterval(jessAutoTimer); },
+  onLeaveBack: function(){ clearTimeout(jessScrollTimer); clearInterval(jessAutoTimer); },
+  onUpdate: function(self){
+    var i = self.progress < .33 ? 0 : self.progress < .66 ? 1 : 2;
+    if(i !== jessCurrentPanel){ setJejuPanel(i); }
+    // Reset auto-timer on manual scroll
+    clearTimeout(jessScrollTimer); clearInterval(jessAutoTimer);
+    jessScrollTimer = setTimeout(startJejuAuto, 2200);
+  }
+});
+
+/* ── Best rows reveal + 더보기 ─────────────────────────── */
+gsap.from('.best-row:not(.best-row-hidden)', {
+  y:28, opacity:0, duration:.7, stagger:.08, ease:'power3.out',
+  scrollTrigger:{trigger:'#bestSec', start:'top 78%'}
+});
+var bestMoreBtn  = document.getElementById('bestMoreBtn');
+var hiddenRows   = document.querySelectorAll('.best-row-hidden');
+var bestExpanded = false;
+if(bestMoreBtn){
+  bestMoreBtn.addEventListener('click', function(){
+    bestExpanded = !bestExpanded;
+    hiddenRows.forEach(function(r){
+      r.style.display = bestExpanded ? 'grid' : 'none';
+    });
+    bestMoreBtn.textContent = bestExpanded ? '접기 ↑' : '더보기 ↓';
+    if(bestExpanded){
+      gsap.from(Array.from(hiddenRows), {
+        y:20, opacity:0, duration:.5, stagger:.07, ease:'power3.out'
+      });
+    }
+  });
+}
+
+/* ── Fish auto-hover (IntersectionObserver + setInterval) ── */
+var fpEls = document.querySelectorAll('#fishCollection .fish-panel');
+var fishAutoId, fishAutoIdx = -1;
+function fishAutoStep(){
+  if(fpEls[fishAutoIdx]) fpEls[fishAutoIdx].classList.remove('auto-hover');
+  var prev = fishAutoIdx;
+  do { fishAutoIdx = Math.floor(Math.random() * fpEls.length); } while(fishAutoIdx === prev && fpEls.length > 1);
+  fpEls[fishAutoIdx].classList.add('auto-hover');
+}
+var fishIO = new IntersectionObserver(function(entries){
+  // Mobile: all panels always visible via CSS — skip auto-hover to prevent layout jumps
+  if(window.innerWidth <= 1023) return;
+  if(entries[0].isIntersecting){
+    fishAutoStep();
+    fishAutoId = setInterval(fishAutoStep, 2800);
+  } else {
+    clearInterval(fishAutoId);
+    fpEls.forEach(function(el){ el.classList.remove('auto-hover'); });
+    fishAutoIdx = -1;
+  }
+}, {threshold: 0.3});
+var fishCollSec = document.getElementById('fishCollection');
+if(fishCollSec && fpEls.length) fishIO.observe(fishCollSec);
+
+// Manual hover overrides auto
+fpEls.forEach(function(el){
+  el.addEventListener('mouseenter', function(){
+    clearInterval(fishAutoId);
+    if(fpEls[fishAutoIdx]) fpEls[fishAutoIdx].classList.remove('auto-hover');
+  });
+  el.addEventListener('mouseleave', function(){
+    fishAutoId = setInterval(fishAutoStep, 2800);
+  });
+});
+
+/* ── Brand Heritage Swiper ─────────────────────────────── */
+var isPC = window.innerWidth >= 1024;
+var brandSwiper = new Swiper('#brandSwiper', {
+  loop: false,
+  speed: 650,
+  effect: 'slide',
+  grabCursor: false,
+  allowTouchMove: false,   // all devices: scroll-driven only
+  slidesPerView: 1,
+  spaceBetween: 0,
+  autoplay: false,
+  pagination: { el: '.brand-pg', type: 'bullets', clickable: true },
+  on: {
+    slideChangeTransitionStart: function(){
+      var bodyEl = this.slides[this.activeIndex].querySelector('.brand-par-body');
+      if(bodyEl) gsap.fromTo(Array.from(bodyEl.children),
+        {y:28, opacity:0},
+        {y:0, opacity:1, duration:.72, stagger:.1, ease:'power3.out'}
+      );
+    }
+  }
+});
+
+// All devices: vertical scroll drives horizontal slide change
+var brandIdx = 0;
+ScrollTrigger.create({
+  trigger: '#brandPin',
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: function(self){
+    var idx = Math.min(Math.floor(self.progress * 3), 2);
+    if(idx !== brandIdx){
+      brandIdx = idx;
+      brandSwiper.slideTo(idx, 650);
+    }
+  }
+});
+
+// First slide text reveal on enter
+ScrollTrigger.create({
+  trigger: '#brandPin', start: 'top 75%', once: true,
+  onEnter: function(){
+    var bodyEl = brandSwiper.slides[0].querySelector('.brand-par-body');
+    if(bodyEl) gsap.from(Array.from(bodyEl.children), {y:28, opacity:0, duration:.8, stagger:.1, ease:'power3.out'});
+  }
+});
+
+/* ── Scroll reveals ────────────────────────────────────── */
+gsap.from('.ie', {
+  scale:.93, opacity:0, duration:.6, stagger:.07, ease:'power3.out',
+  scrollTrigger:{trigger:'.insta-grid', start:'top 82%'}
+});
+
+/* ── Floating widget: 히어로 핀 섹션 지나면 표시 ──────────── */
+var floatWidget = document.getElementById('floatWidget');
+var heroPinEl = document.getElementById('heroPin');
+function updateFloatWidget(){
+  var bottom = heroPinEl.getBoundingClientRect().bottom;
+  var show = bottom <= window.innerHeight;
+  floatWidget.style.opacity = show ? '1' : '0';
+  floatWidget.style.pointerEvents = show ? 'auto' : 'none';
+}
+window.addEventListener('scroll', updateFloatWidget, {passive:true});
+updateFloatWidget();
+
+/* ── Auto-idle: 4초 무액션 → rAF smooth scroll (ScrollTrigger 유지, kill 없음) ── */
+var idleFired = false;
+function cancelIdle(){
+  if(!idleFired){ idleFired = true; clearTimeout(idleTimer); }
+}
+var idleTimer = setTimeout(function(){
+  if(idleFired || window.pageYOffset > 60) return;
+  idleFired = true;
+  var st = heroTl.scrollTrigger;
+  if(!st) return;
+  // heroPin 74% 지점으로 3.2초간 부드럽게 스크롤 (scrub이 자연스럽게 따라옴)
+  var target = st.start + (st.end - st.start) * 0.74;
+  var startPos = window.pageYOffset;
+  var dur = 3200;
+  var t0 = null;
+  function easeInOut(p){ return p < 0.5 ? 2*p*p : -1 + (4 - 2*p)*p; }
+  function raf(ts){
+    if(!t0) t0 = ts;
+    var p = Math.min((ts - t0) / dur, 1);
+    window.scrollTo(0, startPos + (target - startPos) * easeInOut(p));
+    // Check every frame — onUpdate alone misses the GSAP scrub catch-up phase
+    if(!titleLocked && heroTl.time() >= 0.3) doTitleLock();
+    if(p < 1){
+      requestAnimationFrame(raf);
+    } else {
+      // Scroll ended but GSAP still catching up: keep polling until header fires
+      (function pollPost(){
+        if(titleLocked) return;
+        if(heroTl.time() >= 0.3) doTitleLock();
+        else requestAnimationFrame(pollPost);
+      })();
+    }
+  }
+  requestAnimationFrame(raf);
+}, 3000);
+['mousemove','wheel','touchstart','keydown','click'].forEach(function(ev){
+  window.addEventListener(ev, cancelIdle, {once:true, passive:true});
+});
+// Cancel only on real scroll (ignore browser micro-adjustments at load)
+window.addEventListener('scroll', function onScrollIdleCancel(){
+  if(window.pageYOffset > 10){
+    cancelIdle();
+    window.removeEventListener('scroll', onScrollIdleCancel);
+  }
+}, {passive:true});
+
+/* ── Footer accordion (mobile) ─────────────────────────── */
+document.querySelectorAll('.ft-col h4').forEach(function(h){
+  h.addEventListener('click', function(){
+    this.parentElement.classList.toggle('open');
+  });
+});
+
+/* ── Gallery Swiper ────────────────────────────────────── */
+new Swiper('#gallerySwiper', {
+  slidesPerView: 'auto',
+  spaceBetween: 18,
+  centeredSlides: true,
+  grabCursor: true,
+  loop: true,
+  speed: 700,
+  autoplay: {delay: 2600, disableOnInteraction: false, pauseOnMouseEnter: true},
+});
+</script>
+
+</body>
+</html>

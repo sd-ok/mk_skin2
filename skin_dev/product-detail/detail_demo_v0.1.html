@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제주 흑돼지 오겹살 · 상품 상세 — 맛있는제주</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <style>
+    /* ── Reset ─────────────────────────────────────────── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+      background:#100404;
+      color:#F0EBE3;
+      font-size:16px;
+      line-height:1.65;
+    }
+    a{color:inherit;text-decoration:none;}
+    button{background:none;border:none;cursor:pointer;font:inherit;color:inherit;}
+    img{display:block;max-width:100%;}
+    input[type=number]{-moz-appearance:textfield;appearance:textfield;}
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+
+    /* ── HEADER (메인데모 동일) ─────────────────────────── */
+    #hd{
+      position:fixed;top:0;left:0;right:0;height:72px;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;padding:0 48px;z-index:500;
+      opacity:1;pointer-events:auto;
+      background:rgba(26,6,6,.96);
+      backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+      border-bottom:1px solid rgba(139,26,26,.3);
+      transition:background .5s,border-color .5s;
+    }
+    .hd-left{display:flex;align-items:center;gap:36px;}
+    .hd-left a{font-size:15px;font-weight:600;letter-spacing:.05em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;}
+    .hd-left a:hover{color:#F0EBE3;}
+    .hd-logo{display:flex;align-items:center;justify-content:center;}
+    .hd-logo img{height:34px;width:auto;display:block;}
+    .hd-logo-txt{font-size:15px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;margin-left:8px;}
+    .hd-right{display:flex;align-items:center;gap:28px;justify-content:flex-end;}
+    .hd-right a{font-size:15px;font-weight:600;letter-spacing:.05em;color:rgba(240,235,227,.6);transition:color .2s;white-space:nowrap;display:flex;align-items:center;}
+    .hd-right a:hover{color:#F0EBE3;}
+    .cart-num{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:9px;font-weight:700;margin-left:3px;}
+    .hd-burger{display:none;align-items:center;justify-content:flex-start;width:44px;height:44px;cursor:pointer;flex-shrink:0;}
+    .hd-burger-line{display:block;width:22px;height:1.5px;background:#F0EBE3;position:relative;}
+    .hd-burger-line::before,.hd-burger-line::after{content:'';position:absolute;left:0;width:22px;height:1.5px;background:#F0EBE3;}
+    .hd-burger-line::before{top:-7px;}
+    .hd-burger-line::after{top:7px;}
+    .hd-icons{display:none;align-items:center;gap:14px;justify-content:flex-end;}
+    .hd-icon{position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+    .hd-icon svg{width:20px;height:20px;stroke:rgba(240,235,227,.65);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .hd-icon:hover svg{stroke:#F0EBE3;}
+    .hd-icon-badge{position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#8B1A1A;color:#fff;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+    /* ── SIDE MENU (메인데모 동일) ──────────────────────── */
+    #sideOv{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:599;opacity:0;pointer-events:none;transition:opacity .35s;}
+    #sideOv.on{opacity:1;pointer-events:auto;}
+    #sideMenu{position:fixed;top:0;left:0;bottom:0;width:300px;background:#110E0C;z-index:600;transform:translateX(-100%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;box-shadow:6px 0 32px rgba(0,0,0,.7);border-right:1px solid rgba(240,235,227,.08);scrollbar-width:none;}
+    #sideMenu::-webkit-scrollbar{display:none;}
+    #sideMenu.on{transform:translateX(0);}
+    body.menu-open{overflow:hidden;}
+    .sm-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+    .sm-logo{display:flex;align-items:center;gap:9px;}
+    .sm-logo span{font-size:14px;font-weight:800;letter-spacing:.04em;color:#F0EBE3;}
+    .sm-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+    .sm-close svg{width:18px;height:18px;stroke:rgba(240,235,227,.4);stroke-width:1.5;stroke-linecap:round;transition:stroke .2s;}
+    .sm-close:hover svg{stroke:#F0EBE3;}
+    .sm-nav{flex:1;padding:4px 0;}
+    .sm-cat{border-bottom:1px solid rgba(240,235,227,.05);}
+    .sm-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;cursor:pointer;transition:color .2s;text-align:left;}
+    .sm-cat-btn:hover{color:#C4A265;}
+    .sm-cat-link{display:flex;align-items:center;padding:16px 22px;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#F0EBE3;transition:color .2s,padding-left .2s;}
+    .sm-cat-link:hover{color:#C4A265;padding-left:28px;}
+    .sm-arr{width:15px;height:15px;stroke:rgba(240,235,227,.3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;transition:transform .3s,stroke .2s;}
+    .sm-cat.open .sm-arr{transform:rotate(180deg);}
+    .sm-sub{max-height:0;overflow:hidden;transition:max-height .36s cubic-bezier(.25,.46,.45,.94);background:rgba(0,0,0,.18);}
+    .sm-cat.open .sm-sub{max-height:400px;}
+    .sm-sub a{display:flex;align-items:center;gap:10px;padding:10px 22px 10px 38px;font-size:14px;font-weight:500;color:rgba(240,235,227,.48);transition:color .2s,padding-left .2s;}
+    .sm-sub a:hover{color:#C4A265;padding-left:42px;}
+    .sm-util{display:flex;flex-direction:row;padding:4px 0 2px;border-bottom:1px solid rgba(240,235,227,.07);flex-shrink:0;}
+    .sm-util-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:1;padding:12px 4px;font-size:11px;font-weight:600;color:rgba(240,235,227,.38);transition:color .2s;letter-spacing:.03em;}
+    .sm-util-link:hover{color:#F0EBE3;}
+    .sm-util-link svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .sm-promo{margin:0;padding:22px;background:linear-gradient(135deg,#5F4541 0%,#3a2825 100%);flex-shrink:0;}
+    .sm-promo-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;color:rgba(240,235,227,.55);margin-bottom:10px;text-transform:uppercase;}
+    .sm-promo-txt{font-size:13px;color:rgba(240,235,227,.7);line-height:1.6;margin-bottom:14px;}
+    .sm-promo-txt strong{font-size:22px;font-weight:900;color:#F0EBE3;letter-spacing:-.03em;display:block;margin-top:2px;}
+    .sm-promo-cta{display:inline-flex;align-items:center;height:38px;padding:0 18px;background:#F0EBE3;color:#3a2825;font-size:11px;font-weight:800;letter-spacing:.08em;transition:background .2s;}
+    .sm-promo-cta:hover{background:#fff;}
+
+    /* ── FOOTER (돈육 컬러) ──────────────────────────────── */
+    .ft{background:#0E0303;padding:80px 0 0;border-top:1px solid rgba(139,26,26,.22);}
+    .ft-in{max-width:1560px;margin:0 auto;padding:0 52px;}
+    .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:52px;padding-bottom:52px;border-bottom:1px solid rgba(139,26,26,.12);}
+    .ft-logo{font-size:17px;font-weight:800;letter-spacing:.05em;color:#F0EBE3;margin-bottom:14px;}
+    .ft-brand-desc{font-size:14px;line-height:1.85;color:rgba(240,235,227,.26);margin-bottom:26px;}
+    .ft-social{display:flex;gap:9px;}
+    .ft-social a{width:35px;height:35px;border:1px solid rgba(240,235,227,.09);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(240,235,227,.3);transition:border-color .2s,color .2s;}
+    .ft-social a:hover{border-color:rgba(240,235,227,.32);color:#F0EBE3;}
+    .ft-col h4{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,227,.28);margin-bottom:20px;}
+    .ft-col ul{list-style:none;}
+    .ft-col ul li{margin-bottom:12px;}
+    .ft-col ul li a{font-size:14px;color:rgba(240,235,227,.36);transition:color .15s;}
+    .ft-col ul li a:hover{color:#F0EBE3;}
+    .ft-bottom{border-top:1px solid rgba(139,26,26,.12);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .ft-copy{font-size:12px;color:rgba(240,235,227,.17);}
+    .ft-links{display:flex;gap:20px;}
+    .ft-links a{font-size:12px;color:rgba(240,235,227,.17);transition:color .15s;}
+    .ft-links a:hover{color:rgba(240,235,227,.52);}
+    .ft-top{width:38px;height:38px;border:1px solid rgba(240,235,227,.1);display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(240,235,227,.28);cursor:pointer;transition:border-color .2s,color .2s;}
+    .ft-top:hover{border-color:rgba(240,235,227,.35);color:#F0EBE3;}
+
+    /* ── KAKAO CHANNEL PROMO ────────────────────────────── */
+    .ft-kakao{
+      position:relative;overflow:hidden;
+      display:grid;grid-template-columns:1fr 1fr;align-items:stretch;
+      margin-bottom:52px;border-radius:2px;
+      border:1px solid rgba(254,229,0,.1);
+      background:linear-gradient(135deg,#1C0505 0%,#110303 100%);
+    }
+    .ft-kakao-left{padding:52px 56px;border-right:1px solid rgba(254,229,0,.08);}
+    .ft-kakao-badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(254,229,0,.1);border:1px solid rgba(254,229,0,.22);
+      padding:5px 13px;border-radius:2px;
+      font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+      color:#FEE500;margin-bottom:20px;
+    }
+    .ft-kakao-badge svg{width:12px;height:12px;fill:#FEE500;flex-shrink:0;}
+    .ft-kakao-title{font-size:clamp(20px,2.6vw,30px);font-weight:800;letter-spacing:-.03em;color:#F0EBE3;line-height:1.22;margin-bottom:10px;}
+    .ft-kakao-sub{font-size:14px;color:rgba(240,235,227,.42);line-height:1.7;margin-bottom:28px;}
+    .ft-kakao-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+    .ft-kakao-list li{
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:14px;color:rgba(240,235,227,.65);line-height:1.5;
+    }
+    .ft-kakao-list li::before{
+      content:'';flex-shrink:0;width:18px;height:18px;margin-top:1px;border-radius:50%;
+      background:#FEE500 url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9.5l3.2 3.2 6.8-6.8' stroke='%231C0505' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    .ft-kakao-list li strong{color:#F0EBE3;font-weight:700;}
+    .ft-kakao-right{
+      padding:52px 56px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    }
+    .ft-kakao-icon{
+      width:76px;height:76px;border-radius:50%;background:#FEE500;
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 18px;box-shadow:0 0 40px rgba(254,229,0,.2);
+    }
+    .ft-kakao-icon svg{width:44px;height:44px;fill:#1C0505;}
+    .ft-kakao-count{font-size:12px;color:rgba(240,235,227,.3);margin-bottom:4px;letter-spacing:.02em;line-height:1.6;}
+    .ft-kakao-count strong{display:block;font-size:26px;font-weight:800;color:#FEE500;letter-spacing:-.02em;margin-bottom:2px;}
+    .ft-kakao-cta{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      width:100%;max-width:264px;height:56px;
+      background:#FEE500;color:#1C0505;
+      font-size:15px;font-weight:800;letter-spacing:-.01em;border-radius:2px;
+      margin-top:22px;
+      box-shadow:0 4px 22px rgba(254,229,0,.28);
+      transition:background .18s,transform .18s,box-shadow .18s;
+    }
+    .ft-kakao-cta:hover{background:#ffe100;transform:translateY(-2px);box-shadow:0 8px 30px rgba(254,229,0,.38);}
+    .ft-kakao-cta svg{width:20px;height:20px;fill:#1C0505;flex-shrink:0;}
+    .ft-kakao-note{font-size:11px;color:rgba(240,235,227,.2);margin-top:12px;line-height:1.6;}
+
+    /* ── Breadcrumb ─────────────────────────────────────── */
+    .breadcrumb{
+      margin-top:72px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(10,4,4,.6);
+    }
+    .bc-inner{
+      max-width:1600px;margin:0 auto;padding:0 48px;
+      display:flex;align-items:center;gap:8px;
+      font-size:14px;color:rgba(240,235,227,.35);letter-spacing:.01em;
+    }
+    .bc-inner a:hover{color:rgba(196,162,101,.9);}
+    .bc-sep{opacity:.35;}
+    .bc-cur{color:rgba(240,235,227,.6);}
+
+    /* ── Container ──────────────────────────────────────── */
+    .pd-outer{max-width:1600px;margin:0 auto;padding:0 48px;}
+
+    /* ── 2-Column Layout ────────────────────────────────── */
+    .pd-layout{padding:36px 0 100px;background:linear-gradient(160deg,#190404 0%,#2A0808 50%,#160304 100%);}
+    .pd-cols{display:flex;gap:60px;/* stretch = sticky 필수 */}
+
+    /* LEFT 56% */
+    .pd-left{width:56%;flex-shrink:0;}
+
+    /* RIGHT */
+    .pd-right{flex:1;min-width:0;}
+
+    /* ── Gallery: faceformula style ─────────────────────── */
+    /* 메인 이미지가 좌측 전체 점유, 썸네일은 내부 오버레이 */
+    .pd-gallery{position:relative;width:100%;}
+    .pd-media-wrap{
+      position:relative;overflow:hidden;
+      width:100%;padding-top:100%;/* 1:1 */
+      background:#200808;
+    }
+    .pd-media-layer{
+      position:absolute;inset:0;
+      width:100%;height:100%;object-fit:cover;
+      opacity:0;pointer-events:none;
+    }
+    .pd-media-layer.is-active{opacity:1;pointer-events:auto;}
+    /* Reveal overlay: not used (crossfade mode) */
+    .pd-reveal-overlay{display:none!important;}
+
+    /* Floating thumbs: left-side overlay inside main image */
+    .pd-thumbs-float{
+      position:absolute;
+      left:14px;top:50%;transform:translateY(-50%);
+      z-index:5;
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .pd-thumb{
+      width:62px;height:70px;flex-shrink:0;
+      position:relative;overflow:hidden;cursor:pointer;
+      border:2px solid rgba(255,255,255,.22);
+      background:#200808;
+      transition:border-color .2s,transform .2s;
+    }
+    .pd-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+    .pd-thumb:hover{border-color:rgba(196,162,101,.5);transform:scale(1.04);}
+    .pd-thumb:hover img{transform:scale(1.07);}
+    .pd-thumb.is-active{border-color:#C4A265;transform:none;}
+    .pd-thumb.is-active::before{
+      content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:#C4A265;z-index:1;
+    }
+    /* Video thumb: play icon overlay */
+    .pd-thumb-play{
+      position:absolute;inset:0;z-index:2;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.4);pointer-events:none;
+    }
+    .pd-thumb-play svg{width:16px;height:16px;fill:#fff;}
+    /* Video controls bar (shown when video is active) */
+    .pd-vid-ctrl{
+      position:absolute;bottom:12px;right:12px;z-index:4;
+      display:none;align-items:center;gap:8px;
+    }
+    .pd-vid-ctrl.is-visible{display:flex;}
+    .pd-vid-btn{
+      width:34px;height:34px;border-radius:50%;
+      background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;transition:background .2s;
+    }
+    .pd-vid-btn:hover{background:rgba(139,26,26,.7);}
+    .pd-vid-btn svg{width:14px;height:14px;fill:#fff;}
+
+    /* Mobile swiper (hidden PC) */
+    .pd-swiper-wrap{display:none;}
+    .pd-mobile-brief{display:none;}
+
+    /* ── Tabs ───────────────────────────────────────────── */
+    .pd-tabs-wrap{margin-top:36px;}
+    .pd-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);}
+    .pd-tab{
+      padding:14px 24px;font-size:15px;font-weight:500;
+      letter-spacing:.03em;color:rgba(240,235,227,.35);
+      border-bottom:2px solid transparent;margin-bottom:-1px;
+      cursor:pointer;transition:color .18s,border-color .18s;white-space:nowrap;
+    }
+    .pd-tab:hover{color:rgba(240,235,227,.7);}
+    .pd-tab.is-active{color:#F0EBE3;border-bottom-color:#C4A265;}
+
+    /* Detail content */
+    .pd-detail-wrap{position:relative;overflow:hidden;max-height:600px;}
+    .pd-detail-wrap.is-expanded{max-height:none;}
+    .pd-detail-fade{
+      position:absolute;bottom:0;left:0;right:0;height:160px;
+      background:linear-gradient(to bottom,transparent,#160304);
+      pointer-events:none;transition:opacity .3s;
+    }
+    .pd-detail-wrap.is-expanded .pd-detail-fade{opacity:0;}
+    .pd-detail-content{padding:40px 0;}
+    .pd-detail-content img{
+      max-width:100%;margin:0 auto -2px;display:block;  /* auto 40px; */
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .pd-detail-more{display:flex;justify-content:center;padding:28px 0 12px;}
+    .pd-detail-more.is-hidden{display:none;}
+    .pd-more-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      height:46px;padding:0 32px;
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(240,235,227,.65);font-size:13px;font-weight:600;letter-spacing:.08em;
+      transition:border-color .2s,color .2s;
+    }
+    .pd-more-btn:hover{border-color:#C4A265;color:#C4A265;}
+
+    /* ── RIGHT: Sticky Panel ────────────────────────────── */
+    .pd-sticky{position:sticky;top:84px;}
+
+    /* Badge + Wish/Share row */
+    .pd-top-row{
+      display:flex;align-items:center;gap:12px;
+      margin-bottom:8px;
+    }
+    .pd-badge-tag{
+      font-size:10px;font-weight:700;letter-spacing:.18em;
+      color:#C4A265;text-transform:uppercase;
+      padding:3px 9px;border:1px solid rgba(196,162,101,.4);
+      flex-shrink:0;
+    }
+    .pd-top-actions{
+      margin-left:auto;display:flex;align-items:center;gap:14px;
+    }
+    .pd-action-btn{
+      display:flex;align-items:center;gap:5px;
+      font-size:12px;color:rgba(240,235,227,.4);
+      transition:color .2s;letter-spacing:.04em;
+    }
+    .pd-action-btn:hover{color:rgba(240,235,227,.8);}
+    .pd-action-btn svg{flex-shrink:0;}
+    .pd-action-btn.is-wished{color:#8B1A1A;}
+
+    /* Product Name */
+    .pd-name{
+      font-size:clamp(34px,1.8vw,22px);font-weight:800;
+      letter-spacing:-.025em;line-height:1.3;color:#F0EBE3;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      margin-bottom:5px;
+    }
+    /* Sub description */
+    .pd-subdesc{
+      font-size:16px;font-weight:500;letter-spacing:.02em;
+      color:rgba(180,80,80,.9);
+      margin-bottom:10px;line-height:1.4;
+    }
+
+    /* Rating */
+    .pd-rating{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+    .pd-stars{display:flex;gap:2px;}
+    .pd-star{width:16px;height:16px;color:#C4A265;}
+    .pd-rating-count{font-size:14px;color:rgba(240,235,227,.45);}
+    .pd-rating-count span{color:rgba(240,235,227,.7);}
+
+    /* Price */
+    .pd-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+    .pd-disc-pct{font-size:18px;font-weight:800;color:#8B1A1A;letter-spacing:-.01em;}
+    .pd-price{font-size:36px;font-weight:700;letter-spacing:-.03em;color:#F0EBE3;}
+    .pd-price small{font-size:.42em;font-weight:600;margin-left:2px;letter-spacing:0;}
+    .pd-price-orig{font-size:16px;color:rgba(240,235,227,.28);text-decoration:line-through;}
+
+    /* Divider */
+    .pd-divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:10px 0;}
+
+    /* Meta */
+    .pd-meta{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+    .pd-meta-row{display:flex;align-items:flex-start;font-size:14px;}
+    .pd-meta-label{flex-shrink:0;width:50px;color:rgba(240,235,227,.35);padding-top:1px;}
+    .pd-meta-value{color:rgba(240,235,227,.7);line-height:1.45;}
+    .pd-meta-value strong{color:#F0EBE3;font-weight:600;}
+
+    /* Options */
+    .pd-opt-section{margin-top:2px;}
+    .pd-opt-title{
+      font-size:14px;font-weight:700;letter-spacing:.0.1em;
+      color:rgba(240,235,227,.7);text-transform:uppercase;margin-bottom:10px;
+    }
+    .pd-option-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+    .pd-option-label{
+      flex-shrink:0;width:40px;padding-top:7px;
+      font-size:14px;color:rgba(240,235,227,.5);letter-spacing:.03em;
+    }
+    .pd-chips{display:flex;flex-wrap:wrap;gap:6px;}
+    .pd-chip{
+      display:inline-flex;align-items:center;
+      padding:5px 13px;height:32px;
+      border:1px solid rgba(255,255,255,.14);
+      font-size:14px;font-weight:500;
+      color:rgba(240,235,227,.6);cursor:pointer;
+      transition:border-color .15s,color .15s,background .15s;
+      white-space:nowrap;
+    }
+    .pd-chip:hover{border-color:rgba(196,162,101,.45);color:#C4A265;}
+    .pd-chip.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#F0EBE3;font-weight:600;}
+    .pd-chip.is-soldout{opacity:.4;text-decoration:line-through;cursor:not-allowed;pointer-events:none;}
+
+    /* Selection Summary */
+    .pd-sel-summary{
+      display:flex;align-items:center;gap:8px;
+      padding:9px 14px;
+      background:rgba(139,26,26,.12);border:1px solid rgba(139,26,26,.38);
+      margin-bottom:10px;min-height:38px;
+    }
+    .pd-sel-label{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,227,.5);flex-shrink:0;}
+    #selSummaryText{font-size:14px;font-weight:700;color:rgba(240,235,227,.8);letter-spacing:.03em;}
+
+    /* Qty */
+    .pd-qty-row{display:flex;align-items:center;gap:12px;margin-bottom:0;}
+    .pd-qty-label{flex-shrink:0;width:40px;font-size:14px;color:rgba(240,235,227,.4);}
+    .pd-qty{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.15);}
+    .pd-qty__btn{
+      width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+      font-size:18px;color:rgba(240,235,227,.45);transition:background .15s,color .15s;
+    }
+    .pd-qty__btn:hover{background:rgba(255,255,255,.07);color:#F0EBE3;}
+    .pd-qty__input{
+      width:48px;height:36px;text-align:center;font-size:14px;font-weight:700;
+      font-family:inherit;border:none;
+      border-left:1px solid rgba(255,255,255,.12);border-right:1px solid rgba(255,255,255,.12);
+      outline:none;background:transparent;color:#F0EBE3;
+    }
+
+    /* Total */
+    .pd-total{
+      display:flex;align-items:baseline;justify-content:space-between;
+      padding:12px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:10px;
+    }
+    .pd-total-label{font-size:14px;color:rgba(240,235,227,.7);}
+    .pd-total-price{font-size:38px;font-weight:800;letter-spacing:-.03em;color:#F0EBE3;}
+    .pd-total-price small{font-size:.4em;font-weight:600;margin-left:2px;letter-spacing:0;}
+
+    /* Quick Pay */
+    .pd-quickpay{display:flex;gap:7px;margin-top:7px;}
+    .pd-qp-btn{
+      flex:1;height:46px;display:flex;align-items:center;justify-content:center;gap:7px;
+      font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;border:none;
+      transition:filter .2s,transform .1s;
+    }
+    .pd-qp-btn:hover{filter:brightness(1.08);}
+    .pd-qp-btn:active{transform:scale(.98);}
+    .pd-qp-naver{background:#03C75A;color:#fff;}
+    .pd-qp-kakao{background:#FEE500;color:#191919;}
+    .pd-qp-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;}
+    .pd-qp-naver .pd-qp-icon{background:#fff;color:#03C75A;}
+    .pd-qp-kakao .pd-qp-icon{background:#191919;color:#FEE500;}
+
+    /* CTA Buttons */
+    .pd-cta{display:flex;gap:7px;}
+    .pd-btn{
+      display:flex;align-items:center;justify-content:center;
+      height:50px;font-size:15px;font-weight:700;
+      letter-spacing:.06em;cursor:pointer;border:none;
+      transition:background .2s,color .2s,border-color .2s,transform .1s;
+    }
+    .pd-btn:active{transform:scale(.985);}
+    .pd-btn--wish{
+      flex-shrink:0;width:50px;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);
+      color:rgba(240,235,227,.5);
+    }
+    .pd-btn--wish:hover{border-color:#8B1A1A;color:#8B1A1A;}
+    .pd-btn--wish.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#fff;}
+    .pd-btn--cart{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);color:#F0EBE3;}
+    .pd-btn--cart:hover{background:rgba(255,255,255,.13);}
+    .pd-btn--buy{flex:1.3;background:#8B1A1A;color:#F0EBE3;}
+    .pd-btn--buy:hover{background:#a52020;}
+
+    /* ── Mobile CTA Bar ─────────────────────────────────── */
+    .mobile-cta-bar{
+      display:none;position:fixed;bottom:0;left:0;right:0;
+      background:rgba(14,11,9,.97);border-top:1px solid rgba(255,255,255,.1);
+      align-items:center;gap:7px;padding:10px 16px;
+      padding-bottom:calc(10px + env(safe-area-inset-bottom));
+      z-index:400;transform:translateY(100%);transition:transform .3s ease;
+    }
+    .mobile-cta-bar.is-visible{transform:translateY(0);}
+    .mcta-wish{flex-shrink:0;width:48px;height:48px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(240,235,227,.5);transition:all .2s;}
+    .mcta-wish.is-active{background:#8B1A1A;border-color:#8B1A1A;color:#fff;}
+    .mcta-opt{flex:1;height:48px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#F0EBE3;font-size:14px;font-weight:700;letter-spacing:.04em;}
+    .mcta-buy{flex:1;height:48px;background:#8B1A1A;color:#F0EBE3;font-size:14px;font-weight:700;letter-spacing:.04em;border:none;}
+
+    /* ── Bottom Sheet ───────────────────────────────────── */
+    .sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:600;}
+    .sheet-overlay.is-open{display:block;}
+    .mobile-sheet{
+      position:fixed;bottom:0;left:0;right:0;
+      background:#1a0a0a;border-radius:20px 20px 0 0;z-index:700;
+      transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);
+      max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    }
+    .mobile-sheet.is-open{transform:translateY(0);}
+    .ms-top{position:sticky;top:0;background:#1a0a0a;padding:14px 52px 12px 20px;border-bottom:1px solid rgba(255,255,255,.07);z-index:1;}
+    .ms-handle{width:36px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 12px;}
+    .ms-close{position:absolute;top:14px;right:12px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(240,235,227,.5);}
+    .ms-name{font-size:14px;font-weight:600;color:rgba(240,235,227,.75);line-height:1.35;}
+    .ms-inner{padding:18px 20px calc(24px + env(safe-area-inset-bottom));}
+    .ms-sect-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,227,.35);margin-bottom:12px;margin-top:18px;}
+    .ms-sect-title:first-child{margin-top:0;}
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media(max-width:1023px){
+      #hd{padding:0 20px;height:60px;grid-template-columns:44px 1fr auto;}
+      .hd-left,.hd-right{display:none;}
+      .hd-burger{display:flex;}
+      .hd-icons{display:flex;}
+      .hd-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:auto;}
+      .hd-logo img{height:28px;}
+      .hd-logo-txt{font-size:14px;}
+      .hd-icon[aria-label="고객센터"]{display:none;}
+      .breadcrumb{margin-top:60px;}
+      .bc-inner{padding:0 20px;}
+      .pd-outer{padding:0 20px;}
+      .pd-layout{padding:20px 0 80px;}
+      .pd-cols{flex-direction:column;gap:0;}
+      .pd-left{width:100%;}
+      .pd-right{display:none;}
+      .pd-gallery{display:none;}  /* PC gallery hidden on mobile */
+      .pd-swiper-wrap{display:block;}
+      .pd-mobile-brief{display:block;}
+      .pd-tabs-wrap{margin-top:16px;}
+      .pd-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;}
+      .pd-tabs::-webkit-scrollbar{display:none;}
+      .pd-tab{padding:13px 18px;font-size:14px;}
+      .mobile-cta-bar{display:flex;}
+      body{padding-bottom:76px;}
+      .ft-in{padding:0 20px;}
+      .ft-kakao{grid-template-columns:1fr;}
+      .ft-kakao-left{padding:36px 20px 28px;border-right:none;border-bottom:1px solid rgba(254,229,0,.08);}
+      .ft-kakao-right{padding:28px 20px 36px;}
+      .ft-grid{grid-template-columns:1fr;gap:0;}
+      .ft-col{border-top:1px solid rgba(139,26,26,.14);margin-top:0;}
+      .ft-col h4{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:14px 0;cursor:pointer;font-size:12px;letter-spacing:.15em;margin-bottom:0;}
+      .ft-col h4::after{content:'+';font-size:16px;font-weight:300;color:rgba(240,235,227,.3);}
+      .ft-col.open h4::after{content:'−';}
+      .ft-col ul{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.46,.45,.94),padding .3s;}
+      .ft-col ul li{margin-bottom:10px;}
+      .ft-col.open ul{max-height:280px;padding-bottom:16px;}
+      .ft-bottom{flex-direction:column;gap:10px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Side Menu (mobile) ────────────────────────────── -->
+<div id="sideOv"></div>
+<nav id="sideMenu">
+  <div class="sm-head">
+    <div class="sm-logo">
+      <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv"
+           alt="맛있는제주" style="height:24px;width:auto;">
+      <span>맛있는제주</span>
+    </div>
+    <button class="sm-close" id="sideClose" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="sm-util">
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>로그인
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>장바구니
+    </a>
+    <a href="#" class="sm-util-link">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.61 6.61l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>고객센터
+    </a>
+  </div>
+  <div class="sm-nav">
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>선물세트</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">돈육 선물세트</a><a href="#">수산 선물세트</a><a href="#">간편식 선물세트</a>
+      </div>
+    </div>
+    <div class="sm-cat"><a href="#" class="sm-cat-link">제주 흑돼지</a></div>
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>제주 수산물</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub">
+        <a href="#">은갈치</a><a href="#">옥돔</a><a href="#">고등어</a><a href="#">삼치</a>
+      </div>
+    </div>
+    <div class="sm-cat">
+      <button class="sm-cat-btn"><span>간편 가공식품</span>
+        <svg class="sm-arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sm-sub"><a href="#">육가공 간편식</a><a href="#">수산 가공 간편식</a></div>
+    </div>
+  </div>
+  <div class="sm-promo">
+    <span class="sm-promo-badge">SPECIAL OFFER</span>
+    <p class="sm-promo-txt">신규 회원 첫 주문<strong>10% 할인</strong></p>
+    <a href="#" class="sm-promo-cta">지금 가입하기 →</a>
+  </div>
+</nav>
+
+<!-- ── Header ────────────────────────────────────────── -->
+<header id="hd">
+  <button class="hd-burger" id="hdBurger" aria-label="메뉴">
+    <span class="hd-burger-line"></span>
+  </button>
+  <nav class="hd-left">
+    <a href="#">흑돼지</a>
+    <a href="#">수산</a>
+    <a href="#">간편식</a>
+  </nav>
+  <div class="hd-logo">
+    <img src="https://lh3.googleusercontent.com/d/1gza3kdLF3u9qA07l5hTZW9QgrMhOYaLv" alt="맛있는제주">
+    <span class="hd-logo-txt">맛있는제주</span>
+  </div>
+  <div class="hd-right">
+    <a href="#">로그인</a>
+    <a href="main_demo_v0.1.html">메인으로</a>
+    <a href="#">장바구니<span class="cart-num">2</span></a>
+  </div>
+  <div class="hd-icons">
+    <a href="#" class="hd-icon" aria-label="로그인">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </a>
+    <a href="#" class="hd-icon" aria-label="장바구니">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="hd-icon-badge">2</span>
+    </a>
+  </div>
+</header>
+
+<!-- ── Breadcrumb ────────────────────────────────────── -->
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="main_demo_v0.1.html">홈</a>
+    <span class="bc-sep">/</span>
+    <a href="#">돈육</a>
+    <span class="bc-sep">/</span>
+    <a href="#">흑돼지</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-cur">제주 흑돼지 부위별 선택</span>
+  </div>
+</div>
+
+<!-- ── Main 2-Column ─────────────────────────────────── -->
+<div class="pd-layout">
+  <div class="pd-outer">
+    <div class="pd-cols">
+
+      <!-- ┌ LEFT ─────────────────────────────────────── -->
+      <div class="pd-left">
+
+        <!-- Mobile Brief -->
+        <div class="pd-mobile-brief" style="padding-bottom:18px;">
+          <div class="pd-top-row" style="margin-bottom:10px;">
+            <span class="pd-badge-tag">PREMIUM · JEJU BLACK PORK</span>
+          </div>
+          <h1 class="pd-name" style="font-size:20px;white-space:normal;margin-bottom:4px;">
+            제주 흑돼지 오겹살 목살 앞다리살 돈마호크
+          </h1>
+          <p class="pd-subdesc" style="font-size:13px;margin-bottom:10px;">
+            정직하게 과지방 걱정없이 선별한 정스펙 냉장육
+          </p>
+          <div class="pd-price-row">
+            <span class="pd-disc-pct" style="font-size:15px;">10%</span>
+            <span class="pd-price" style="font-size:24px;">27,000<small>원</small></span>
+            <span class="pd-price-orig">30,000원</span>
+          </div>
+        </div>
+
+        <!-- PC Gallery: faceformula style (fullbleed + floating thumbs) -->
+        <div class="pd-gallery" id="pdGallery">
+          <div class="pd-media-wrap" id="pdMediaWrap">
+            <!-- Main image layer -->
+            <img id="mainImg" class="pd-media-layer is-active"
+              src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900"
+              alt="제주 흑돼지 오겹살" fetchpriority="high">
+            <!-- Video layer (hidden until thumb click) -->
+            <video id="mainVideo" class="pd-media-layer"
+              preload="none"
+              poster="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO"
+              muted playsinline loop>
+              <source id="mainVideoSrc" src="" type="video/mp4">
+            </video>
+            <!-- Reveal overlay: clip left→right on transition -->
+            <div class="pd-reveal-overlay" id="pdRevealOverlay">
+              <img id="revealImg" src="" alt="" decoding="async">
+              <video id="revealVideo" preload="none" muted playsinline loop
+                     style="display:none;width:100%;height:100%;object-fit:cover;">
+                <source id="revealVideoSrc" src="" type="video/mp4">
+              </video>
+            </div>
+            <!-- Video controls -->
+            <div class="pd-vid-ctrl" id="pdVidCtrl">
+              <button class="pd-vid-btn" id="vidMuteBtn" title="소리 켜기">
+                <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15" stroke="white" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="white" stroke-width="2"/></svg>
+              </button>
+              <button class="pd-vid-btn" id="vidPlayBtn" title="재생/정지">
+                <svg id="vidPlayIco" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Floating thumbs (overlay on left side of main image) -->
+          <div class="pd-thumbs-float" id="pcThumbs">
+            <button class="pd-thumb is-active" data-type="image"
+              data-src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900">
+              <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w160" alt="오겹살1" loading="eager">
+            </button>
+            <button class="pd-thumb" data-type="image"
+              data-src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w900">
+              <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w160" alt="오겹살2" loading="lazy" decoding="async">
+            </button>
+            <button class="pd-thumb" data-type="image"
+              data-src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w900">
+              <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w160" alt="목살1" loading="lazy" decoding="async">
+            </button>
+            <button class="pd-thumb" data-type="image"
+              data-src="https://lh3.googleusercontent.com/d/19FT_MYS_642cpWamM1dYbEGm2PVgRyHy=w900">
+              <img src="https://lh3.googleusercontent.com/d/19FT_MYS_642cpWamM1dYbEGm2PVgRyHy=w160" alt="선물세트" loading="lazy" decoding="async">
+            </button>
+            <!-- Video thumb -->
+            <button class="pd-thumb" data-type="video"
+              data-src="./hero.mp4"
+              data-poster="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO">
+              <img src="https://lh3.googleusercontent.com/d/1jBeQMymW9czehDcnjYtwIFNCL57PNOCO=w160" alt="영상" loading="lazy" decoding="async">
+              <div class="pd-thumb-play">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Swiper -->
+        <div class="pd-swiper-wrap">
+          <div class="swiper pdMobileSwiper" id="pdMobileSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w900"
+                       alt="오겹살" style="width:100%;height:100%;object-fit:cover;" loading="eager">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w900"
+                       alt="오겹살2" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w900"
+                       alt="목살" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div style="aspect-ratio:1/1;overflow:hidden;background:#200808;">
+                  <img src="https://lh3.googleusercontent.com/d/19FT_MYS_642cpWamM1dYbEGm2PVgRyHy=w900"
+                       alt="선물세트" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="pd-tabs-wrap">
+          <div class="pd-tabs">
+            <button class="pd-tab is-active" data-tab="detail">상세정보</button>
+            <button class="pd-tab" data-tab="review">리뷰 (237)</button>
+            <button class="pd-tab" data-tab="qna">Q&amp;A (8)</button>
+            <button class="pd-tab" data-tab="delivery">배송/반품</button>
+          </div>
+
+          <div id="tabDetail" class="pd-tab-panel">
+            <div class="pd-detail-wrap" id="detailWrap">
+              <div class="pd-detail-content">
+                <!-- 실제 상품 이미지 활용 -->
+                <img src="https://www.samda.com/design/samdacom1/wib/img/product/bp_ss_0001.png"
+                     alt="제주 흑돼지" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/1zh_FvxjkwikWyxZiGczXT8ZObc4c8yuM=w1200"
+                     alt="제주 흑돼지 오겹살" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/1LKEgDAz-e_X0N3TTeqkomqWYuRBJ1SHe=w1200"
+                     alt="오겹살 상세컷" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/108jmD4z6REjAlNfqiqTMYbtfxtzWsMWx=w1200"
+                     alt="목살 상세컷" loading="lazy" decoding="async">
+                <img src="https://www.samda.com/design/samdacom1/wib/img/sub/pk_gift_860-1.jpg" alt="돈육 선물세트" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/19FT_MYS_642cpWamM1dYbEGm2PVgRyHy" alt="돈육 선물세트" loading="lazy" decoding="async">
+                <img src="https://lh3.googleusercontent.com/d/1gOmYrzxhUGqouAX3fVuQKHvZDF6mL5St" alt="돈육 선물세트" loading="lazy" decoding="async">
+              </div>
+              <div class="pd-detail-fade" id="detailFade"></div>
+            </div>
+            <div class="pd-detail-more" id="detailMoreWrap">
+              <button class="pd-more-btn" id="detailMoreBtn">
+                상세정보 더보기
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="tabReview" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">리뷰 영역 준비 중</div>
+          <div id="tabQna" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">Q&amp;A 준비 중</div>
+          <div id="tabDelivery" class="pd-tab-panel" style="display:none;padding:48px 0;text-align:center;color:rgba(240,235,227,.45);font-size:15px;">배송/반품 안내 준비 중</div>
+        </div>
+      </div><!-- /pd-left -->
+
+      <!-- ┌ RIGHT (Sticky) ───────────────────────────── -->
+      <div class="pd-right">
+        <div class="pd-sticky">
+
+          <!-- Badge + Wish/Share -->
+          <div class="pd-top-row">
+            <span class="pd-badge-tag">PREMIUM · JEJU BLACK PORK</span>
+            <div class="pd-top-actions">
+              <button class="pd-action-btn" id="btnWishTop" aria-label="찜하기">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>찜
+              </button>
+              <button class="pd-action-btn" id="btnShare" aria-label="공유하기">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>공유
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Name (1줄) -->
+          <h1 class="pd-name">제주 흑돼지 오겹살 목살 앞다리살 돈마호크</h1>
+          <!-- Sub Description (다크레드) -->
+          <p class="pd-subdesc">정직하게 과지방 걱정없이 선별한 정스펙 냉장육</p>
+
+          <!-- Rating -->
+          <div class="pd-rating">
+            <div class="pd-stars">
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="pd-star" viewBox="0 0 24 24" fill="currentColor" style="opacity:.35"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="pd-rating-count"><span>4.8</span> · 리뷰 <span>237</span>개</span>
+          </div>
+
+          <!-- Price -->
+          <div class="pd-price-row">
+            <span class="pd-disc-pct">10%</span>
+            <span class="pd-price">27,000<small>원</small></span>
+            <span class="pd-price-orig">30,000원</span>
+          </div>
+
+          <hr class="pd-divider">
+
+          <!-- Meta -->
+          <div class="pd-meta">
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">배송</span>
+              <span class="pd-meta-value"><strong>무료배송</strong> ·  신선배송</span>
+            </div>
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">도착</span>
+              <span class="pd-meta-value">아침 07시 주문 까지 <strong>당일 출고</strong> </span>
+            </div>
+            <div class="pd-meta-row">
+              <span class="pd-meta-label">적립금</span>
+              <span class="pd-meta-value">결제금액의 <strong>1%</strong> 적립</span>
+            </div>
+          </div>
+
+          <hr class="pd-divider">
+
+          <!-- Options -->
+          <div class="pd-opt-section">
+            <p class="pd-opt-title">옵션 선택</p>
+            <div class="pd-option-row">
+              <span class="pd-option-label">부위</span>
+              <div class="pd-chips" id="optPart">
+                <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
+                <button class="pd-chip" data-part="목살">목살</button>
+                <button class="pd-chip" data-part="앞다리살">앞다리살</button>
+                <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
+                <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크<small style="font-size:.85em;margin-left:3px;opacity:.7;">(품절)</small></button>
+              </div>
+            </div>
+            <div class="pd-option-row">
+              <span class="pd-option-label">중량</span>
+              <div class="pd-chips" id="optWeight">
+                <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
+                <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
+                <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
+                <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
+              </div>
+            </div>
+            <div class="pd-option-row">
+              <span class="pd-option-label">용도</span>
+              <div class="pd-chips" id="optUse">
+                <button class="pd-chip is-active" data-use="구이용">구이용</button>
+                <button class="pd-chip" data-use="캠핑용">캠핑용</button>
+                <button class="pd-chip" data-use="수육용">수육용</button>
+                <button class="pd-chip" data-use="찌개용">찌개용</button>
+              </div>
+            </div>
+            <div class="pd-sel-summary">
+              <span class="pd-sel-label">선택</span>
+              <span id="selSummaryText">오겹살 · 2팩(1kg) · 구이용</span>
+            </div>
+          </div>
+
+          <!-- Qty -->
+          <div class="pd-qty-row" style="margin-top:10px;">
+            <span class="pd-qty-label">수량</span>
+            <div class="pd-qty">
+              <button class="pd-qty__btn" id="btnMinus">−</button>
+              <input class="pd-qty__input" type="number" value="1" min="1" id="qtyInput">
+              <button class="pd-qty__btn" id="btnPlus">+</button>
+            </div>
+          </div>
+
+          <!-- Total -->
+          <div class="pd-total">
+            <span class="pd-total-label">총 금액</span>
+            <span class="pd-total-price" id="totalPrice">27,000<small>원</small></span>
+          </div>
+
+          <!-- CTA -->
+          <div class="pd-cta">
+            <button class="pd-btn pd-btn--wish" id="btnWish" aria-label="찜하기">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+            <button class="pd-btn pd-btn--cart">장바구니 담기</button>
+            <button class="pd-btn pd-btn--buy">바로 구매</button>
+          </div>
+
+
+          <!-- Quick Pay -->
+          <div class="pd-quickpay">
+            <button class="pd-qp-btn pd-qp-naver">
+              <span class="pd-qp-icon">N</span>네이버페이 결제
+            </button>
+            <button class="pd-qp-btn pd-qp-kakao">
+              <span class="pd-qp-icon">K</span>카카오페이 결제
+            </button>
+          </div>
+
+
+        </div><!-- /pd-sticky -->
+      </div><!-- /pd-right -->
+
+    </div><!-- /pd-cols -->
+  </div>
+</div>
+
+<!-- ── Mobile CTA Bar ────────────────────────────────── -->
+<div class="mobile-cta-bar" id="mobileCtaBar">
+  <button class="mcta-wish" id="mobileWishBtn" aria-label="찜하기">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </button>
+  <button class="mcta-opt" id="btnOpenSheet">옵션 선택</button>
+  <button class="mcta-buy" id="btnSheetBuy">바로 구매</button>
+</div>
+
+<!-- ── Bottom Sheet ──────────────────────────────────── -->
+<div class="sheet-overlay" id="sheetOverlay"></div>
+<div class="mobile-sheet" id="mobileSheet">
+  <div class="ms-top">
+    <div class="ms-handle"></div>
+    <p class="ms-name">제주 흑돼지 부위별 선택</p>
+    <button class="ms-close" id="msCloseBtn" aria-label="닫기">✕</button>
+  </div>
+  <div class="ms-inner">
+    <p class="ms-sect-title">부위</p>
+    <div class="pd-chips" id="sheetOptPart" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip is-active" data-part="오겹살">오겹살</button>
+      <button class="pd-chip" data-part="목살">목살</button>
+      <button class="pd-chip" data-part="앞다리살">앞다리살</button>
+      <button class="pd-chip" data-part="뒷다리살">뒷다리살</button>
+      <button class="pd-chip is-soldout" data-part="돈마호크">돈마호크(품절)</button>
+    </div>
+    <p class="ms-sect-title">중량</p>
+    <div class="pd-chips" id="sheetOptWeight" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip" data-weight="1팩(500g)">1팩 500g</button>
+      <button class="pd-chip is-active" data-weight="2팩(1kg)">2팩 1kg</button>
+      <button class="pd-chip" data-weight="3팩(1.5kg)">3팩 1.5kg</button>
+      <button class="pd-chip" data-weight="4팩(2kg)">4팩 2kg</button>
+    </div>
+    <p class="ms-sect-title">용도</p>
+    <div class="pd-chips" id="sheetOptUse" style="gap:7px;margin-bottom:4px;">
+      <button class="pd-chip is-active" data-use="구이용">구이용</button>
+      <button class="pd-chip" data-use="캠핑용">캠핑용</button>
+      <button class="pd-chip" data-use="수육용">수육용</button>
+      <button class="pd-chip" data-use="찌개용">찌개용</button>
+    </div>
+    <p class="ms-sect-title">수량</p>
+    <div class="pd-qty">
+      <button class="pd-qty__btn" id="sheetMinus">−</button>
+      <input class="pd-qty__input" type="number" value="1" min="1" id="sheetQtyInput">
+      <button class="pd-qty__btn" id="sheetPlus">+</button>
+    </div>
+    <div class="pd-total" style="margin-top:14px;">
+      <span class="pd-total-label">총 금액</span>
+      <span class="pd-total-price" id="sheetTotal">27,000<small>원</small></span>
+    </div>
+    <div class="pd-cta" style="margin-top:10px;">
+      <button class="pd-btn pd-btn--cart" style="font-size:13px;">장바구니 담기</button>
+      <button class="pd-btn pd-btn--buy">바로 구매</button>
+    </div>
+    <div class="pd-quickpay" style="margin-top:8px;">
+      <button class="pd-qp-btn pd-qp-naver" style="font-size:13px;height:44px;">
+        <span class="pd-qp-icon">N</span>네이버페이
+      </button>
+      <button class="pd-qp-btn pd-qp-kakao" style="font-size:13px;height:44px;">
+        <span class="pd-qp-icon">K</span>카카오페이
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Kakao Channel Promo ──────────────────────────────── -->
+<section style="background:#0E0303;padding:80px 48px 0;">
+  <div style="max-width:1560px;margin:0 auto;">
+    <div class="ft-kakao">
+      <div class="ft-kakao-left">
+        <span class="ft-kakao-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+          카카오 채널 친구추가
+        </span>
+        <h3 class="ft-kakao-title">친구 추가 한 번으로<br>매달 혜택 받으세요</h3>
+        <p class="ft-kakao-sub">신상품 출시·제철특가·이벤트 알림을<br>카톡으로 가장 먼저 받아보세요</p>
+        <ul class="ft-kakao-list">
+          <li>친구 추가 즉시 <strong>5,000원 할인쿠폰</strong> 지급</li>
+          <li>월 1회 <strong>회원 전용 특가</strong> 선공개 알림</li>
+          <li>제철 맞춤 <strong>선착순 50% 특가</strong> 알림</li>
+          <li>생일 축하 <strong>무료배송 쿠폰</strong> 자동 발송</li>
+        </ul>
+      </div>
+      <div class="ft-kakao-right">
+        <div class="ft-kakao-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+        </div>
+        <p class="ft-kakao-count"><strong>3,847명</strong>이 이미 혜택 받는 중</p>
+        <a href="#" class="ft-kakao-cta">
+          <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.74 5.07 4.37 6.43L6 21l4.16-2.77c.59.08 1.2.13 1.84.13 4.97 0 9-3.36 9-7.5S16.97 3 12 3z"/></svg>
+          카카오 채널 친구추가
+        </a>
+        <p class="ft-kakao-note">광고성 수신 동의 시 추가 쿠폰 즉시 지급<br>언제든지 알림 수신 해제 가능</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="ft" style="padding-top:52px;">
+  <div class="ft-in">
+    <div class="ft-grid">
+      <div>
+        <p class="ft-logo">맛있는 제주</p>
+        <p class="ft-brand-desc">대한민국 유일 제주 직영 이원 가공 시스템.<br>육가공·수산가공 전 과정 제주 직영 운영.<br>1994년 창립 · 30년 전통.</p>
+        <div class="ft-social"><a href="#">IG</a><a href="#">YT</a><a href="#">KK</a></div>
+      </div>
+      <div class="ft-col">
+        <h4>고객서비스</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li><li><a href="#">1:1 문의</a></li>
+          <li><a href="#">배송안내</a></li><li><a href="#">교환/반품</a></li><li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>브랜드</h4>
+        <ul>
+          <li><a href="#">브랜드 스토리</a></li><li><a href="#">품질 보증</a></li>
+          <li><a href="#">제주 직영 농장</a></li><li><a href="#">수산가공 센터</a></li>
+          <li><a href="#">입점 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2026 맛있는제주. All rights reserved.</p>
+      <nav class="ft-links">
+        <a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">사업자정보</a>
+      </nav>
+      <div class="ft-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Scripts ────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+/* ── Swiper dot style ── */
+(function(){
+  var s = document.createElement('style');
+  s.textContent = '.swiper-pagination-bullet{background:#F0EBE3!important;opacity:.3!important;width:6px!important;height:6px!important;} .swiper-pagination-bullet-active{background:#C4A265!important;opacity:1!important;width:18px!important;border-radius:3px!important;}';
+  document.head.appendChild(s);
+})();
+
+/* ── Mobile Swiper ── */
+if (window.innerWidth < 1024) {
+  new Swiper('#pdMobileSwiper', {
+    loop: true, speed: 600,
+    autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+
+/* ── PC Gallery: crossfade + auto-rotate ── */
+var mainImg      = document.getElementById('mainImg');
+var mainVideo    = document.getElementById('mainVideo');
+var mainVideoSrc = document.getElementById('mainVideoSrc');
+var pdVidCtrl    = document.getElementById('pdVidCtrl');
+var currentType  = 'image';
+var isAnimating  = false;
+
+var thumbBtns       = Array.from(document.querySelectorAll('#pcThumbs .pd-thumb'));
+var currentThumbIdx = 0;
+var autoTimer       = null;
+var resumeTimer     = null;
+
+function stopAuto() { clearTimeout(autoTimer); autoTimer = null; }
+function startAuto() {
+  stopAuto();
+  autoTimer = setTimeout(function() {
+    var next = (currentThumbIdx + 1) % thumbBtns.length;
+    switchMedia(thumbBtns[next], true);
+    startAuto();
+  }, 4000);
+}
+
+function switchMedia(thumbEl, isAuto) {
+  if (isAnimating) return;
+  var type   = thumbEl.dataset.type;
+  var src    = thumbEl.dataset.src;
+  var poster = thumbEl.dataset.poster || '';
+
+  /* Update active thumb + index */
+  thumbBtns.forEach(function(b) { b.classList.remove('is-active'); });
+  thumbEl.classList.add('is-active');
+  currentThumbIdx = thumbBtns.indexOf(thumbEl);
+
+  /* User click: pause auto, resume after 5s */
+  if (!isAuto) {
+    stopAuto();
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAuto, 5000);
+  }
+
+  var incoming = (type === 'video') ? mainVideo : mainImg;
+  var outgoing = (currentType === 'video') ? mainVideo : mainImg;
+  if (incoming === outgoing) return;
+
+  /* Prepare incoming layer */
+  if (type === 'video') {
+    mainVideoSrc.src = src;
+    mainVideo.poster = poster;
+    mainVideo.load();
+    pdVidCtrl.classList.add('is-visible');
+  } else {
+    mainImg.src = src;
+    pdVidCtrl.classList.remove('is-visible');
+  }
+
+  /* Crossfade */
+  isAnimating = true;
+  gsap.killTweensOf([mainImg, mainVideo]);
+  gsap.set(incoming, { opacity: 0 });
+  incoming.classList.add('is-active');
+  gsap.to(incoming, { opacity: 1, duration: 0.48, ease: 'power2.inOut' });
+  gsap.to(outgoing, {
+    opacity: 0, duration: 0.48, ease: 'power2.inOut',
+    onComplete: function() {
+      outgoing.classList.remove('is-active');
+      if (currentType === 'video') mainVideo.pause();
+      if (type === 'video') mainVideo.play();
+      currentType = type;
+      isAnimating = false;
+    }
+  });
+}
+
+thumbBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() { switchMedia(btn, false); });
+});
+
+/* Start auto-rotate on PC */
+if (window.innerWidth >= 1024) startAuto();
+
+/* Video controls */
+var isMuted   = true;
+var isPlaying = true;
+var vidMuteBtn = document.getElementById('vidMuteBtn');
+var vidPlayBtn = document.getElementById('vidPlayBtn');
+var vidPlayIco = document.getElementById('vidPlayIco');
+if (vidMuteBtn) vidMuteBtn.addEventListener('click', function() {
+  isMuted = !isMuted;
+  mainVideo.muted = isMuted;
+  vidMuteBtn.style.opacity = isMuted ? '0.55' : '1';
+});
+if (vidPlayBtn) vidPlayBtn.addEventListener('click', function() {
+  isPlaying = !isPlaying;
+  isPlaying ? mainVideo.play() : mainVideo.pause();
+  vidPlayIco.innerHTML = isPlaying
+    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+    : '<polygon points="5 3 19 12 5 21 5 3"/>';
+});
+
+/* ── Option Chips (PC) ── */
+var selPart   = '오겹살';
+var selWeight = '2팩(1kg)';
+var selUse    = '구이용';
+
+function updateSummary() {
+  var el = document.getElementById('selSummaryText');
+  if (el) el.textContent = selPart + ' · ' + selWeight + ' · ' + selUse;
+}
+function bindChips(id, onSelect) {
+  var w = document.getElementById(id);
+  if (!w) return;
+  w.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(c) {
+    c.addEventListener('click', function() {
+      w.querySelectorAll('.pd-chip').forEach(function(x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+      onSelect(c);
+    });
+  });
+}
+bindChips('optPart',   function(c) { selPart   = c.dataset.part;   updateSummary(); });
+bindChips('optWeight', function(c) { selWeight = c.dataset.weight; updateSummary(); });
+bindChips('optUse',    function(c) { selUse    = c.dataset.use;    updateSummary(); });
+
+/* ── Qty + Total (PC) ── */
+var UNIT = 27000;
+var qtyEl  = document.getElementById('qtyInput');
+var totEl  = document.getElementById('totalPrice');
+function wonHtml(n) { return n.toLocaleString('ko-KR') + '<small>원</small>'; }
+function updateTotal() {
+  var q = Math.max(1, parseInt(qtyEl.value) || 1);
+  qtyEl.value = q;
+  if (totEl) totEl.innerHTML = wonHtml(UNIT * q);
+}
+document.getElementById('btnMinus').addEventListener('click', function() {
+  var v = parseInt(qtyEl.value) || 1; if (v > 1) { qtyEl.value = v - 1; updateTotal(); }
+});
+document.getElementById('btnPlus').addEventListener('click', function() {
+  qtyEl.value = (parseInt(qtyEl.value) || 1) + 1; updateTotal();
+});
+qtyEl.addEventListener('change', updateTotal);
+
+/* ── Wish Toggle ── */
+var isWished = false;
+function setWish(v) {
+  isWished = v;
+  ['btnWish','btnWishTop','mobileWishBtn'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('is-active', v);
+    if (el) el.classList.toggle('is-wished', v);
+  });
+}
+['btnWish','btnWishTop','mobileWishBtn'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('click', function() { setWish(!isWished); });
+});
+
+/* ── Share ── */
+var shareBtn = document.getElementById('btnShare');
+if (shareBtn) shareBtn.addEventListener('click', function() {
+  if (navigator.share) {
+    navigator.share({ title: '제주 흑돼지 오겹살', url: location.href });
+  } else {
+    navigator.clipboard && navigator.clipboard.writeText(location.href);
+    alert('링크가 복사되었습니다.');
+  }
+});
+
+/* ── Tabs ── */
+var PANELS = { detail:'tabDetail', review:'tabReview', qna:'tabQna', delivery:'tabDelivery' };
+document.querySelectorAll('.pd-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.pd-tab').forEach(function(t) { t.classList.remove('is-active'); });
+    tab.classList.add('is-active');
+    var k = tab.dataset.tab;
+    Object.keys(PANELS).forEach(function(pk) {
+      var p = document.getElementById(PANELS[pk]);
+      if (p) p.style.display = pk === k ? '' : 'none';
+    });
+  });
+});
+
+/* ── Detail More (GSAP) ── */
+var detailWrap = document.getElementById('detailWrap');
+var moreWrap   = document.getElementById('detailMoreWrap');
+var expanded   = false;
+document.getElementById('detailMoreBtn').addEventListener('click', function() {
+  if (expanded) return; expanded = true;
+  gsap.to(detailWrap, {
+    maxHeight: detailWrap.scrollHeight, duration: .65, ease: 'power2.inOut',
+    onComplete: function() { detailWrap.classList.add('is-expanded'); }
+  });
+  gsap.to('#detailFade', { opacity: 0, duration: .35 });
+  moreWrap.classList.add('is-hidden');
+});
+
+/* ── Mobile: scroll → CTA bar ── */
+var ctaBar = document.getElementById('mobileCtaBar');
+window.addEventListener('scroll', function() {
+  if (ctaBar) ctaBar.classList.toggle('is-visible', window.pageYOffset > 200);
+}, { passive: true });
+
+/* ── Bottom Sheet ── */
+var sheet   = document.getElementById('mobileSheet');
+var overlay = document.getElementById('sheetOverlay');
+function openSheet()  { sheet.classList.add('is-open'); overlay.classList.add('is-open'); document.body.style.overflow='hidden'; }
+function closeSheet() { sheet.classList.remove('is-open'); overlay.classList.remove('is-open'); document.body.style.overflow=''; }
+document.getElementById('btnOpenSheet').addEventListener('click', openSheet);
+document.getElementById('btnSheetBuy').addEventListener('click', openSheet);
+overlay.addEventListener('click', closeSheet);
+document.getElementById('msCloseBtn').addEventListener('click', closeSheet);
+
+/* ── Sheet chips ── */
+['sheetOptPart','sheetOptWeight','sheetOptUse'].forEach(function(id) {
+  var w = document.getElementById(id);
+  if (!w) return;
+  w.querySelectorAll('.pd-chip:not(.is-soldout)').forEach(function(c) {
+    c.addEventListener('click', function() {
+      w.querySelectorAll('.pd-chip').forEach(function(x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+    });
+  });
+});
+
+/* ── Sheet qty + total ── */
+var sheetQty = document.getElementById('sheetQtyInput');
+var sheetTot = document.getElementById('sheetTotal');
+function updateSheetTotal() {
+  var q = Math.max(1, parseInt(sheetQty.value) || 1);
+  sheetQty.value = q;
+  if (sheetTot) sheetTot.innerHTML = wonHtml(UNIT * q);
+}
+document.getElementById('sheetMinus').addEventListener('click', function() {
+  var v = parseInt(sheetQty.value) || 1; if (v > 1) { sheetQty.value = v - 1; updateSheetTotal(); }
+});
+document.getElementById('sheetPlus').addEventListener('click', function() {
+  sheetQty.value = (parseInt(sheetQty.value) || 1) + 1; updateSheetTotal();
+});
+
+/* ── Side menu (mobile) ── */
+var sideMenu = document.getElementById('sideMenu');
+var sideOv   = document.getElementById('sideOv');
+document.getElementById('hdBurger').addEventListener('click', function() {
+  sideMenu.classList.add('on'); sideOv.classList.add('on'); document.body.classList.add('menu-open');
+});
+function closeSide() { sideMenu.classList.remove('on'); sideOv.classList.remove('on'); document.body.classList.remove('menu-open'); }
+document.getElementById('sideClose').addEventListener('click', closeSide);
+sideOv.addEventListener('click', closeSide);
+document.querySelectorAll('.sm-cat-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var cat = btn.closest('.sm-cat');
+    cat.classList.toggle('open');
+  });
+});
+
+/* ── Footer accordion (mobile) ── */
+document.querySelectorAll('.ft-col h4').forEach(function(h) {
+  h.addEventListener('click', function() {
+    h.closest('.ft-col').classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
